@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>订单详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<script type="text/javascript" src="libs/KDNWidget/KDNWidget.js"></script>
+	<link rel="stylesheet" href="libs/KDNWidget/KDNWidget.css" type="text/css">
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>订单详情</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page order-detail height-full">
+						<div class="scrollable">
+							<div class="order-detail-top state-done">
+								<p class="state-title">{{orderData.status}}</p>
+							</div>
+							<div class="shipping-wrapper" v-show="orderData.shipCode != 'self'">
+								<div class="shipping-item">
+									<div>
+										<div class="user-info">
+											<span class="name">{{orderData.consignee}}</span>
+											<span class=phone>{{orderData.phone}}</span>
+										</div>
+										<div class="address-wrapper">
+											<i class="icon iconfont icon-map"></i>
+											<span class="address">{{orderData.address}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="godos-detail">
+								<div class="item-title">商品信息</div>
+								<div class="order-item" v-for="goods in orderData.orderItemVOs">
+									<div class="order-content">
+										<div class="goods-item">
+											<div class="cover">
+												<img :src="goods.avatar">
+											</div>
+											<div class="info">
+												<div class="name">{{goods.name}}</div>
+												<div class="sku">
+													<span>数量：{{goods.quantity}}</span>
+													<span v-for="sft in goods.specifications">{{sft}}</span>
+												</div>
+
+												<span class="price">￥{{goods.salePrice}}</span>
+											</div>
+											<div class="handles">
+												<a :href="'post_comment.html?pId='+goods.productId+'&itemId='+goods.itemId+'&orderId='+orderData.id" class="order-btn" v-if='(orderData.statusUs=="completed"||orderData.statusUs=="received") && (orderData.exReviewStatus=="noComment" || orderData.exReviewStatus==null)'>点评晒单</a>
+												<a :href="'after_sale.html?sn='+orderSn+'&itemId='+goods.itemId" class="order-btn" v-if="goods.itemBtnStatus.afterSale">申请售后</a>
+												<a :href="'after_sale_detail.html?sn='+orderSn+'&itemId='+goods.itemId" class="order-btn" v-if="goods.itemBtnStatus.afterSaleView">查看售后</a>
+												<a @click="logistics(goods.delivery,goods.trackNo)" class="order-btn" v-if="goods.itemBtnStatus.logistics">查看物流</a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="msg-wrapper">
+									<p>暂无留言</p>
+								</div>
+							</div>
+
+							<div class="order-block time-info">
+								<p>订单编号：{{orderData.orderSn}} <span v-show="orderData.orderSn" class="copy-btn" v-clipboard:copy="orderData.orderSn"
+									 v-clipboard:success="onCopy" v-clipboard:error="onError">复制</span></p>
+								<p>下单时间：{{orderData.time}}</p>
+							</div>
+
+							<div class="order-block shipping-info">
+								<p>配送方式：{{orderData.shipMethod}}</p>
+								<p v-for="item in orderData.orderShipItemVOS">承运快递：{{item.deliveryCorp}} {{item.trackNo}}</p>
+								<div v-show="orderData.shipCode == 'self'">
+									<p>自提店名：{{orderData.pickUpStoreName}}</p>
+									<p>自提地址：{{orderData.pickUpStoreAddress}} </p>
+									<p>自提电话：{{orderData.pickUpStorePhone}}</p>
+								</div>
+								<div class="code-btn" @click="$url('shop_code.html?info='+orderData.codeInfo+'&name='+orderData.pickUpStoreName)"
+									v-show="orderData.shipCode == 'self'">
+									<span class="icon iconfont icon-code"></span>
+									<span class="label grey-txt">出示二维码</span>
+								</div>
+							</div>
+
+							<div class="order-block invoice-info" v-show="orderData.invoiceType">
+								<p>发票类型：{{orderData.invoiceType}}</p>
+								<p>发票抬头：{{orderData.invoiceHead}}</p>
+								<p>发票内容：{{orderData.invoiceDeatil}}</p>
+							</div>
+
+							<div class="order-block pay-info">
+								<p>支付方式：{{orderData.payMethod}}</p>
+							</div>
+
+							<div class="order-total">
+								<div class="payments-info">
+									<p>
+										<span class="label">商品金额：</span>
+										<span class="content">￥{{orderData.salePrice}}</span>
+									</p>
+									<p>
+										<span class="label">优惠券：</span>
+										<span class="content red-txt">-￥{{orderData.couponPrice}}</span>
+									</p>
+									<p>
+										<span class="label">促销：</span>
+										<span class="content red-txt">-￥{{orderData.promotionDiscount}}</span>
+									</p>
+									<p>
+										<span class="label">礼品卡：</span>
+										<span class="content red-txt">-￥{{orderData.giftCard}}</span>
+									</p>
+									<p>
+										<span class="label">返利：</span>
+										<span class="content red-txt">-￥{{orderData.rebatePaidAmount}}</span>
+									</p>
+									<p>
+										<span class="label">运费：</span>
+										<span class="content">￥{{orderData.freight}}</span>
+									</p>
+									<p>
+										<span class="label">已付金额：</span>
+										<span class="price">￥{{orderData.amountPaid}}</span>
+									</p>
+									<p>
+										<span class="label">已获积分：</span>
+										<span class="price">￥{{orderData.rewardPoint}}</span>
+									</p>
+								</div>
+								<div class="total">
+									<span class="label">待付款：</span>
+									<span class="price">￥{{orderData.rewardPoint}}</span>
+								</div>
+							</div>
+
+							<div class="btns-wrapper">
+								<div class="order-btn" @click="cancelOrder(orderData)" v-if="orderData.btnStatus.cancel">取消订单</div>
+								<div class="order-btn" @click="$url('pay.html?sn='+orderData.orderSn)" v-if="orderData.btnStatus.pay">立即支付</div><!-- 
+								<div class="order-btn" @click="logistics(orderData)" v-if="orderData.btnStatus.logistics">查看物流</div> -->
+								<div class="order-btn" @click="confirmOrder(orderData)" v-if="orderData.btnStatus.confirm">确认收货</div>
+								<div class="order-btn" @click="removeOrder(orderData)" v-if="orderData.btnStatus.remove">删除订单</div>
+								<div class="order-btn" @click="buyAgain(orderData)" v-if="orderData.btnStatus.buyAgain">再次购买</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+		</div>
+		<!-- 物流信息 -->
+		<van-popup class="logistics-view" v-model="show.logistics" :overlay="true">
+			<iframe width='100%' height='100%' frameborder='0' :src="logisticsUrl"></iframe>
+		</van-popup>
+		<van-popup class="page-loading" v-model="show.pageLoading" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.pageLoading" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/order_detail/require.config"></script>
+</body>
+
+</html>

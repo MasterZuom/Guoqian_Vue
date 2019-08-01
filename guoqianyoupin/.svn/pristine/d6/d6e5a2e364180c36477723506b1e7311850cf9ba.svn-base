@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>收银台</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="pay-page grey-bg" v-cloak>
+		<div class="content-wrapper">
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>收银台</span>
+				</div>
+			</div>
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="pay-wrapper">
+						<div class="price-item">
+							<span class="label">需支付</span>
+							<div class="content">
+								<span>￥{{orderPrice}}</span>
+							</div>
+						</div>
+						<div class="pay-methods">
+							<span class="block-title">选择支付方式</span>
+							<div class="types">
+								<div class="item" @click="choicePay(1)" style="display: none">
+									<div class="label alipay">
+										<img src="imgs/icons/zfb.png">
+										<span class="title">支付宝</span>
+									</div>
+									<div class="content">
+										<i class="icon iconfont" :class="[payType == 1? 'icon-checked': 'icon-check']"></i>
+									</div>
+								</div>
+								<div class="item" @click="choicePay(2)">
+									<div class="label alipay">
+										<img src="imgs/icons/wxpay.png">
+										<span class="title">微信</span>
+									</div>
+									<div class="content">
+										<i class="icon iconfont" :class="[payType == 2? 'icon-checked': 'icon-check']"></i>
+									</div>
+								</div>
+								<div class="item" @click="choicePay(3)" style="display: none">
+									<div class="label alipay">
+										<img src="imgs/icons/yinlian.png">
+										<span class="title">银联支付</span>
+									</div>
+									<div class="content">
+										<i class="icon iconfont" :class="[payType == 3? 'icon-checked': 'icon-check']"></i>
+									</div>
+								</div>
+								<div v-if="showJkcard" class="item" @click="choicePay(4)" >
+									<div class="label alipay">
+										<img src="imgs/icons/ykt.png">
+										<span class="title">一卡通</span>
+									</div>
+									<div class="content">
+										<i class="icon iconfont" :class="[payType == 4? 'icon-checked': 'icon-check']"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+			<div class="fixed-bar">
+				<a href="javascript:;" class="sub-btn" @click="goPay">确认支付</a>
+			</div>
+		</div>
+
+		<van-popup class="page-loading" v-model="show.pageLoading" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.pageLoading" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+
+		<van-popup class="passinput" v-model="show.pay" :lock-scroll="false" :close-on-click-overlay="false">
+			<div class="dialog flex d-input-psw">
+				<div class="d-wrap">
+					<h3 class="d-title">输入支付密码<div @click="close" class="close">关闭</div></h3>
+					<form action="" class="d-main" @submit.prevent="submitpsw">
+						<input ref="inputText" v-model="passWord" type="password" id="passwordId" placeholder="请输入支付密码" maxlength="6">
+					</form>
+				</div>
+			</div>
+		</van-popup>
+
+	</div>
+	<script src="cordova.js" ></script>
+	<script src="cordova_plugins.js"></script>
+	<script src="libs/require-2.3.3min.js" data-main="js/pay/require.config"></script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+.shop-code-page {
+  padding-top: 10.6667vw;
+  .bg(url("../imgs/shop_code/bg.png") no-repeat);
+  background-size: cover;
+  .code-card {
+    margin: 0 auto;
+    width: 79.4667vw;
+    border-radius: 1.6vw;
+    overflow: hidden;
+    background-color: #fff;
+    .card-header {
+      position: relative;
+      height: 11.7333vw;
+      .flex-box();
+      align-items: center;
+      .line-bottom();
+      .icon {
+        margin: 0 1.8667vw 0 4.2667vw;
+        width: 4.5333vw;
+        height: 4vw;
+        .bg(url("../imgs/shop_code/shop_icon.png") no-repeat);
+      }
+    }
+    .content {
+      .img-wrapper {
+        .fc();
+        height: 73.3333vw;
+        img,canvas {
+          width: 57.3333vw;
+          height: 57.3333vw;
+        }
+      }
+    }
+    .describe {
+      padding: 4.5333vw 5.0667vw;
+      font-size: 3.2vw;
+      line-height: 4.5333vw;
+      color: #999;
+      background-color: #F4F4F4;
+    }
+  }
+}

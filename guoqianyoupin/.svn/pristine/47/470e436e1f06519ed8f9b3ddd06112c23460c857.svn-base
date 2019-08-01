@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>消息中心</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style type="text/css">
+		.tab-btn span{
+			position: relative
+		}
+		.content span{
+			position: relative
+		}
+
+		.icon-msg {
+				top: 0vw;
+				left: 1vw;
+				display: block;
+		    position: absolute;
+		    width: 1.8667vw;
+		    height: 1.8667vw;
+		    background: #20a0ff;
+		    border-radius: 100%;
+		}
+
+		.content .icon-msg {
+				top: 0vw;
+    		left: 80vw;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>消息中心</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="notification-page">
+						<div class="tab-wrapper height-full">
+							<div class="tab-nav">
+								<div class="tab-btn ui-message" :class="{active: routePage == 'message'}" @click="switchRoute('message')">
+									<span>消息</span><span class="icon-msg" v-if="messageUnreadCount>0"></span>
+								</div>
+								<div class="tab-btn" :class="{active: routePage == 'orderNotice'}" @click="switchRoute('orderNotice')">
+									<span>订单</span>
+								</div>
+								<div class="tab-btn" :class="{active: routePage == 'promotion'}" @click="switchRoute('promotion')">
+									<span>促销</span><span class="icon-msg" v-if="promotionMessageUnreadCount>0"></span>
+								</div>
+								<div class="tab-btn" :class="{active: routePage == 'share'}" @click="switchRoute('share')">
+									<span>推荐</span><span class="icon-msg" v-if="shareUnreadCount>0"></span>
+								</div>
+								<div class="tab-btn" :class="{active: routePage == 'mallNotice'}" @click="switchRoute('mallNotice')">
+									<span>公告</span>
+								</div>
+							</div>
+
+							<div class="views">
+								<div class="scrollable">
+									<van-list class="list-wrapper" v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载"
+									 :finished="finished" :immediate-check="false" @load="getMsg">
+										<div class="msg-wrapper" v-if="(routePage=='message')  &&noticeList.length">
+											<div class="item toast-item" v-for="item in noticeList" @click="$linkUrl(item.appParams,item.id)">
+												<div class='wrapper'>
+													<span class="time">{{dateFormat(item.deployDate, 3)}}</span>
+													<div class="content">
+														<span class="icon-msg" v-if="!item.receiverRead"></span>
+														<p class="title">{{item.title}}</p>
+														<div class="intro" v-html="item.intro" style="display: block;height:auto;"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="msg-wrapper" v-if="(routePage=='orderNotice')  &&noticeList.length">
+											<div class="item toast-item" v-for="item in noticeList" >
+												<div class='wrapper'>
+													<span class="time">{{dateFormat(item.deployDate, 3)}}</span>
+													<div class="content">
+														<p class="title">{{item.title}}</p>
+														<div class="intro" v-html="item.intro" style="display: block;height:auto;"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="block-wrapper" v-if="(routePage=='promotion') &&noticeList.length">
+											<div class="item" v-for="item in noticeList" @click="$linkUrl(item.appParams,item.id)">
+												<div class='wrapper'>
+													<div class="cover">
+														<img :src="item.imageUrl">
+													</div>
+													<div class="content">
+														<span class="icon-msg" v-if="!item.receiverRead"></span>
+														<p class="title">{{item.title}}</p>
+														<span class="time">{{dateFormat(item.deployDate, 2)}}</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="share-wrapper" v-if="routePage=='share' && noticeList.length">
+											<div class="item" v-for="item in noticeList" @click="$linkUrl(item.appParams,item.id)">
+												<div class='wrapper'>
+													<span class="time">{{dateFormat(item.deployDate, 3)}}</span>
+													<div class="content">
+														<span class="icon-msg" v-if="!item.receiverRead"></span>
+														<p class="label">推荐商品</p>
+														<div class="wrap">
+															<div class="cover">
+																<img :src="item.imageUrl">
+															</div>
+															<div class="info">
+																<p class="title">{{item.title}}</p>
+																<div class="intro">{{item.intro}}</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="block-wrapper" v-if="(routePage=='mallNotice') &&noticeList.length">
+											<div class="item" v-for="item in noticeList" >
+												<div class='wrapper'>
+													<div class="cover">
+														<a :href="'article.html?id='+item.id">
+															<img :src="item.imageUrl">
+														</a>
+													</div>
+													<div class="content">
+														<p class="title"><a :href="'article.html?id='+item.id">{{item.title}}</a></p>
+														<span class="time">{{dateFormat(item.deployDate, 2)}}</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</van-list>
+									<div class="no-msg-wrapper" v-show="!loading && !noticeList.length">
+										<img src="imgs/notification/icon_zanwuxiaoxi@3x.png" alt="">
+										<p class="tips">暂无消息通知哦~</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="tab-content hide">
+								<div class="tab-view">
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/notification_center/require.config"></script>
+</body>
+
+</html>

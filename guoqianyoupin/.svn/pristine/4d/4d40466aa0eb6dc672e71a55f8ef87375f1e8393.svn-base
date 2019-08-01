@@ -1,0 +1,235 @@
+.order-page.shopping-cart {
+  .check-wrapper {
+    margin-right: 2.1333vw;
+    .flex-box();
+    align-items: center;
+
+    .icon {
+      font-size: 4.8vw;
+      color: #D3D3D3;
+
+      &.icon-checked {
+        color: @red;
+      }
+    }
+  }
+
+  .goods-item {
+    .line-top();
+
+    .num-handle {
+      position: absolute;
+      right: 2.6667vw;
+      bottom: 2.6667vw;
+    }
+  }
+
+  .cart-toolbar {
+    flex-wrap: wrap;
+
+    .promotions {
+      width: 100%;
+      padding: 2.6667vw;
+      background: #fff;
+      font-size: 1.8667vw;
+      line-height: 4vw;
+      box-shadow: -1.3333vw -1.3333vw 3.2vw 0vw rgba(26, 17, 18, 0.09);
+      z-index: 9;
+    }
+
+    .handle-bar {
+      .flex-box();
+      position: relative;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 13.6vw;
+      background: #fff;
+      .line-top(@color: #D4D4D4);
+
+      .check-wrapper {
+        .icon {
+          margin-right: 2.1333vw;
+          margin-left: 2.6667vw;
+        }
+
+        span {
+          font-size: 3.4667vw;
+        }
+      }
+
+      .right {
+        height: 100%;
+        .flex-box();
+        align-items: center;
+
+        .total {
+          padding-right: 5.3333vw;
+
+          .number {
+            font-size: 3.4667vw;
+          }
+
+          .price {
+            font-size: 4.2667vw;
+            color: @red;
+          }
+        }
+
+        .buy-btn {
+          .flex-box();
+          align-items: center;
+          justify-content: center;
+          width: 32.6667vw;
+          height: 100%;
+          font-size: 4vw;
+          color: #fff;
+          background: @red;
+        }
+      }
+
+      .edit-btns {
+        height: 100%;
+        .flex-box();
+        align-items: center;
+        padding-right: 2.6667vw;
+
+        .ui-btn {
+          .flex-box();
+          align-items: center;
+          justify-content: center;
+          margin-left: 3.3333vw;
+          padding: 0 2.6667vw;
+          min-width: 20.2667vw;
+          height: 7.4667vw;
+          font-size: 3.4667vw;
+          border: 1px solid #D3D3D3;
+          border-radius: 3.7333vw;
+        }
+      }
+    }
+  }
+
+  /* 爆品推荐 */
+  .recommend-wrapper {
+    padding: 5vw 0;
+
+    .item-title {
+      padding-bottom: 4vw;
+      display: block;
+      font-size: 4vw;
+      text-align: center;
+    }
+
+    .col-2 {
+      .flex-box();
+      flex-wrap: wrap;
+
+      .product-item {
+        margin-left: 1.8667vw;
+        margin-bottom: 2.1333vw;
+        padding-top: 2.4vw;
+        text-align: center;
+        width: 47.2vw;
+        height: 66.6667vw;
+        background: #fff;
+
+        .img-wrapper {
+          display: inline-block;
+          width: 40vw;
+          height: 40vw;
+          img{
+            width: 100%;
+            height: auto;
+          }
+        }
+
+        .name {
+          display: block;
+          margin: 2.1333vw 0;
+          font-size: 4vw;
+          line-height: 5vw;
+          height: 9vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        .price-info {
+          padding-bottom: 2.6667vw;
+        }
+
+        .original-price {
+          font-size: 3.2vw;
+          text-decoration: line-through;
+        }
+
+        .desc {
+          font-size: 3.2vw;
+        }
+      }
+    }
+
+
+  }
+
+}
+
+.imodal.remove-confirm {
+  .confirm-wrapper {
+    margin: 35vh auto 0;
+    width: 76vw;
+    background: #fff;
+    border-radius: 1.3333vw;
+    font-size: 4vw;
+
+    .content {
+      .flex-box();
+      justify-content: center;
+      align-items: center;
+      height: 26.6667vw;
+
+      .num {
+        color: @red;
+      }
+    }
+
+    .handles {
+      .flex-box();
+      justify-content: space-between;
+      align-items: center;
+
+      .ui-btn {
+        height: 10.6667vw;
+        .flex-box();
+        justify-content: center;
+        align-items: center;
+        .flex();
+      }
+
+      .cancel-btn {
+        color: #040404;
+        background: #F5F5F5;
+      }
+
+      .confirm-btn {
+        color: #fff;
+        background: @red;
+      }
+    }
+  }
+}
+
+.header-toolbar {
+  .cart-edit-btns {
+    font-size: 4vw;
+  }
+
+  .notice-btn {
+    .fc();
+    height: 100%;
+    width: 10.6667vw;
+  }
+}

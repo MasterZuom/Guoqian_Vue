@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>退款详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>退款详情</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page after-sale-detail height-full">
+						<div class="scrollable">
+							<div class="order-detail-top">
+								<div>
+									<p class="label">{{detail.status}}</p>
+								</div>
+							</div>
+							<div class="describe">
+								<div class="u-block">
+									<p class="" v-html="detail.statusDescription1"></p>
+									<!--<span v-html="detail.statusDescription2"></span>-->
+								</div>
+								<div class="btn-wrapper">
+									<a href="" class="edit-btn" v-if="detail.isEditable">修改申请</a>
+								</div>
+							</div>
+							<div class="return-detail">
+								<div class="item-title">退款信息</div>
+								<div class="order-item">
+									<div class="order-content">
+										<div class="goods-item" v-for="item in detail.orderItemVOS">
+											<div class="cover">
+												<img :src="item.skuImg">
+											</div>
+											<div class="info">
+												<div class="name">{{item.name}}</div>
+												<div class="sku">
+													<span>数量：{{item.quantity}}</span>
+													<span v-for="sft in item.pecifications">{{sft}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="details-info">
+									<p>退款原因：{{detail.reason}}</p>
+									<p>退款金额：￥{{detail.refundAmount}}</p>
+									<p>申请时间：{{dateFormat(detail.creatDate, 2)}}</p>
+									<p>退款编号：{{detail.orderSn}}</p>
+								</div>
+							</div>
+							<a class="service-btn hide">在线客服</a>
+
+							<div class="after-sale-img" v-if="goods.images.length>0">
+								<div class="item-title">售后凭证</div>
+								<div class="img-box">
+									<img class="item-img"  v-for="item in goods.images" :src="item" @click="ImagePreview = true">
+								</div>
+							</div>
+
+							<van-image-preview v-model="ImagePreview" :images="goods.images">
+							</van-image-preview>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/after_sale_detail/require.config"></script>
+</body>
+
+</html>

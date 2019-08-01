@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>设置</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style type="text/css">
+		.copyright {
+			text-align: center;
+			color:#CCC;
+			line-height: 200%;
+			font-size: 11px;
+			margin-top:100px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="page">
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>设置</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="setup-page">
+						<div class="account-manage">
+							<div class="item">
+								<span>版本号</span>
+								<span>V1.0-1</span>
+							</div>
+							<a href="about_us.html" class="item">
+								<span>关于我们</span>
+								<span><i class="icon iconfont icon-right"></i></span>
+							</a>
+							<a href="login_rule.html" class="item">
+								<span>会员注册协议</span>
+								<span><i class="icon iconfont icon-right"></i></span>
+							</a>
+							<a href="service_rule.html" class="item">
+								<span>服务条款</span>
+								<span><i class="icon iconfont icon-right"></i></span>
+							</a>
+						</div>
+						<div class="logout">
+							<a @click="logout">退出当前账号</a>
+						</div>
+						<div class="copyright">
+							Copyright © 2018-2019<br/>
+							国乾优品www.gqall.com 版权所有
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/setup/require.config"></script>
+</body>
+
+</html>

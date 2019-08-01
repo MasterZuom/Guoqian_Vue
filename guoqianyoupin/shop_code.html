@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>到店提货</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>到店提货</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="shop-code-page height-full">
+						<div class="code-card">
+							<div class="card-header">
+								<i class="icon"></i>
+								<span class="shop-name">{{name}}</span>
+							</div>
+							<div class="content">
+								<div class="img-wrapper"></div>
+							</div>
+							<div class="describe">
+								<p>说明：</p>
+								<p>1. 门店提货时请出示此二维码给店员</p>
+								<p>2. 请妥善保管此提货码</p>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 引入组件 -->
+	<script src="libs/require-2.3.3min.js" data-main="js/shop_code/require.config"></script>
+
+</body>
+
+</html>

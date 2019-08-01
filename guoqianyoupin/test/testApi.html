@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<title>测试接口</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">
+    <script type="text/javascript" src="../libs/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+	<span id="result" style="clear:both;float: left;width:100%;"></span>
+	<div style="float:left;margin:50px;border:1px solid #dcdcdc">
+		<h3>用户</h3>
+		<input type="button" id="btnSendVerificationCode" value="验证码"><br/>
+		<input type="button" id="btnLogin" value="登入"><br/>
+		<input type="button" id="btnMember" value="用户"><br/>
+		<input type="button" id="btnIntro" value="用户信息"><br/>
+	</div>
+
+	<div style="float:left;margin:50px;border:1px solid #dcdcdc">
+		<h3>交互</h3>
+		<input type="button" id="btnAfterSaleController" value="申请售后">X<br/>
+		<input type="button" id="btnConsultation" value="我的咨询"><br/>
+		<input type="button" id="btnMemberControl" value="消息中心"><br/>
+		<input type="button" id="btnFavorite" value="用户收藏"><br/>
+		<input type="button" id="btnReview" value="我的评论"><br/>
+	</div>
+
+	<div style="float:left;margin:50px;border:1px solid #dcdcdc">
+		<h3>商城</h3>
+		<input type="button" id="btnCategory" value="品类菜单"><br/>
+		<input type="button" id="btnProductBase" value="产品普通"><br/>
+		<input type="button" id="btnProduct" value="产品详情"><br/>
+        <input type="button" id="btnProductSku" value="产品SKU"><br/>
+		<input type="button" id="btnProductSearch" value="产品搜索"><br/>
+        <input type="button" id="btnReviewList" value="评论列表"><br/>
+	</div>
+
+	<div style="float:left;margin:50px;border:1px solid #dcdcdc">
+		<h3>订购</h3>
+		<input type="button" id="btnOrderList" value="订单"><br/>
+		<input type="button" id="btnOrderDetail" value="订单详情"><br/>
+	</div>
+	
+	<div style="float:left;margin:50px;border:1px solid #dcdcdc">
+		<h3>其他</h3>
+		<input type="button" id="btnGroupControl" value="拼团"><br/>
+		<input type="button" id="btnNotify" value="到货通知"><br/>
+        <input type="button" id="btnSaveAddress" value="保存地址"><br/>
+        <input type="button" id="btnOrderReady" value="订单准备"><br/>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+	$('#btnSendVerificationCode').on('click',function(){
+    	$.ajax({
+            type: "POST",
+            async: false,
+            url: "http://192.168.212.47:8180/mobile/api/login/sendVerificationCode",
+            data: {
+              "mobile": "13185311133"
+            },
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    });
+
+    $('#btnLogin').on('click',function(){
+    	$.ajax({
+            type: "POST",
+            async: false,
+            contentType: "application/json",
+            url: "http://192.168.212.47:8180/mobile/api/login",
+            data: JSON.stringify({
+              "mobile": "13185311133",
+              "socialUserId": 0,
+              "uniqueId": "",
+              "verificationCode": "035832"
+            }),
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    });
+
+
+    $('#btnMember').on('click',function(){
+    	$.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/member/info",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                $('#result').html(XMLHttpRequest.status);
+                $('#result').html(XMLHttpRequest.readyState);
+                $('#result').html(textStatus);
+            },
+        });
+    })
+
+
+    $('#btnIntro').on('click',function(){
+    	$.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/member/introduce",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnAfterSaleController').on('click',function(){
+        $.ajax({
+            type: "POST",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/aftersale/apply",
+            data: JSON.stringify({
+              "images": "xx",
+              "orderItemId": "1",
+              "orderSn": "testorder",
+              "reason": "测试",
+              "refundAmount": "100",
+              "requestContent": "测试内容",
+              "requestType": "1"
+            }),
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnConsultation').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/consultation/basedetail?pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+    $('#btnMemberControl').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/member/message?category=mallNotice&pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+    
+
+    $('#btnFavorite').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/productFavorite/basedetial?pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+    $('#btnReview').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/review/basedetial?pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnCategory').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/category/basedetail",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+	$('#btnProductBase').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/product/basedetail/1",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+    $('#btnProduct').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/product/detail/2",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+    $('#btnProductSku').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/product/skuSpecificationDetail?entityValues=金色,16G&productId=2",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnProductSearch').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/product/search?keyword=苹果",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnReviewList').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/review/basedetail/1?pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    //pendingPayment,invoice,shipped，afterSale
+    $('#btnOrderList').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/order/list?status=pendingPayment&pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    //pendingPayment,invoice,shipped，afterSale
+    $('#btnOrderDetail').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/order/detail?orderSn=1",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    //pendingPayment,invoice,shipped，afterSale
+    $('#btnGroupControl').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/group/basedetail?pageNumber=1&pageSize=20",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+    //pendingPayment,invoice,shipped，afterSale
+    $('#btnNotify').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/productNotify/basedetail/1428",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnSaveAddress').on('click',function(){
+        $.ajax({
+            type: "POST",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            contentType: "application/json",
+            url: "http://192.168.212.47:8180/mobile/api/receiver/saveReciver",
+            data: JSON.stringify({
+                    "address": "测试地址",
+                    "areaId": 3,
+                    "areaName": "西城区",
+                    "consignee": "测试人",
+                    "default": true,
+                    "id": 0,
+                    "memberId": 1458,
+                    "phone": "1313131313",
+                    "zipCode": "233223"
+            }),
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+    $('#btnOrderReady').on('click',function(){
+        $.ajax({
+            type: "GET",
+            async: false,
+            headers : {
+                Accept: "application/json; charset=utf-8",
+                Authorization:"GcToken:V8nf81Z48D6tcHLgkX0YUJdkF08Dio1Lmcxr+Z9/fpEbJyVL+307qXrjTVnWSf2amyHXOwFkBVMhxKY6sV+RYChceBAH4FmxVIZ2JNn+K0qL9YcNvVJv7+whdlUKAeixKe2xypBKMZPRzZfnQWCbOG+Wb6sHvoGdcbgga0Y8GZU="},
+            url: "http://192.168.212.47:8180/mobile/api/order/queryByNowList?type=general&skuIds=1,2",
+            dataType: "json",
+            success: function(data) {
+              $('#result').html(JSON.stringify(data))
+            }
+        });
+    })
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>

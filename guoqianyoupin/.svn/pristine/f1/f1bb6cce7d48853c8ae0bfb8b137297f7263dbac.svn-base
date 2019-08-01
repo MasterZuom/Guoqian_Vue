@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>商品详情</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="goods-datail-page grey-bg" v-cloak>
+		<div class="content-wrapper" :class="{'ui-blur': show.pageLoading}">
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col ">
+					<div class="anchor" v-show="state.product">
+						<a href="javascript:;" class="tab-btn" :class="{active: swiperIndex == 0}" @click="swipeTo(0)">商品</a>
+						<a href="javascript:;" class="tab-btn" :class="{active: swiperIndex == 1}" @click="swipeTo(1)">详情</a>
+						<a href="javascript:;" class="tab-btn" :class="{active: swiperIndex == 2}" @click="swipeTo(2)">点评</a>
+					</div>
+					<div class="detail-title" v-show="!state.product">
+						<span>图文详情</span>
+					</div>
+				</div>
+				<div class="tool-right tool-col">
+					<div class="handles">
+						<a href="javascript:;" class="btn" @click="favorite">
+							<i class="icon iconfont" :class="[goodsData.hasFavorite?'icon-liked':'icon-like']"></i>
+						</a>
+<!--						<a href="javascript:;" class="btn" @click="openShare">
+							<i class="icon iconfont icon-share"></i>
+						</a>-->
+					</div>
+				</div>
+			</div>
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<transition enter-active-class="animated fadeIntUp faster" leave-active-class="animated fadeOutUp faster">
+						<van-swipe v-show="!show.detail" :loop="false" :duration="300" :show-indicators="false" @change="swiperContainer"
+						 class="height-full" ref="swipe">
+							<!--产品信息 -->
+							<van-swipe-item>
+								<div class="product-wrapper height-full">
+									<div class="wrapper">
+										<div class="preview">
+											<div class="swiper-container">
+												<van-swipe class="goods-img" :loop="false" :duration="300" :show-indicators="false">
+													<van-swipe-item class="item" v-for="img in goodsData.images">
+														<img v-lazy="img" class="">
+													</van-swipe-item>
+												</van-swipe>
+											</div>
+
+											<div class="preview-container hide"></div>
+										</div>
+										<div class="info">
+											<div class="price-wrapper" :class="{flashSale: type=='flashSale'}">
+												<div class="col-l">
+													<div class="price">
+														<span class="icon">￥</span>{{currSKuDetail.price}}
+													</div>
+													<div class="subheading">
+														<div class="activity-label" v-if="type=='flashSale'">
+															<div class="icon-wrap">
+																<span class="icon iconfont icon-lighting"></span>
+															</div>
+															<span class="desc">限时抢购</span>
+														</div>
+														<span class="original-price">￥{{currSKuDetail.marketPrice}}</span>
+													</div>
+												</div>
+												<div class="col-r" v-if="goodsData.groupBuyGroupInfos">
+													<div class="group-info">
+														<span>{{goodsData.minOrderCount}}人拼</span>
+														<span>已拼{{goodsData.saledStock}}件</span>
+													</div>
+												</div>
+												<div class="col-r" v-if="type=='flashSale'">
+													<count-down class="time-wrapper" v-on:ms-time="getMsTime" v-on:start_callback="" v-on:end_callback=""
+													 :current-time="activity.currentDate" :start-time="activity.startDate" :end-time="activity.endDate"
+													 :tip-text="''" :tip-text-end="''" :end-text="''" :hour-txt="''" :minutes-txt="''" :seconds-txt="'秒'">
+														<p class="label">距结束还剩</p>
+														<div class="countdown">
+															<span class="day-block" v-show="msTime.day">{{msTime.day}}天</span>
+															<span class="timer-block">{{msTime.hour}}</span>
+															<span class="icon">:</span>
+															<span class="timer-block">{{msTime.minutes}}</span>
+															<span class="icon">:</span>
+															<span class="timer-block">{{msTime.seconds}} </span>
+														</div>
+													</count-down>
+												</div>
+											</div>
+											<div class="goods-name">
+												<div class="name-wrapper">
+													{{goodsData.name}}
+												</div>
+												<div class="desc">
+													<span>{{goodsData.caption}}</span>
+												</div>
+											</div>
+
+											<div class="group-view" v-if="goodsData.groupBuyGroupInfos && goodsData.groupBuyGroupInfos.groupBuyCount">
+												<div class="head">
+													<span class="count">{{goodsData.groupBuyGroupInfos.groupBuyCount}}人正在拼团</span>
+													<div class="more" @click="show.groups=true">
+														<span>全部</span>
+														<i class="icon iconfont icon-right"></i>
+													</div>
+												</div>
+												<div class="wrapper">
+													<div class="item" v-for="(item,index) in goodsData.groupBuyGroupInfos.groups" v-if="index<3">
+														<div class="info">
+															<div class="avatar" @click="groupBuy(item)">
+																<img v-lazy="item.headIcon">
+															</div>
+															<span>{{item.headTel.substr(0,3)}}****{{item.headTel.substr(6)}} 还差{{item.lackOfAmount}}人</span>
+														</div>
+														<span class="ui-btn" @click="groupBuy(item)">参团</span>
+													</div>
+												</div>
+											</div>
+
+											<div v-if="goodsData.parameterValues && goodsData.parameterValues.length">
+												<div class="block-item specification" v-show="goodsData.parameterValues.length">
+													<div class="wrapper">
+														<div class="line">
+															<span class="label">规格</span>
+															<div class="content" id="paraDiv" @click="showParaDiv">
+																<div class="cell" v-for="item in goodsData.parameterValues[0].entries">
+																	<p class="grey-txt">{{item.name}}</p>
+																	<p>{{item.value}}</p>
+																</div>
+															</div>
+														</div>
+													</div>
+													<i class="icon iconfont icon-bottom"></i>
+												</div>
+											</div>
+
+											<div class="block-item promote" v-if="currSKuDetail.validPromotions">
+												<div class="wrapper">
+													<div class="line">
+														<span class="label">促销</span>
+														<div class="content">
+															<div class="item" v-for="item in currSKuDetail.validPromotions">
+																<span class="tag">{{item.name}}</span>
+																<span>{{item.title}}</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<i class="icon iconfont icon-bottom"></i>
+											</div>
+
+											<div class="block-item sku-window" @click.stop="showSkuModule('none')">
+												<div class="wrapper">
+													<div class="line">
+														<span class="label">已选</span>
+														<div class="content">
+															<div class="item">
+																<span v-for="item in seletedSku">
+																	{{item.value}}
+																</span>
+																<span v-if="!seletedSku.length">默认</span>
+															</div>
+															<div class="item hide">
+																<span>可选服务...</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<i class="icon iconfont icon-bottom"></i>
+											</div>
+
+											<div class="block-item address-view">
+												<div class="wrapper">
+													<div class="line" v-show="goodsData.memberLocation">
+														<span class="label">送至</span>
+														<div class="content">
+															<div class="item">
+																<i class="icon iconfont icon-map"></i>
+																<span>{{goodsData.memberLocation}}</span>
+															</div>
+														</div>
+													</div>
+													<div class="line">
+														<span class="label">运费</span>
+														<div class="content">
+															<div class="item">
+																<span>{{goodsData.shippingInfo}}</span>
+															</div>
+														</div>
+													</div>
+													<div class="line">
+														<span class="label">重量</span>
+														<div class="content">
+															<div class="item">
+																<span>{{goodsData.weight}}g</span>
+															</div>
+														</div>
+													</div>
+												</div>
+												<i class="icon iconfont icon-bottom"></i>
+											</div>
+										</div>
+										<div class="extra">
+											<!--评论预览 -->
+											<div class="comments-preview">
+												<div class="header">
+													<div class="title">
+														<span class="title-icon"></span>
+														<span class="txt">评论</span>
+													</div>
+													<a href="javascript:;"><i class="icon iconfont icon-right"></i></a>
+												</div>
+												<div class="wrapper">
+													<van-swipe class="list" v-show="comments.length" :loop="false" :duration="300" :show-indicators="false">
+														<van-swipe-item v-for="(item,index) in comments">
+															<div class="item">
+																<div class="content">
+																	<div class="user-info">
+																		<div class="avatar"><img v-lazy="item.memberHeadIcon"></div>
+																		<span class="name">{{item.memberUserName}}</span>
+																	</div>
+																	<div class="comment">
+																		{{item.content}}
+																	</div>
+																</div>
+																<div class="img-wrapper" v-show="item.reviewImages">
+																	<img v-lazy="item.reviewImages[0]">
+																</div>
+															</div>
+														</van-swipe-item>
+													</van-swipe>
+												</div>
+												<div class="handles">
+													<a href="javascript:;" class="btn-all" @click="swipeTo(2)">查看全部评价</a>
+												</div>
+											</div>
+
+											<!--咨询预览 -->
+											<div class="question-preview">
+												<div class="header">
+													<div class="title">
+														<span class="title-icon"></span>
+														<span class="txt">咨询</span>
+													</div>
+													<a :href="'consultation.html?id='+goodsId" class="ask-link">我要咨询</a>
+												</div>
+												<div class="wrapper">
+													<van-swipe class="list" v-show="consultation.length" :loop="false" :duration="300" :show-indicators="false">
+														<van-swipe-item v-for="(item,index) in consultation">
+															<div class="item">
+																<div class="questions-item">
+																	<div class="line-1 line-q">
+																		<span class="icon"><img src="imgs/icons/question@2x.png" alt="" ></span>
+																		<span class="content" >{{item.content}}</span>
+																	</div>
+																</div>
+																<div class="questions-item" v-for="answer in item.replys">
+																	<div class="line-1 line-a">
+																		<span class="icon"><img src="imgs/icons/answer@2x.png" alt="" ></span>
+																		<span class="content" >{{answer.replyContent}}</span>
+																	</div>
+																</div>
+															</div>
+														</van-swipe-item>
+													</van-swipe>
+												</div>
+												<div class="handles">
+													<a :href="'goods_consultation.html?id='+goodsId" class="btn-all">查看全部咨询</a>
+												</div>
+											</div>
+										</div>
+										<div class="van-list__finished-text">上拉查看详情</div>
+									</div>
+								</div>
+							</van-swipe-item>
+
+							<!-- 详情 -->
+							<van-swipe-item>
+								<div class="detail-wrapper scrollable">
+									<div class="tab-btns">
+										<div class="btn" :class="{active: detailIndex == 0}" @click="swipeDetail(0)">
+											<span>商品介绍</span>
+										</div>
+										<div class="btn" :class="{active: detailIndex == 1}" @click="swipeDetail(1)">
+											<span>规格参数</span>
+										</div>
+										<div class="btn" :class="{active: detailIndex == 2}" @click="swipeDetail(2)">
+											<span>售后服务</span>
+										</div>
+									</div>
+									<div class="tab-content">
+										<div class="details" v-show="detailIndex == 0">
+											<div class="label-title">商品详情</div>
+											<div class="desc">
+												<div class="introduction" v-html="goodsData.introduce"></div>
+												<div class="index-page">
+													<div class="floor module-006">
+														<span class="item-title">为你推荐</span>
+														<div class="col-2">
+															<div class="product-item" v-for="item in recommends" style="border:1px solid #EEE">
+																<div class="img-wrapper">
+																	<a :href="'goods_detail.html?id='+item.productId"><img :src="item.image" lazy="loaded"></a>
+																</div>
+																<div class="info">
+																	<span class="name">{{item.name}}</span>
+																	<span class="price">¥{{item.price}}</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+										<div class="details" v-show="detailIndex == 1">
+											<div class="label-title">产品规格</div>
+											<div class="parameter">
+												<div class="item" v-for="item in goodsData.parameterValues">
+													<div class="ui-title">{{item.group}}</div>
+													<div class="entries" v-for="entries in item.entries">
+														<span>{{entries.name}}：</span>
+														<span>{{entries.value}}</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="details" v-show="detailIndex == 2">
+											<div class="label-title">售后服务</div>
+											<div class="afterSale-service">
+												<div class="item">
+													<div class="ui-title">正品行货</div>
+													<p>
+														1.国乾优品向您保证所售商品均为正品行货，请放心选购。<br />
+														2.所有商品全国联保，享受三包服务（详细条款以各品牌规定为准）。<br />
+													</p>
+													<div class="ui-title">联系客服</div>
+													<p>
+														客服热线:4008050939（工作日9：00-17：00）<br />
+													</p>
+													<div class="ui-title">订单支付</div>
+													<p>
+														国乾优品商城仅支持微信、支付宝付款。<br />
+													</p>
+													<div class="ui-title">配送政策</div>
+													<p>
+														1. 付款后7个工作日内发货。<br />
+														2. 中国大陆地区配送免运费，港澳台及国际件按实际运费收取。<br />
+														3. 暂时不支持用户自取。<br />
+													</p>
+													<div class="ui-title">发票政策</div>
+													<p>
+														1. 提供个人普通发票。<br />
+														2. 发票在商品签收后20个工作日内寄出，收到时间以实际物流情况为准。<br />
+													</p>
+													<div class="ui-title">退货政策</div>
+													<p>
+														1. 所有商品全国联保，享受三包服务（详细条款以各品牌规定为准）。<br />
+														2. 收货5日内，商品（含附件、赠品、包装未拆封）完好可申请无理由退货（雅萌除外）。<br />
+														3. 商品如有质量问题，开具有效检测单后可根据三包条例处理。<br />
+														4. 买家在退货申请通过后48小时内依据客服提供的地址将货品退回，退货运费敬请自理。<br />
+														5. 仓库收到商品后15个工作日内完成退款打款，实际到账时间以银行系统结算时间为准。<br />
+													</p>
+													<div class="ui-title">价格说明</div>
+													<p>
+														1. 售价：售价为商品的销售价，是您最终决定是否购买商品的依据。<br />
+														2. 划线价：商品展示的划横线价格为参考价，并非原价，仅供参考。<br />
+														3. 异常问题：商品的具体售价以订单结算页价格为准；如您发现活动商品售价或优惠信息有异常，建议购买前先联系国乾优品咨询。<br />
+													</p>
+													<p>
+														注：因生产厂家会在未提前通知的情况下更改产品包装、产地或一些附件，国乾优品不能确保客户收到的货物与商城图片、产地、附件说明完全一致。若没有及时更新，敬请谅解！<br />
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</van-swipe-item>
+
+							<!-- 全部评论 -->
+							<van-swipe-item>
+								<div class="comments-wrapper scrollable">
+									<van-list v-model="state.commentLoading" :offset="10" :error.sync="state.commentError" error-text="请求失败，点击重新加载"
+									 :finished="state.commentFinished" finished-text="没有更多了" @load="getComments">
+										<div class="item" v-for="item in comments">
+											<div class="content">
+												<div class="user-info">
+													<div class="avatar"><img v-lazy="item.memberHeadIcon"></div>
+													<span class="name">{{item.memberUserName}}</span>
+													<span class="time">{{dateFormat(item.creatDate)}}</span>
+												</div>
+												<div class="comment">
+													{{item.content}}
+												</div>
+											</div>
+											<div class="imgs-wrapper">
+												<div class="img-item" v-for="img in item.reviewImages">
+													<img v-lazy="img">
+												</div>
+											</div>
+										</div>
+									</van-list>
+								</div>
+							</van-swipe-item>
+						</van-swipe>
+					</transition>
+
+					<transition enter-active-class="animated fadeIntUp faster">
+						<div id="bottom-detail" class="detail-wrapper height-full" v-show="show.detail">
+							<div class="wrapper">
+								<div class="tab-btns">
+									<div class="btn" :class="{active: detailIndex == 0}" @click="swipeDetail(0)">
+										<span>商品介绍</span>
+									</div>
+									<div class="btn" :class="{active: detailIndex == 1}" @click="swipeDetail(1)">
+										<span>规格参数</span>
+									</div>
+									<div class="btn" :class="{active: detailIndex == 2}" @click="swipeDetail(2)">
+										<span>售后服务</span>
+									</div>
+								</div>
+								<div class="tab-content">
+									<div class="details" v-show="detailIndex == 0">
+										<div class="label-title">商品详情</div>
+										<div class="desc">
+											<div class="introduction" v-html="goodsData.introduce"></div>
+											<div class="index-page">
+												<div class="floor module-006">
+													<span class="item-title">为你推荐</span>
+													<div class="col-2">
+														<div v-for="item in recommends">
+															<div class="product-item" style="border:1px solid #EEE">
+																<div class="img-wrapper">
+																	<a :href="'goods_detail.html?id='+item.productId"><img :src="item.image" lazy="loaded"></a>
+																</div>
+																<div class="info">
+																	<span class="name">{{item.name}}</span>
+																	<span class="name">¥{{item.price}}</span>
+																</div>
+															</div>
+
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="details" v-show="detailIndex == 1">
+										<div class="label-title">产品规格</div>
+										<div class="parameter">
+											<div class="item" v-for="item in goodsData.parameterValues">
+												<div class="ui-title">{{item.group}}</div>
+												<div class="entries" v-for="entries in item.entries">
+													<span>{{entries.name}}：</span>
+													<span>{{entries.value}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="details" v-show="detailIndex == 2">
+										<div class="label-title">售后服务</div>
+										<div class="afterSale-service">
+											<div class="item">
+												<div class="ui-title">正品行货</div>
+													<p>
+														1.国乾优品向您保证所售商品均为正品行货，请放心选购。<br />
+														2.所有商品全国联保，享受三包服务（详细条款以各品牌规定为准）。<br />
+													</p>
+													<div class="ui-title">联系客服</div>
+													<p>
+														客服热线:4008050939（工作日9：00-17：00）<br />
+													</p>
+													<div class="ui-title">订单支付</div>
+													<p>
+														国乾优品商城仅支持微信、支付宝付款。<br />
+													</p>
+													<div class="ui-title">配送政策</div>
+													<p>
+														1. 付款后7个工作日内发货。<br />
+														2. 中国大陆地区配送免运费，港澳台及国际件按实际运费收取。<br />
+														3. 暂时不支持用户自取。<br />
+													</p>
+													<div class="ui-title">发票政策</div>
+													<p>
+														1. 提供个人普通发票。<br />
+														2. 发票在商品签收后20个工作日内寄出，收到时间以实际物流情况为准。<br />
+													</p>
+													<div class="ui-title">退货政策</div>
+													<p>
+														1. 所有商品全国联保，享受三包服务（详细条款以各品牌规定为准）。<br />
+														2. 收货5日内，商品（含附件、赠品、包装未拆封）完好可申请无理由退货（雅萌除外）。<br />
+														3. 商品如有质量问题，开具有效检测单后可根据三包条例处理。<br />
+														4. 买家在退货申请通过后48小时内依据客服提供的地址将货品退回，退货运费敬请自理。<br />
+														5. 仓库收到商品后15个工作日内完成退款打款，实际到账时间以银行系统结算时间为准。<br />
+													</p>
+													<div class="ui-title">价格说明</div>
+													<p>
+														1. 售价：售价为商品的销售价，是您最终决定是否购买商品的依据。<br />
+														2. 划线价：商品展示的划横线价格为参考价，并非原价，仅供参考。<br />
+														3. 异常问题：商品的具体售价以订单结算页价格为准；如您发现活动商品售价或优惠信息有异常，建议购买前先联系国乾优品咨询。<br />
+													</p>
+													<p>
+														注：因生产厂家会在未提前通知的情况下更改产品包装、产地或一些附件，国乾优品不能确保客户收到的货物与商城图片、产地、附件说明完全一致。若没有及时更新，敬请谅解！<br />
+													</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</transition>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<div class="fixed-bar goods-bottom-bar">
+				<div class="col-l">
+					<div class="tab service">
+						<img src="imgs/icons/kefu@2x.png">
+						<span class="label"><a href="tel:400-0000-688">联系客服</a></span>
+						<!--<span class="label"><a href="#" @click="phoneCall">联系客服</a></span>-->
+					</div>
+					<div class="tab cart-tab" @click="$url('cart.html?back=true')">
+						<div class="icon-wrapper">
+							<span class="number" v-show="cartNum">{{cartNum}}</span>
+							<i class="icon iconfont icon-cart"></i>
+						</div>
+						<span class="label">购物车</span>
+					</div>
+				</div>
+				<div class="col-r">
+					<div class="tab add-cart" v-show="this.currSKuDetail.hasStock && !goodsData.activityEndDate" @click="showSkuModule('addCart')">
+						<span>加入购物车</span>
+					</div>
+					<div class="tab buy" v-show="this.currSKuDetail.hasStock" @click="showSkuModule('buy')">
+						<span>立即购买</span>
+					</div>
+					<div class="tab buy" v-show="!this.currSKuDetail.hasStock&&type!='flashSale'&&type!='groupBuy'" @click="show.notify=true">
+						<span class="submit-btn">到货通知</span>
+					</div>
+					<div class="tab buy" v-show="!this.currSKuDetail.hasStock&&(type=='flashSale'||type=='groupBuy')" >
+						<span class="submit-btn">已抢光</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- sku弹出层 -->
+		<van-actionsheet v-model="show.skuModule">
+			<div class="detail-sku">
+				<span class="close-btn" @click="show.skuModule=false">
+					<i class="icon iconfont icon-close"></i>
+				</span>
+				<div class="content-wrapper">
+					<div class="header">
+						<div class="cover">
+							<img :src="currSKuDetail.img">
+						</div>
+						<div class="info">
+							<div class="price"><span class="symbol">¥</span>{{currSKuDetail.price}}</div>
+							<div class="desc">商品编号: {{currSKuDetail.sn}}</div>
+						</div>
+					</div>
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+								<div class="sku-area">
+									<div class="floor" v-for="(sku, index) in skuData">
+										<p class="ui-title">{{sku.name}}</p>
+										<div class="sku-btns">
+											<span class="ui-btn" :class="{active: item.active}" v-for="item in sku.entries" @click="choiceSku(item, index)">{{item.value}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="floor num-floor">
+									<p class="ui-title">数量</p>
+									<div class="num-handle">
+										<div class="num-bar">
+											<div class="num-btn minus">
+												<i class="icon iconfont icon-minus" @click="minus"></i>
+											</div>
+											<div class="input-wrapper">
+												<input type="tel" class="num" v-model.lazy.number="quantity" @input="">
+											</div>
+											<div class="num-btn plus">
+												<i class="icon iconfont icon-plus" @click="plus"></i>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="fixed-bar">
+						<span class="submit-btn" v-if="!currSKuDetail.hasStock" @click="show.notify=true">到货通知</span>
+						<van-button :disabled="state.skuLoading" :loading="state.skuLoading" v-if="currSKuDetail.hasStock" tag="span"
+						 class="submit-btn" @click="choiceSkuDone">确定</van-button>
+					</div>
+				</div>
+			</div>
+		</van-actionsheet>
+		<!-- 到货通知 -->
+		<van-actionsheet v-model="show.notify">
+			<div class="notify-wrapper" style="height:30vh">
+				<div class="content-wrapper">
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+								<p class="ui-title">商品到货后，我们将通过短信通知您</p>
+								<div class="input-group">
+									<span class="ui-label">手机号</span>
+									<input type="tel" v-model="notifyPhone" class="input-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="fixed-bar">
+						<van-button :disabled="state.notifyLoading" :loading="state.notifyLoading" tag="span" class="submit-btn" @click="addNotify">确定</van-button>
+					</div>
+				</div>
+			</div>
+		</van-actionsheet>
+
+		<!-- 分享 -->
+		<van-actionsheet v-model="show.share">
+			<share class="share-module">
+				<div class="label-title">分享给好友下单各得壕礼</div>
+				<div class="share-list">
+					<div class="item">
+						<img src="imgs/icons/icon_wechat.png" @click="shareWeixinPerson">
+						<span class="label">微信</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_pyquan.png" @click="shareWeixinGroup">
+						<span class="label">朋友圈</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_qq.png" @click="shareQQPerson">
+						<span class="label">QQ</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_qqzone.png" @click="shareQQGroup">
+						<span class="label">QQ空间</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_weibo.png" @click="shareWeibo">
+						<span class="label">微博</span>
+					</div>
+				</div>
+			</share>
+		</van-actionsheet>
+
+		<!-- 全部拼团 -->
+		<van-popup class="group-module" v-model="show.groups" style="overflow: scroll;height: 80vw;">
+			<div class="group-view" v-if="goodsData.groupBuyGroupInfos && goodsData.groupBuyGroupInfos.groupBuyCount">
+				<p class="ui-title">{{goodsData.groupBuyGroupInfos.groupBuyCount}}人正在拼团</p>
+				<div class="scrollable">
+					<div class="item" v-for="(item,index) in goodsData.groupBuyGroupInfos.groups" >
+						<div class="info">
+							<div class="avatar" @click="groupBuy(item)">
+								<img v-lazy="item.headIcon">
+							</div>
+							<span>{{item.headTel.substr(0,3)}}****{{item.headTel.substr(6)}} 还差{{item.lackOfAmount}}人</span>
+						</div>
+						<span class="ui-btn" @click="groupBuy(item)">参团</span>
+					</div>
+				</div>
+			</div>
+		</van-popup>
+
+		<!-- loading -->
+		<van-popup class="page-loading" v-model="show.pageLoading" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.pageLoading" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+	</div>
+
+	<script src="cordova.js" ></script>
+	<script src="cordova_plugins.js"></script>
+	<script src="libs/require-2.3.3min.js" data-main="js/goods_detail/require.config"></script>
+</body>
+
+</html>

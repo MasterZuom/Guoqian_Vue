@@ -1,0 +1,320 @@
+/* base style */
+
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "medium";
+  src: url('../fonts/medium.ttf') format('truetype');
+}
+
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: Helvetica, "PingFang-SC-Medium", "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  color: #333;
+  height: 100%;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+a {
+  color: #333;
+}
+
+a,
+img {
+  border: 0;
+  outline: none;
+  text-decoration: none;
+}
+
+a:focus,
+a:hover {
+  text-decoration: none;
+  color: #333;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+br {
+  height: 0;
+  width: 0;
+  line-height: 0;
+}
+
+div,
+p,
+span,
+a {
+  line-height: 100%;
+}
+
+.grey-bg {
+  background-color: #F4F4F4;
+}
+
+@1px: 0.16vw; //1像素
+@blue: #24C3BE;
+@red: #C61A1A;
+.red-txt {
+  color: @red;
+}
+
+.grey-txt {
+  color: #999;
+}
+
+.height-full {
+  height: 100%;
+}
+
+.clear() {
+  &:after,
+  &:before {
+    display: table;
+    content: " ";
+    clear: both;
+    visibility: hidden;
+    overflow: hidden;
+  }
+}
+
+.clear-fix {
+  .clear();
+}
+
+.radius (@radius: 4px) {
+  border-radius: @radius;
+  -moz-border-radius: @radius;
+  -webkit-border-radius: @radius;
+}
+
+.inB() {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.table() {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.page_abs() {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bg(@pic_url) {
+  background: @pic_url;
+  background-size: 100%;
+}
+
+input {
+  border-style: none;
+  background-color: transparent;
+}
+
+input:focus {
+  outline: none;
+}
+
+select {
+  border: solid 0 #000;
+  appearance: none;
+  background: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+select:focus {
+  outline: none;
+}
+
+.transition(@property: all,
+@delay: 0s,
+@duration: 0.3s,
+@timing: ease) {
+  -webkit-transition: @arguments;
+  -moz-transition: @arguments;
+  transition: @arguments;
+}
+
+.box-sizing() {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+//表格化
+.table-wrap {
+  .table();
+  .table-label {
+    text-align: center;
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+
+.margin-0 {
+  margin: 0 !important;
+}
+
+.readonly {
+  border: 0;
+  background-color: #ececec;
+}
+
+//通用组件
+.mask-block {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+//禁用状态背景色
+// .disabled {
+// 	background-color: @disabled !important;
+// }
+//虚化
+.ui-blur {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+//通用按钮
+/* 
+
+.btn-flat {
+	background-color: @light-blue;
+	border-color: @light-blue;
+	box-shadow: 1px 1px 1px @blue;
+}
+
+.ui-btn(@padding:3px 0;) {width:690px;
+height:80px;
+	border: 0;
+	padding: @padding;
+	background-color: @light-blue;
+	outline: none;
+}
+
+.ui-block-btn(@bg-color:@light-blue, @hover-bg-color:@blue) {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #fff;
+	background-color: @bg-color;
+	outline: none;
+	border: 0;
+
+	&:hover {
+		background-color: @hover-bg-color;
+	}
+}
+
+.ui-block-btn {
+	.ui-block-btn();
+}
+
+.ghost-btn(@color:#fff) {
+	background: none;
+	border: 1px solid #b2b2b2;
+	.transition();
+
+	&:hover {
+		color: @color;
+		border-color: @light-blue;
+		background-color: @light-blue;
+	}
+}
+ */
+
+.ui-align {
+  text-align: center;
+}
+
+textarea {
+  resize: none;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-left {
+  float: left;
+}
+
+.overflow(@x: hidden,
+@y: auto) {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.flex-box() {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.column() {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex() {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 0;
+  flex: 1 1 0;
+}
+
+//flex 居中
+.fc() {
+  .flex-box();
+  align-items: center;
+  justify-content: center;
+}

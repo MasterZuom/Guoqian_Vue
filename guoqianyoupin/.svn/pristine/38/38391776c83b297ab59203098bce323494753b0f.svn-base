@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>到货通知</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>到货通知</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="arrival-notice-page grey-bg height-full">
+						<div class="scrollable">
+							<div class="notice-list">
+								<van-list v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载" :finished="finished"
+								 finished-text="没有更多了" @load="getProductList">
+									<div class="item" v-for="item in productList">
+										<div class="goods-item-wrapper">
+											<div class="goods-item" :class="{out: item.outOfStock}">
+												<div class="cover">
+													<img :src="item.image">
+													<div class="out-cover" v-show="!item.marketable">已下架</div>
+												</div>
+												<div class="info">
+													<div class="name">{{item.name}}</div>
+													<span class="sku" v-if="!item.specificationValues[0]"></span>
+													<span class="sku" v-if="item.specificationValues[0]">{{item.specificationValues[0].value}}</span>
+													<div class="price-wrap">
+														<span class="price">￥{{item.price}}</span>
+														<span class="original-price" v-if="item.marketPrice>0 && item.marketPrice!=item.price">￥{{item.marketPrice}}</span>
+													</div>
+												</div>
+												<div class="handles">
+													<div class="add-btn">
+														<i class="icon iconfont icon-shanchu" @click="delItem(item.id)"></i>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</van-list>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/arrival_notice/require.config"></script>
+</body>
+
+</html>

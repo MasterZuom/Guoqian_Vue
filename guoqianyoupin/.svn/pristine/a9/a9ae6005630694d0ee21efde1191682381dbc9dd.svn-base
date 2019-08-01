@@ -1,0 +1,665 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0082502837FD4FDCBEB57FED /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0D6BB3066FFF42A5A492C297 /* TencentOpenApi_IOS_Bundle.bundle */; };
+		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
+		0BFCD48308484836824514C0 /* CDVWechat.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C5E54F88D4214BDB18AF8 /* CDVWechat.m */; };
+		11F999794F4D43D7916C5A5F /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF3294DBF24840029DB3B606 /* AlipaySDK.framework */; };
+		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		245B549C217A4AA49360C69A /* CDVBaiduMobStatistics.m in Sources */ = {isa = PBXBuildFile; fileRef = 575F2BBB5D734AC6A1B9F059 /* CDVBaiduMobStatistics.m */; };
+		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
+		302D95F114D2391D003F00A1 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 302D95EF14D2391D003F00A1 /* MainViewController.m */; };
+		302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 302D95F014D2391D003F00A1 /* MainViewController.xib */; };
+		34CD3B5FD2444DA28FC2F130 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFCC970854EB4BFE9B19B3D5 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		485E065222700358008D7D38 /* GQPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 485E065122700358008D7D38 /* GQPlugin.m */; };
+		4BE7ECC39497459E976CB1BF /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6C36741CD91400FBBA8C74E /* Photos.framework */; };
+		521D0E276B794F658C3F7BD8 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A49CBAB739CF4F58B83CDD3C /* libc++.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		5C1852AAE8F74C30BADE2271 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F8DB2AAB570C440A9BA779E0 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		61B65E18406C4C11A7742E77 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1BC54BC8184ECAAB216361 /* CDVInAppBrowser.m */; };
+		65405DF2BE844C0F9C03D572 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C01044FBF4249E4881EBEE5 /* Foundation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
+		7049E7F927DA48ACAD5C485C /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8017F92A60BA45BB8A9623E8 /* libWeiboSDK.a */; };
+		747ADFC53F8549C698B16087 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B8C5E57D03F4A2D9D91D757 /* TencentOpenAPI.framework */; };
+		7F5B06951C1A4CA8ADEF7E6A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11C54435C189489893AF7C9D /* Security.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		7FD19DA88B8A4CEE8B8CA97B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 7CE1248C03FA4594B83A884B /* libz.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8DBD9E24752946828BF8EE72 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0AA438C697D749B085EF1ED8 /* WeiboSDK.bundle */; };
+		8F51BBDB93DC4223AB3599B0 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9A288160FC4389AD37F0B1 /* libWeChatSDK.a */; };
+		A6EF00168A554562BBF010F7 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CCB547BC314434CA0D29DF9 /* libsqlite3.0.tbd */; };
+		AC94800B33BA4DDF9D4551EC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5F3FB9099484CFEBD6CFA20 /* CoreLocation.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		AC9EA16137944AC39948495F /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31DF098A606744D3950513A5 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		AE01538D6DA1492A93249B12 /* CDVWKWebViewEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A055E7BE089D463CA76E678C /* CDVWKWebViewEngine.m */; };
+		B537ABFEC2044465874324AF /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 64F3C03596274BA18941FE6C /* libstdc++.6.tbd */; };
+		B7886D91F56D4473948663D0 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02C4E94DC9324837BD11AFB4 /* ImageIO.framework */; };
+		BF0C7D620BC745B28DDDAE66 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5F5932C4BF7464A976A72B4 /* CFNetwork.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BF10A62D90734040A9559A13 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 064E06CD99544CB28424492C /* libz.1.2.5.tbd */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C4692D82EA4C4672A5FEF15D /* QRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA81DF7B9AA44188BD047837 /* QRScanner.swift */; };
+		C654D7900F5545229CFEB0FB /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E17CEB27B6D472E95CA9D01 /* WebKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		C7E31FFB24BC4F93B1FEE35F /* CDVWKWebViewUIDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F91199B2D241DA8BFE29A7 /* CDVWKWebViewUIDelegate.m */; };
+		C87FDDD3D61B496CB2149C6D /* alipay.m in Sources */ = {isa = PBXBuildFile; fileRef = FE9B6C5F6A944BC198E4DD2C /* alipay.m */; };
+		CD078DE59E0145A3BF95F76C /* CDVWeiboSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BC2C588D3447CAB35311F7 /* CDVWeiboSDK.m */; };
+		D22497A9FA5449669AB44C81 /* CDVQQSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 936A27AF34EE4E8C886D7EF6 /* CDVQQSDK.m */; };
+		DDF33274DB3945A5B0B3D438 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76F4F5CB84A41BBAE093305 /* CoreMotion.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E12C007C204F42AB98432830 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 684E958BB42B4B48913A432D /* QuartzCore.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		E945995565634DB4A01B97C1 /* libBaiduMobStat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4F0EB87773476B9006064C /* libBaiduMobStat.a */; };
+		ED898EEC78F741A0B704714B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 776DA889073440F2A0DD8F60 /* libstdc++.tbd */; };
+		EF565B76B86B428E8CE23514 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6EF141FDA3614F09AC902191 /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F041AC0B221C4472A933B488 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 03EE39CF899141E997E18ED5 /* libsqlite3.tbd */; };
+		F184175A0B244B7691EFA93E /* CDVWKProcessPoolFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2270C31C89E242AA8D8B1384 /* CDVWKProcessPoolFactory.m */; };
+		F323B44D6E1E4E109602950D /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 57142525C35949A0A22CE4BF /* libiconv.tbd */; };
+		F48D691F05C44AFF8B6D3361 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45182174E3F64E16894C0A2D /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F7775E98DBD7441FAF88DFAB /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 97C8FCCEC9F14AF287B6B19F /* AlipaySDK.bundle */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1F15282122673865004DDAF0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib/CordovaLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C0C01EB21E3911D50056E6CB;
+			remoteInfo = Cordova;
+		};
+		301BF534109A57CC0062928A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib/CordovaLib.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
+		301BF550109A68C00062928A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 301BF52D109A57CC0062928A /* CordovaLib/CordovaLib.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = CordovaLib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0207DA571B56EA530066E2B4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = gqall/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		02A6D1045CB14C0693F4F2F3 /* WeiboSDK.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = WeiboSDK.h; path = "cordova-plugin-weibosdk/WeiboSDK.h"; sourceTree = "<group>"; };
+		02C4E94DC9324837BD11AFB4 /* ImageIO.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		03EE39CF899141E997E18ED5 /* libsqlite3.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		064E06CD99544CB28424492C /* libz.1.2.5.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
+		09281E40C96847F7A08EA879 /* CDVWechat.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVWechat.h; path = "cordova-plugin-wechat/CDVWechat.h"; sourceTree = "<group>"; };
+		0AA438C697D749B085EF1ED8 /* WeiboSDK.bundle */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		0C01044FBF4249E4881EBEE5 /* Foundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0D6BB3066FFF42A5A492C297 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		11C54435C189489893AF7C9D /* Security.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		154EB30A7DB044F5B1895DF0 /* BaiduMobStat.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = BaiduMobStat.h; path = "cordova-plugin-baidumobstatistics/BaiduMobStat.h"; sourceTree = "<group>"; };
+		1A1BC54BC8184ECAAB216361 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; };
+		1CCB547BC314434CA0D29DF9 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1D6058910D05DD3D006BFB54 /* gqall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gqall.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2270C31C89E242AA8D8B1384 /* CDVWKProcessPoolFactory.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKProcessPoolFactory.m; path = "cordova-plugin-wkwebview-engine/CDVWKProcessPoolFactory.m"; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2FD80DD6BA9247E59B7D38B6 /* CDVWKProcessPoolFactory.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVWKProcessPoolFactory.h; path = "cordova-plugin-wkwebview-engine/CDVWKProcessPoolFactory.h"; sourceTree = "<group>"; };
+		301BF52D109A57CC0062928A /* CordovaLib/CordovaLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = CordovaLib/CordovaLib.xcodeproj; sourceTree = "<group>"; };
+		301BF56E109A69640062928A /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = SOURCE_ROOT; };
+		302D95EE14D2391D003F00A1 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		302D95EF14D2391D003F00A1 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		302D95F014D2391D003F00A1 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		3047A50F1AB8059700498E2A /* build-debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-debug.xcconfig"; path = "cordova/build-debug.xcconfig"; sourceTree = SOURCE_ROOT; };
+		3047A5101AB8059700498E2A /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-release.xcconfig"; path = "cordova/build-release.xcconfig"; sourceTree = SOURCE_ROOT; };
+		3047A5111AB8059700498E2A /* build.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = build.xcconfig; path = cordova/build.xcconfig; sourceTree = SOURCE_ROOT; };
+		31DF098A606744D3950513A5 /* AdSupport.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		32CA4F630368D1EE00C91783 /* gqall-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "gqall-Prefix.pch"; sourceTree = "<group>"; };
+		37BB889674654502997C4785 /* CDVWKWebViewEngine.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVWKWebViewEngine.h; path = "cordova-plugin-wkwebview-engine/CDVWKWebViewEngine.h"; sourceTree = "<group>"; };
+		429C06AA74F541B4ABAACE36 /* WXApiObject.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = "cordova-plugin-wechat/WXApiObject.h"; sourceTree = "<group>"; };
+		45182174E3F64E16894C0A2D /* CoreText.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		485E064F22700358008D7D38 /* GQPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GQPlugin.h; path = "cordova-plugin-gqplugin/GQPlugin.h"; sourceTree = "<group>"; };
+		485E065122700358008D7D38 /* GQPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GQPlugin.m; path = "cordova-plugin-gqplugin/GQPlugin.m"; sourceTree = "<group>"; };
+		53BC2C588D3447CAB35311F7 /* CDVWeiboSDK.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWeiboSDK.m; path = "cordova-plugin-weibosdk/CDVWeiboSDK.m"; sourceTree = "<group>"; };
+		56B6A2F1A2F74838AA79F1FB /* CDVWeiboSDK.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVWeiboSDK.h; path = "cordova-plugin-weibosdk/CDVWeiboSDK.h"; sourceTree = "<group>"; };
+		57142525C35949A0A22CE4BF /* libiconv.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		575F2BBB5D734AC6A1B9F059 /* CDVBaiduMobStatistics.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVBaiduMobStatistics.m; path = "cordova-plugin-baidumobstatistics/CDVBaiduMobStatistics.m"; sourceTree = "<group>"; };
+		592468C7E59045ACB17E8C23 /* CDVWKWebViewUIDelegate.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVWKWebViewUIDelegate.h; path = "cordova-plugin-wkwebview-engine/CDVWKWebViewUIDelegate.h"; sourceTree = "<group>"; };
+		5D9A288160FC4389AD37F0B1 /* libWeChatSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; name = libWeChatSDK.a; path = "gqall/Plugins/cordova-plugin-wechat/libWeChatSDK.a"; sourceTree = "<group>"; };
+		5E4F0EB87773476B9006064C /* libBaiduMobStat.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; name = libBaiduMobStat.a; path = "gqall/Plugins/cordova-plugin-baidumobstatistics/libBaiduMobStat.a"; sourceTree = "<group>"; };
+		64F3C03596274BA18941FE6C /* libstdc++.6.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
+		684E958BB42B4B48913A432D /* QuartzCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		68F91199B2D241DA8BFE29A7 /* CDVWKWebViewUIDelegate.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKWebViewUIDelegate.m; path = "cordova-plugin-wkwebview-engine/CDVWKWebViewUIDelegate.m"; sourceTree = "<group>"; };
+		6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = CDVLaunchScreen.storyboard; path = gqall/CDVLaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
+		6EF141FDA3614F09AC902191 /* CoreTelephony.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		776DA889073440F2A0DD8F60 /* libstdc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		7CE1248C03FA4594B83A884B /* libz.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		8017F92A60BA45BB8A9623E8 /* libWeiboSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; name = libWeiboSDK.a; path = "gqall/Plugins/cordova-plugin-weibosdk/libWeiboSDK.a"; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* gqall-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "gqall-Info.plist"; path = "gqall/gqall-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
+		8E17CEB27B6D472E95CA9D01 /* WebKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		936A27AF34EE4E8C886D7EF6 /* CDVQQSDK.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVQQSDK.m; path = "cordova-plugin-qqsdk/CDVQQSDK.m"; sourceTree = "<group>"; };
+		97C8FCCEC9F14AF287B6B19F /* AlipaySDK.bundle */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		9B8C5E57D03F4A2D9D91D757 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TencentOpenAPI.framework; path = "gqall/Plugins/cordova-plugin-qqsdk/TencentOpenAPI.framework"; sourceTree = "<group>"; };
+		A055E7BE089D463CA76E678C /* CDVWKWebViewEngine.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWKWebViewEngine.m; path = "cordova-plugin-wkwebview-engine/CDVWKWebViewEngine.m"; sourceTree = "<group>"; };
+		A49CBAB739CF4F58B83CDD3C /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		A76F4F5CB84A41BBAE093305 /* CoreMotion.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		AA81DF7B9AA44188BD047837 /* QRScanner.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = QRScanner.swift; path = "cordova-plugin-qrscanner/QRScanner.swift"; sourceTree = "<group>"; };
+		ACE831671FE0443B8829B90D /* WBHttpRequest.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = WBHttpRequest.h; path = "cordova-plugin-weibosdk/WBHttpRequest.h"; sourceTree = "<group>"; };
+		BFCC970854EB4BFE9B19B3D5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C21A114815DC4797B81D0EC8 /* WXApi.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = "cordova-plugin-wechat/WXApi.h"; sourceTree = "<group>"; };
+		C5F3FB9099484CFEBD6CFA20 /* CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C7384E1F1929444DAD13781F /* CDVQQSDK.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVQQSDK.h; path = "cordova-plugin-qqsdk/CDVQQSDK.h"; sourceTree = "<group>"; };
+		CF3294DBF24840029DB3B606 /* AlipaySDK.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = "gqall/Plugins/cordova-plugin-alipay-v2/AlipaySDK.framework"; sourceTree = "<group>"; };
+		D6C36741CD91400FBBA8C74E /* Photos.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		E5B7AA1BD6CF4053BE45B6C4 /* CDVInAppBrowser.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVInAppBrowser.h; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; };
+		E98C5E54F88D4214BDB18AF8 /* CDVWechat.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVWechat.m; path = "cordova-plugin-wechat/CDVWechat.m"; sourceTree = "<group>"; };
+		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
+		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
+		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F5F5932C4BF7464A976A72B4 /* CFNetwork.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = gqall/config.xml; sourceTree = "<group>"; };
+		F8DB2AAB570C440A9BA779E0 /* UIKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FE9B6C5F6A944BC198E4DD2C /* alipay.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = alipay.m; path = "cordova-plugin-alipay-v2/alipay.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
+				EF565B76B86B428E8CE23514 /* CoreTelephony.framework in Frameworks */,
+				34CD3B5FD2444DA28FC2F130 /* SystemConfiguration.framework in Frameworks */,
+				DDF33274DB3945A5B0B3D438 /* CoreMotion.framework in Frameworks */,
+				BF0C7D620BC745B28DDDAE66 /* CFNetwork.framework in Frameworks */,
+				521D0E276B794F658C3F7BD8 /* libc++.tbd in Frameworks */,
+				7FD19DA88B8A4CEE8B8CA97B /* libz.tbd in Frameworks */,
+				F48D691F05C44AFF8B6D3361 /* CoreText.framework in Frameworks */,
+				5C1852AAE8F74C30BADE2271 /* UIKit.framework in Frameworks */,
+				E12C007C204F42AB98432830 /* QuartzCore.framework in Frameworks */,
+				65405DF2BE844C0F9C03D572 /* Foundation.framework in Frameworks */,
+				11F999794F4D43D7916C5A5F /* AlipaySDK.framework in Frameworks */,
+				E945995565634DB4A01B97C1 /* libBaiduMobStat.a in Frameworks */,
+				7F5B06951C1A4CA8ADEF7E6A /* Security.framework in Frameworks */,
+				AC94800B33BA4DDF9D4551EC /* CoreLocation.framework in Frameworks */,
+				BF10A62D90734040A9559A13 /* libz.1.2.5.tbd in Frameworks */,
+				AC9EA16137944AC39948495F /* AdSupport.framework in Frameworks */,
+				F323B44D6E1E4E109602950D /* libiconv.tbd in Frameworks */,
+				F041AC0B221C4472A933B488 /* libsqlite3.tbd in Frameworks */,
+				ED898EEC78F741A0B704714B /* libstdc++.tbd in Frameworks */,
+				747ADFC53F8549C698B16087 /* TencentOpenAPI.framework in Frameworks */,
+				8F51BBDB93DC4223AB3599B0 /* libWeChatSDK.a in Frameworks */,
+				A6EF00168A554562BBF010F7 /* libsqlite3.0.tbd in Frameworks */,
+				B537ABFEC2044465874324AF /* libstdc++.6.tbd in Frameworks */,
+				7049E7F927DA48ACAD5C485C /* libWeiboSDK.a in Frameworks */,
+				4BE7ECC39497459E976CB1BF /* Photos.framework in Frameworks */,
+				B7886D91F56D4473948663D0 /* ImageIO.framework in Frameworks */,
+				C654D7900F5545229CFEB0FB /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				302D95EE14D2391D003F00A1 /* MainViewController.h */,
+				302D95EF14D2391D003F00A1 /* MainViewController.m */,
+				302D95F014D2391D003F00A1 /* MainViewController.xib */,
+				1D3623240D0F684500981E51 /* AppDelegate.h */,
+				1D3623250D0F684500981E51 /* AppDelegate.m */,
+			);
+			name = Classes;
+			path = gqall/Classes;
+			sourceTree = SOURCE_ROOT;
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* gqall.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				EB87FDF41871DAF40020F90C /* config.xml */,
+				EB87FDF31871DA8E0020F90C /* www */,
+				EB87FDF11871DA420020F90C /* Staging */,
+				301BF52D109A57CC0062928A /* CordovaLib/CordovaLib.xcodeproj */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				307C750510C5A3420062BCA9 /* Plugins */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* gqall-Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+				ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */,
+			);
+			name = "Other Sources";
+			path = gqall;
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0207DA571B56EA530066E2B4 /* Images.xcassets */,
+				3047A50E1AB8057F00498E2A /* config */,
+				8D1107310486CEB800E47090 /* gqall-Info.plist */,
+				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
+				97C8FCCEC9F14AF287B6B19F /* AlipaySDK.bundle */,
+				0D6BB3066FFF42A5A492C297 /* TencentOpenApi_IOS_Bundle.bundle */,
+				0AA438C697D749B085EF1ED8 /* WeiboSDK.bundle */,
+			);
+			name = Resources;
+			path = gqall/Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6EF141FDA3614F09AC902191 /* CoreTelephony.framework */,
+				BFCC970854EB4BFE9B19B3D5 /* SystemConfiguration.framework */,
+				A76F4F5CB84A41BBAE093305 /* CoreMotion.framework */,
+				F5F5932C4BF7464A976A72B4 /* CFNetwork.framework */,
+				A49CBAB739CF4F58B83CDD3C /* libc++.tbd */,
+				7CE1248C03FA4594B83A884B /* libz.tbd */,
+				45182174E3F64E16894C0A2D /* CoreText.framework */,
+				F8DB2AAB570C440A9BA779E0 /* UIKit.framework */,
+				684E958BB42B4B48913A432D /* QuartzCore.framework */,
+				0C01044FBF4249E4881EBEE5 /* Foundation.framework */,
+				CF3294DBF24840029DB3B606 /* AlipaySDK.framework */,
+				5E4F0EB87773476B9006064C /* libBaiduMobStat.a */,
+				11C54435C189489893AF7C9D /* Security.framework */,
+				C5F3FB9099484CFEBD6CFA20 /* CoreLocation.framework */,
+				064E06CD99544CB28424492C /* libz.1.2.5.tbd */,
+				31DF098A606744D3950513A5 /* AdSupport.framework */,
+				57142525C35949A0A22CE4BF /* libiconv.tbd */,
+				03EE39CF899141E997E18ED5 /* libsqlite3.tbd */,
+				776DA889073440F2A0DD8F60 /* libstdc++.tbd */,
+				9B8C5E57D03F4A2D9D91D757 /* TencentOpenAPI.framework */,
+				5D9A288160FC4389AD37F0B1 /* libWeChatSDK.a */,
+				1CCB547BC314434CA0D29DF9 /* libsqlite3.0.tbd */,
+				64F3C03596274BA18941FE6C /* libstdc++.6.tbd */,
+				8017F92A60BA45BB8A9623E8 /* libWeiboSDK.a */,
+				D6C36741CD91400FBBA8C74E /* Photos.framework */,
+				02C4E94DC9324837BD11AFB4 /* ImageIO.framework */,
+				8E17CEB27B6D472E95CA9D01 /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		301BF52E109A57CC0062928A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				301BF535109A57CC0062928A /* libCordova.a */,
+				1F15282222673865004DDAF0 /* Cordova.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3047A50E1AB8057F00498E2A /* config */ = {
+			isa = PBXGroup;
+			children = (
+				3047A50F1AB8059700498E2A /* build-debug.xcconfig */,
+				3047A5101AB8059700498E2A /* build-release.xcconfig */,
+				3047A5111AB8059700498E2A /* build.xcconfig */,
+			);
+			name = config;
+			sourceTree = "<group>";
+		};
+		307C750510C5A3420062BCA9 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				FE9B6C5F6A944BC198E4DD2C /* alipay.m */,
+				575F2BBB5D734AC6A1B9F059 /* CDVBaiduMobStatistics.m */,
+				154EB30A7DB044F5B1895DF0 /* BaiduMobStat.h */,
+				1A1BC54BC8184ECAAB216361 /* CDVInAppBrowser.m */,
+				E5B7AA1BD6CF4053BE45B6C4 /* CDVInAppBrowser.h */,
+				936A27AF34EE4E8C886D7EF6 /* CDVQQSDK.m */,
+				C7384E1F1929444DAD13781F /* CDVQQSDK.h */,
+				AA81DF7B9AA44188BD047837 /* QRScanner.swift */,
+				E98C5E54F88D4214BDB18AF8 /* CDVWechat.m */,
+				09281E40C96847F7A08EA879 /* CDVWechat.h */,
+				C21A114815DC4797B81D0EC8 /* WXApi.h */,
+				429C06AA74F541B4ABAACE36 /* WXApiObject.h */,
+				53BC2C588D3447CAB35311F7 /* CDVWeiboSDK.m */,
+				56B6A2F1A2F74838AA79F1FB /* CDVWeiboSDK.h */,
+				ACE831671FE0443B8829B90D /* WBHttpRequest.h */,
+				02A6D1045CB14C0693F4F2F3 /* WeiboSDK.h */,
+				A055E7BE089D463CA76E678C /* CDVWKWebViewEngine.m */,
+				68F91199B2D241DA8BFE29A7 /* CDVWKWebViewUIDelegate.m */,
+				2270C31C89E242AA8D8B1384 /* CDVWKProcessPoolFactory.m */,
+				37BB889674654502997C4785 /* CDVWKWebViewEngine.h */,
+				592468C7E59045ACB17E8C23 /* CDVWKWebViewUIDelegate.h */,
+				2FD80DD6BA9247E59B7D38B6 /* CDVWKProcessPoolFactory.h */,
+				485E064F22700358008D7D38 /* GQPlugin.h */,
+				485E065122700358008D7D38 /* GQPlugin.m */,
+			);
+			name = Plugins;
+			path = gqall/Plugins;
+			sourceTree = SOURCE_ROOT;
+		};
+		EB87FDF11871DA420020F90C /* Staging */ = {
+			isa = PBXGroup;
+			children = (
+				F840E1F0165FE0F500CFE078 /* config.xml */,
+				301BF56E109A69640062928A /* www */,
+			);
+			name = Staging;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* gqall */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "gqall" */;
+			buildPhases = (
+				304B58A110DAC018002A0835 /* Copy www directory */,
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				301BF551109A68C00062928A /* PBXTargetDependency */,
+			);
+			name = gqall;
+			productName = gqall;
+			productReference = 1D6058910D05DD3D006BFB54 /* gqall.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = SHLZTQKU84;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "gqall" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 301BF52E109A57CC0062928A /* Products */;
+					ProjectRef = 301BF52D109A57CC0062928A /* CordovaLib/CordovaLib.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* gqall */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1F15282222673865004DDAF0 /* Cordova.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cordova.framework;
+			remoteRef = 1F15282122673865004DDAF0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		301BF535109A57CC0062928A /* libCordova.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libCordova.a;
+			remoteRef = 301BF534109A57CC0062928A /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
+				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
+				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
+				F7775E98DBD7441FAF88DFAB /* AlipaySDK.bundle in Resources */,
+				0082502837FD4FDCBEB57FED /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				8DBD9E24752946828BF8EE72 /* WeiboSDK.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		304B58A110DAC018002A0835 /* Copy www directory */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy www directory";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "NODEJS_PATH=/usr/local/bin; NVM_NODE_PATH=~/.nvm/versions/node/`nvm version 2>/dev/null`/bin; N_NODE_PATH=`find /usr/local/n/versions/node/* -maxdepth 0 -type d 2>/dev/null | tail -1`/bin; XCODE_NODE_PATH=`xcode-select --print-path`/usr/share/xcs/Node/bin; PATH=$NODEJS_PATH:$NVM_NODE_PATH:$N_NODE_PATH:$XCODE_NODE_PATH:$PATH && node cordova/lib/copy-www-build-step.js";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
+				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
+				C87FDDD3D61B496CB2149C6D /* alipay.m in Sources */,
+				245B549C217A4AA49360C69A /* CDVBaiduMobStatistics.m in Sources */,
+				61B65E18406C4C11A7742E77 /* CDVInAppBrowser.m in Sources */,
+				485E065222700358008D7D38 /* GQPlugin.m in Sources */,
+				D22497A9FA5449669AB44C81 /* CDVQQSDK.m in Sources */,
+				C4692D82EA4C4672A5FEF15D /* QRScanner.swift in Sources */,
+				0BFCD48308484836824514C0 /* CDVWechat.m in Sources */,
+				CD078DE59E0145A3BF95F76C /* CDVWeiboSDK.m in Sources */,
+				AE01538D6DA1492A93249B12 /* CDVWKWebViewEngine.m in Sources */,
+				C7E31FFB24BC4F93B1FEE35F /* CDVWKWebViewUIDelegate.m in Sources */,
+				F184175A0B244B7691EFA93E /* CDVWKProcessPoolFactory.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		301BF551109A68C00062928A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CordovaLib;
+			targetProxy = 301BF550109A68C00062928A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A50F1AB8059700498E2A /* build-debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = SHLZTQKU84;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"gqall/Plugins/cordova-plugin-alipay-v2\"",
+					"\"gqall/Plugins/cordova-plugin-qqsdk\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "gqall/gqall-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "gqall/gqall-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/gqall/Plugins/cordova-plugin-baidumobstatistics\"",
+					"\"$(SRCROOT)/gqall/Plugins/cordova-plugin-wechat\"",
+					"\"$(SRCROOT)/gqall/Plugins/cordova-plugin-weibosdk\"",
+				);
+				PRODUCT_NAME = gqall;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A5101AB8059700498E2A /* build-release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = SHLZTQKU84;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"gqall/Plugins/cordova-plugin-alipay-v2\"",
+					"\"gqall/Plugins/cordova-plugin-qqsdk\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "gqall/gqall-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				INFOPLIST_FILE = "gqall/gqall-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/gqall/Plugins/cordova-plugin-baidumobstatistics\"",
+					"\"$(SRCROOT)/gqall/Plugins/cordova-plugin-wechat\"",
+					"\"$(SRCROOT)/gqall/Plugins/cordova-plugin-weibosdk\"",
+				);
+				PRODUCT_NAME = gqall;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A5111AB8059700498E2A /* build.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3047A5111AB8059700498E2A /* build.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "gqall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "gqall" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

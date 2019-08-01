@@ -1,0 +1,379 @@
+/* base style */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "medium";
+  src: url('../fonts/medium.ttf') format('truetype');
+}
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: Helvetica, "PingFang-SC-Medium", "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  color: #333;
+  height: 100%;
+}
+[v-cloak] {
+  display: none;
+}
+a {
+  color: #333;
+}
+a,
+img {
+  border: 0;
+  outline: none;
+  text-decoration: none;
+}
+a:focus,
+a:hover {
+  text-decoration: none;
+  color: #333;
+}
+li {
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+br {
+  height: 0;
+  width: 0;
+  line-height: 0;
+}
+div,
+p,
+span,
+a {
+  line-height: 100%;
+}
+.height-full {
+  height: 100%;
+}
+.clear-fix:after,
+.clear-fix:before {
+  display: table;
+  content: " ";
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+}
+/*input {
+	border-style: none;
+	vertical-align: top;
+	text-align: center;
+	background-color: transparent;
+	color: #fff;
+}
+input:focus {
+	outline: none;
+}
+select {
+	border: solid 0 #000;
+	appearance: none;
+	background: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+select:focus {
+	outline: none;
+}*/
+.table-wrap {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.table-wrap .table-label {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.margin-0 {
+  margin: 0 !important;
+}
+.readonly {
+  border: 0;
+  background-color: #ececec;
+}
+.mask-block {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ui-blur {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+/* 
+
+.btn-flat {
+	background-color: @light-blue;
+	border-color: @light-blue;
+	box-shadow: 1px 1px 1px @blue;
+}
+
+.ui-btn(@padding:3px 0;) {
+	border: 0;
+	padding: @padding;
+	background-color: @light-blue;
+	outline: none;
+}
+
+.ui-block-btn(@bg-color:@light-blue, @hover-bg-color:@blue) {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #fff;
+	background-color: @bg-color;
+	outline: none;
+	border: 0;
+
+	&:hover {
+		background-color: @hover-bg-color;
+	}
+}
+
+.ui-block-btn {
+	.ui-block-btn();
+}
+
+.ghost-btn(@color:#fff) {
+	background: none;
+	border: 1px solid #b2b2b2;
+	.transition();
+
+	&:hover {
+		color: @color;
+		border-color: @light-blue;
+		background-color: @light-blue;
+	}
+}
+ */
+.ui-align {
+  text-align: center;
+}
+textarea {
+  resize: none;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.membership-page {
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  height: 100%;
+  border-top: 0.9997px solid #eaeaea;
+}
+.membership-page .membership-info {
+  height: 52.8vw;
+  padding: 4.5333vw 5.8667vw 0;
+  background: url("../imgs/membership/bg_huiyuanquanyi@3x.png") no-repeat;
+  background-size: 100%;
+  overflow: hidden;
+}
+.membership-page .membership-info .member-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #CDAF7B;
+}
+.membership-page .membership-info .member-info .avatar {
+  width: 12.8vw;
+  height: 12.8vw;
+  border-radius: 100%;
+  border: 0.1333vw solid #5a5b5b;
+  overflow: hidden;
+}
+.membership-page .membership-info .member-info .avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.membership-page .membership-info .member-info .name {
+  padding: 0 3.4667vw 0 2.1333vw;
+  font-size: 4vw;
+}
+.membership-page .membership-info .member-info .points {
+  font-size: 3.2vw;
+}
+.membership-page .membership-info .member-info .points span {
+  font-size: 4vw;
+}
+.membership-page .membership-info .level-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  background: url("../imgs/membership/line@3x.png") no-repeat 0 40%;
+  background-size: 100%;
+}
+.membership-page .membership-info .level-wrapper .item {
+  text-align: center;
+  color: #999;
+  font-size: 3.2vw;
+}
+.membership-page .membership-info .level-wrapper .item .item-icon {
+  width: 13.6vw;
+  height: 13.6vw;
+  margin: 3.7333vw 0 4.8vw;
+  background: url("../imgs/membership/vip_jp_df@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .membership-info .level-wrapper .item .item-icon img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.membership-page .membership-info .level-wrapper .item.active {
+  color: #fff;
+}
+.membership-page .privilege-wrapper .block-title {
+  padding: 8vw 0;
+  font-size: 4vw;
+  text-align: center;
+}
+.membership-page .privilege-wrapper .item-wrapper {
+  width: 90vw;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.membership-page .privilege-wrapper .item-wrapper .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 30vw;
+  padding-bottom: 6vw;
+}
+.membership-page .privilege-wrapper .item-wrapper .item .icon-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.membership-page .privilege-wrapper .item-wrapper .item .item-icon {
+  width: 7.8vw;
+  height: 7.8vw;
+  background-size: contain !important;
+}
+.membership-page .privilege-wrapper .item-wrapper .item:nth-child(1) .item-icon {
+  background: url("../imgs/membership/icon_fenqi@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .privilege-wrapper .item-wrapper .item:nth-child(2) .item-icon {
+  background: url("../imgs/membership/icon_youhui@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .privilege-wrapper .item-wrapper .item:nth-child(3) .item-icon {
+  background: url("../imgs/membership/icon_yunfei@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .privilege-wrapper .item-wrapper .item:nth-child(4) .item-icon {
+  background: url("../imgs/membership/icon_jifen@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .privilege-wrapper .item-wrapper .item:nth-child(5) .item-icon {
+  background: url("../imgs/membership/icon_shengri@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .privilege-wrapper .item-wrapper .item .name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 2.4vw 0 1.3333vw;
+  font-size: 4vw;
+}
+.membership-page .privilege-wrapper .item-wrapper .item .label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 3.2vw;
+  color: #CDAF7B;
+}
+.membership-page .notice-slide {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 81.6vw;
+  height: 11.2vw;
+  margin: 1.6vw auto 0;
+  padding: 0 4vw;
+  font-size: 3.2vw;
+  color: #CDAF7B;
+  border: 1px solid #cdaf7b;
+  border-radius: 5.6vw;
+}
+.membership-page .notice-slide a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #CDAF7B;
+}
+.membership-page .notice-slide .icon {
+  margin: 1.3333vw;
+  width: 5.6vw;
+  height: 5.0667vw;
+  background: url("../imgs/membership/icon_zhuanxiang@3x.png") no-repeat;
+  background-size: 100%;
+}
+.membership-page .notes {
+  margin: 0 auto;
+  padding: 4.2667vw 0 13.3333vw;
+  width: 90.4vw;
+  font-size: 2.6667vw;
+  line-height: 4.1333vw;
+  color: #999;
+}

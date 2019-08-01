@@ -1,0 +1,170 @@
+.membership-page {
+  .overflow();
+  height: 100%;
+  border-top: 0.9997px solid #eaeaea;
+
+  .membership-info {
+    height: 52.8vw;
+    padding: 4.5333vw 5.8667vw 0;
+    .bg(url("../imgs/membership/bg_huiyuanquanyi@3x.png") no-repeat);
+    overflow: hidden;
+
+    .member-info {
+      .flex-box();
+      align-items: center;
+      color: #CDAF7B;
+
+      .avatar {
+        width: 12.8vw;
+        height: 12.8vw;
+        border-radius: 100%;
+        border: 0.1333vw solid #5a5b5b;
+        overflow: hidden;
+
+        img {
+          display: block;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .name {
+        padding: 0 3.4667vw 0 2.1333vw;
+        font-size: 4vw;
+      }
+
+      .points {
+        font-size: 3.2vw;
+
+        span {
+          font-size: 4vw;
+        }
+      }
+    }
+
+    .level-wrapper {
+      .flex-box();
+      justify-content: space-between;
+      .bg(url("../imgs/membership/line@3x.png") no-repeat 0 40%);
+
+      .item {
+        text-align: center;
+        color: #999;
+        font-size: 3.2vw;
+
+        &:first-child {
+          margin-left: -1.3vw;
+        }
+
+        &:last-child {
+          margin-right: -1.3vw;
+        }
+
+        .item-icon {
+          width: 15vw;
+          height: 15vw;
+          margin: 3.7333vw 0 4.8vw;
+
+          img {
+            display: block;
+            width: 100%;
+            height: auto;
+          }
+        }
+
+        &.active {
+          color: #fff;
+        }
+        .item-label.active{
+          border: @1px solid #CDAF7B;
+          border-radius: 1.3333vw;
+          padding: 0 0.6667vw;
+        }
+      }
+    }
+  }
+
+  .privilege-wrapper {
+    .block-title {
+      padding: 8vw 0;
+      font-size: 4vw;
+      text-align: center;
+    }
+
+    .item-wrapper {
+      width: 90vw;
+      margin: 0 auto;
+      .flex-box();
+      flex-wrap: wrap;
+
+      .item {
+        .flex-box();
+        flex-direction: column;
+        width: 30vw;
+        padding-bottom: 6vw;
+
+        .icon-wrapper {
+          .flex-box();
+          justify-content: center;
+        }
+
+        .item-icon {
+          width: 7.8vw;
+          height: 7.8vw;
+        }
+
+        .name {
+          .flex-box();
+          justify-content: center;
+          margin: 2.4vw 0 1.3333vw;
+          font-size: 4vw;
+        }
+
+        .label {
+          .flex-box();
+          justify-content: center;
+          font-size: 3.2vw;
+          color: #CDAF7B;
+        }
+      }
+    }
+  }
+
+  .notice-slide {
+    .flex-box();
+    align-items: center;
+    width: 81.6vw;
+    height: 11.2vw;
+    margin: 1.6vw auto 0;
+    padding: 0 4vw;
+    font-size: 3.2vw;
+    color: #CDAF7B;
+    border: 1px solid rgba(205, 175, 123, 1);
+    border-radius: 5.6vw;
+
+    a {
+      .flex-box();
+      align-items: center;
+      color: #CDAF7B;
+    }
+
+    .icon {
+      margin: 1.3333vw;
+      width: 5.6vw;
+      height: 5.0667vw;
+      .bg(url("../imgs/membership/icon_zhuanxiang@3x.png") no-repeat);
+    }
+  }
+
+  .notes {
+    margin: 0 auto;
+    padding: 4.2667vw 0 13.3333vw;
+    width: 90.4vw;
+    font-size: 2.6667vw;
+    line-height: 4.1333vw;
+    color: #999;
+  }
+
+
+
+}

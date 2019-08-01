@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>个人信息</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>个人信息</span>
+				</div>
+				<div class="tool-right tool-col">
+					<a href="javascript:;" @click="saveInfo" class="save-ui-btn">保存</a>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="account-page grey-bg height-full">
+						<div class="scrollable">
+							<div class="account-wrapper">
+								<div class="main">
+									<div class="item">
+										<span class="babel">头像</span>
+										<div class="content">
+											<van-uploader :after-read="onRead" accept="image/*">
+												<div class="avatar">
+													<img :src="introduce.headIcon">
+												</div>
+											</van-uploader>
+											<i class="icon iconfont icon-right"></i>
+										</div>
+									</div>
+									<div class="item">
+										<span class="babel">昵称</span>
+										<div class="content">
+											<input type="text" v-model="introduce.nickname">
+										</div>
+									</div>
+									<div class="item">
+										<span class="babel">姓名</span>
+										<div class="content">
+											<input type="text" v-model="introduce.name">
+										</div>
+									</div>
+									<div class="item" @click="show.gender=1">
+										<span class="babel">性别</span>
+										<div class="content">
+											<span class="text">{{genderTxt}}</span>
+											<i class="icon iconfont icon-right"></i>
+										</div>
+									</div>
+									<div class="item">
+										<span class="babel">注册手机</span>
+										<div class="content">
+											<span class="text">{{introduce.phone}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="attach">
+									<div class="item" @click="showDate()">
+										<span class="babel">生日</span>
+										<div class="content">
+											<span class="text" v-show="introduce.birth">{{dateFormat(introduce.birth)}}</span>
+											<i class="icon iconfont icon-right"></i>
+										</div>
+									</div>
+									<div class="item" @click="show.income=true">
+										<span class="babel">收入</span>
+										<div class="content">
+											{{introduce.income}}
+											<i class="icon iconfont icon-right"></i>
+										</div>
+									</div>
+									<div class="item" @click="show.occupation=true">
+										<span class="babel">职业</span>
+										<div class="content">
+											{{introduce.occupation}}
+											<i class="icon iconfont icon-right"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<van-actionsheet v-model="show.datePicker">
+				<van-datetime-picker v-show="show" v-model="date.currentDate" type="date" :min-date="date.minDate" :max-date="date.maxDate"
+				 confirm-button-text="完成" cancel-button-text="取消" @confirm="hidelDate" @cancel="hidelDate" @change="selectDate" />
+			</van-actionsheet>
+
+			<van-actionsheet v-model="show.gender">
+				<van-picker :columns="['男', '女']" values="" show-toolbar="true" confirm-button-text="完成" cancel-button-text="取消"
+				 @confirm="hideGender" @cancel="hideGender">
+			</van-actionsheet>
+
+			<van-actionsheet v-model="show.income">
+				<van-picker :columns="income" show-toolbar="true" confirm-button-text="完成" cancel-button-text="取消" @confirm="hideIncome"
+				 @cancel="hideIncome(false)">
+			</van-actionsheet>
+
+			<van-actionsheet v-model="show.occupation">
+				<van-picker :columns="occupation" show-toolbar="true" confirm-button-text="完成" cancel-button-text="取消" @confirm="hideOccupation"
+				 @cancel="hideOccupation(false)">
+			</van-actionsheet>
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/account/require.config"></script>
+</body>
+
+</html>

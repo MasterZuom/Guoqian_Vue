@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>领取福利</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="page two" v-cloak>
+		<div class="header">
+			<div class="ui-block" v-show="show.register">
+				<p class="ui-title">新人礼</p>
+			</div>
+			<div class="ui-block" v-show="!show.register">
+				<p class="ui-title">领取成功</p>
+				<p class="ui-msg">恭喜获得以下福利</p>
+			</div>
+		</div>
+		<div class="register" v-show="show.register">
+			<img src="imgs/cp.png" class="cover-1">
+			<div class="form-wrapper">
+				<p class="ui-title">注册成功领取豪礼</p>
+				<div class="input-wrapper">
+					<div class="input-group">
+						<input class="input-control phone-input" v-model="mobile" type="number" placeholder="请输入手机号">
+					</div>
+					<div class="input-group">
+						<input class="input-control code-input" type="number" v-model="code" placeholder="请输入短信验证码">
+						<div class="msg-btn" :class="{'sent-done': show.timer}" @click="sendCode">
+							<span class="timer" v-show="show.timer">{{timer}}s</span>
+							<span class="text" v-show="show.timer">后重新发送</span>
+							<span class="text" v-show="!show.timer">发送验证码</span>
+						</div>
+					</div>
+					<span class="error-tips" v-show="show.error">{{errMsg}}</span>
+				</div>
+				<div class="submit-wrapper">
+					<div class="ui-btn">领取福利</div>
+				</div>
+			</div>
+		</div>
+		<div class="gift-wrapper" v-show="!show.register">
+			<img src="imgs/decoration.png" class="cover-2">
+			<div class="content">
+				<div class="item">
+					<div class="coupon">
+						<div class="wrapper">
+							<span class="label">￥</span>
+							<span class="price">200</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="submit-wrapper">
+				<div class="ui-btn">马上下载APP</div>
+			</div>
+		</div>
+		<div class="footer">
+			<a href="javascript:;"><img class="icon" src="imgs/icon_list.png"> 规则说明</a>
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/require.config"></script>
+</body>
+
+</html>

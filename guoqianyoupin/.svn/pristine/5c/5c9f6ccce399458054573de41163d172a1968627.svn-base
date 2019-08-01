@@ -1,0 +1,182 @@
+.page {
+  position: relative;
+  width: 89.3333vw;
+  margin: 0 auto;
+  color: #333333;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: #581ef7;
+  padding-top: 20vw;
+  @media screen and (max-height: 480px) {
+    padding-top: 15vw;
+  }
+  &.one {
+    background-image: url("../imgs/bg_1.jpg");
+  }
+  &.two {
+    background-image: url("../imgs/bg_2.jpg");
+  }
+  .header {
+    color: #fff;
+    text-align: center;
+    .ui-title {
+      font-size: 10.6667vw;
+    }
+    .ui-msg {
+      padding-top: 2.4vw;
+      font-size: 5.0667vw;
+    }
+  }
+  .register {
+    position: relative;
+    z-index: 99;
+    padding-top: 22.4vw;
+    width: 91.4667vw;
+    margin: 7.7333vw auto 0;
+  }
+  .cover-1 {
+    position: absolute;
+    width: 79.2vw;
+    z-index: -1;
+    top: 0;
+    left: 4.2667vw;
+  }
+  .form-wrapper {
+    .radius(1.6vw);
+    padding: 0 4.8vw;
+    background-color: #fff;
+    .ui-title {
+      padding: 7.4667vw 0 5.3333vw;
+      font-size: 4.8vw;
+      text-align: center;
+    }
+    .input-wrapper {
+      position: relative;
+      .error-tips {
+        position: absolute;
+        left: 0;
+        bottom: -5vw;
+        font-size: 3.2vw;
+        color: #CB2139;
+      }
+    }
+    .input-group {
+      position: relative;
+      border: 0.1333vw solid #ccc;
+      .flex-box();
+      align-items: center;
+      &:first-child {
+        margin-bottom: 3.7333vw;
+      }
+    }
+    input {
+      padding: 0 3.4667vw;
+      height: 12vw;
+      line-height: 100%;
+      font-size: 4vw;
+      border: 0;
+      outline: none;
+    }
+    .phone-input {
+      width: 100%;
+    }
+    .code-input {
+      width: 40vw;
+    }
+    .msg-btn {
+      position: absolute;
+      right: 0;
+      bottom: 3.5vw;
+      width: 24.5333vw;
+      height: 5.3333vw;
+      font-size: 3.7333vw;
+      text-align: center;
+      border-left: @1px solid #333;
+      .flex-box();
+      justify-content: center;
+      span {
+        .flex-box();
+        align-items: center;
+      }
+      &.sent-done {
+        width: 30.9333vw;
+        .timer {
+          color: #CB2139;
+        }
+      }
+    }
+  }
+  .gift-wrapper {
+    position: relative;
+    background: #fff;
+    width: 91.4667vw;
+		margin: 21.8667vw auto 0;
+    .radius(1.6vw);
+    .cover-2 {
+      position: absolute;
+      width: 44.2667vw;
+      left: 21.8667vw;
+      top: -11.8vw;
+    }
+    .content {
+      padding-top: 11.7333vw;
+      .coupon {
+        width: 66.6667vw;
+        height: 34.6667vw;
+        margin: 0 auto;
+        background: url("../imgs/coupon.png") no-repeat;
+        background-size: contain;
+        position: relative;
+        color: #fff;
+        .flex-box();
+        align-items: center;
+        .wrapper {
+          .flex-box();
+          align-items: baseline;
+          padding-left: 20vw;
+          width: 100%;
+        }
+        .label {
+          font-size: 5.6vw;
+        }
+        .price {
+          font-family: "medium";
+					font-size: 20vw;
+					line-height: 12vw;
+          font-weight: bold;
+        }
+      }
+		}
+		.submit-wrapper{
+			width: 81.6vw;
+			margin: 0 auto;
+		}
+  }
+  .footer {
+    padding-top: 6.9333vw;
+    text-align: center;
+    .icon {
+      display: inline-block;
+      vertical-align: bottom;
+      width: 3.2vw;
+      height: auto;
+    }
+    a {
+      font-size: 4vw;
+      color: #40C5EA;
+    }
+  }
+  .submit-wrapper {
+    padding: 6vw 0 4.5333vw;
+    .ui-btn {
+      display: block;
+      height: 17.0667vw;
+      font-size: 4.8vw;
+      color: #fff;
+      text-align: center;
+      line-height: 13.8vw;
+      background: url("../imgs/btn_bg.png") no-repeat;
+      background-size: 100%;
+    }
+  }
+}

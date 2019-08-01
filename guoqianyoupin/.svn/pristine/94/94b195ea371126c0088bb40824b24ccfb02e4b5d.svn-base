@@ -1,0 +1,282 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"alipay\"><param name=\"ios-package\" value=\"alipay\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"alipayid\" value=\"2018082161162025\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"BaiduMobStatistics\"><param name=\"ios-package\" value=\"CDVBaiduMobStatistics\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"appid\" value=\"6563327e4c\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"QQSDK\"><param name=\"ios-package\" value=\"CDVQQSDK\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"QQ_APP_ID\" value=\"101499065\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"QRScanner\"><param name=\"ios-package\" value=\"QRScanner\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"Wechat\"><param name=\"ios-package\" value=\"CDVWechat\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"WECHATAPPID\" value=\"wxc0e359e4af772ad4\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"WeiboSDK\"><param name=\"ios-package\" value=\"CDVWeiboSDK\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<access minimum-tls-version=\"TLSv1.0\" origin=\"http://*.weibo.cn\" requires-forward-secrecy=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access minimum-tls-version=\"TLSv1.0\" origin=\"http://*.sina.cn\" requires-forward-secrecy=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access minimum-tls-version=\"TLSv1.0\" origin=\"http://*.sinaimg.cn\" requires-forward-secrecy=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access minimum-tls-version=\"TLSv1.0\" origin=\"http://*.weibo.com\" requires-forward-secrecy=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access minimum-tls-version=\"TLSv1.0\" origin=\"http://*.sinajs.cn\" requires-forward-secrecy=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<access minimum-tls-version=\"TLSv1.0\" origin=\"http://*.sina.com.cn\" requires-forward-secrecy=\"false\" />",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"WEIBO_APP_ID\" value=\"2693888645\" />",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"CDVWKWebViewEngine\"><param name=\"ios-package\" value=\"CDVWKWebViewEngine\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<preference name=\"CordovaWebViewEngine\" value=\"CDVWKWebViewEngine\" />",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "CFBundleURLTypes": [
+            {
+              "xml": "<array><dict><key>CFBundleURLName</key><string>alipay</string><key>CFBundleURLSchemes</key><array><string>ali2018082161162025</string></array></dict></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleTypeRole</key><string>Editor</string><key>CFBundleURLName</key><string>tencentopenapi</string><key>CFBundleURLSchemes</key><array><string>tencent101499065</string></array></dict></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleURLName</key><string>weixin</string><key>CFBundleURLSchemes</key><array><string>wxc0e359e4af772ad4</string></array></dict></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleTypeRole</key><string>Editor</string><key>CFBundleURLName</key><string>com.app.gqall</string><key>CFBundleURLSchemes</key><array><string>wb2693888645</string></array></dict></array>",
+              "count": 1
+            }
+          ],
+          "LSApplicationQueriesSchemes": [
+            {
+              "xml": "<array><string>mqqapi</string><string>mqq</string><string>mqqOpensdkSSoLogin</string><string>mqqconnect</string><string>mqqopensdkdataline</string><string>mqqopensdkgrouptribeshare</string><string>mqqopensdkfriend</string><string>mqqopensdkapi</string><string>mqqopensdkapiV2</string><string>mqqopensdkapiV3</string><string>mqqopensdkapiV4</string><string>mqzoneopensdk</string><string>wtloginmqq</string><string>wtloginmqq2</string><string>mqqwpa</string><string>mqzone</string><string>mqzonev2</string><string>mqzoneshare</string><string>wtloginqzone</string><string>mqzonewx</string><string>mqzoneopensdkapiV2</string><string>mqzoneopensdkapi19</string><string>mqzoneopensdkapi</string><string>mqzoneopensdk</string><string>mqqgamebindinggroup</string><string>tencentapi.qq.reqContent</string><string>tencentapi.qzone.reqContent</string><string>tim</string><string>timapi</string><string>timopensdkfriend</string><string>timwpa</string><string>timgamebindinggroup</string><string>timapiwallet</string><string>timOpensdkSSoLogin</string><string>wtlogintim</string><string>timopensdkgrouptribeshare</string><string>timopensdkapiV4</string><string>timgamebindinggroup</string><string>timopensdkdataline</string><string>wtlogintimV1</string><string>timapiV1</string></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><string>weixin</string><string>wechat</string></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><string>sinaweibohd</string><string>sinaweibo</string><string>weibosdk</string><string>weibosdk2.5</string></array>",
+              "count": 1
+            }
+          ],
+          "NSCameraUsageDescription": [
+            {
+              "xml": "<string>The camera is used to scan QR codes.</string>",
+              "count": 1
+            }
+          ],
+          "NSAppTransportSecurity": [
+            {
+              "xml": "<dict><key>NSAllowsArbitraryLoads</key><true /></dict>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-add-swift-support": {
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-alipay-v2": {
+      "APP_ID": "2018082161162025",
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-baidumobstatistics": {
+      "IOSAPPID": "6563327e4c",
+      "ANDROIDAPPID": "e8041008b4",
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-clipboard": {
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-qqsdk": {
+      "QQ_APP_ID": "101499065",
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-qrscanner": {
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-wechat": {
+      "WECHATAPPID": "wxc0e359e4af772ad4",
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-weibosdk": {
+      "WEIBO_APP_ID": "2693888645",
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.app.gqall"
+    },
+    "cordova-plugin-wkwebview-engine": {
+      "PACKAGE_NAME": "com.app.gqall"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-alipay-v2.alipay",
+      "file": "plugins/cordova-plugin-alipay-v2/www/alipay.js",
+      "pluginId": "cordova-plugin-alipay-v2",
+      "clobbers": [
+        "cordova.plugins.alipay"
+      ]
+    },
+    {
+      "id": "cordova-plugin-baidumobstatistics.BaiduMobStatistics",
+      "file": "plugins/cordova-plugin-baidumobstatistics/www/BaiduMobStatistics.js",
+      "pluginId": "cordova-plugin-baidumobstatistics",
+      "clobbers": [
+        "cordova.plugins.BaiduMobStatistics"
+      ]
+    },
+    {
+      "id": "cordova-plugin-clipboard.client",
+      "file": "plugins/cordova-plugin-clipboard/www/client.js",
+      "pluginId": "cordova-plugin-clipboard",
+      "clobbers": [
+        "community.clipboard"
+      ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open",
+        "window.open"
+      ]
+    },
+    {
+      "id": "cordova-plugin-qqsdk.QQSDK",
+      "file": "plugins/cordova-plugin-qqsdk/www/qq.js",
+      "pluginId": "cordova-plugin-qqsdk",
+      "clobbers": [
+        "QQSDK"
+      ]
+    },
+    {
+      "id": "cordova-plugin-qrscanner.QRScanner",
+      "file": "plugins/cordova-plugin-qrscanner/www/www.min.js",
+      "pluginId": "cordova-plugin-qrscanner",
+      "clobbers": [
+        "QRScanner"
+      ]
+    },
+    {
+      "id": "cordova-plugin-wechat.Wechat",
+      "file": "plugins/cordova-plugin-wechat/www/wechat.js",
+      "pluginId": "cordova-plugin-wechat",
+      "clobbers": [
+        "Wechat"
+      ]
+    },
+    {
+      "id": "cordova-plugin-weibosdk.WeiboSDK",
+      "file": "plugins/cordova-plugin-weibosdk/www/weibo.js",
+      "pluginId": "cordova-plugin-weibosdk",
+      "clobbers": [
+        "WeiboSDK"
+      ]
+    },
+    {
+      "id": "cordova-plugin-wkwebview-engine.ios-wkwebview-exec",
+      "file": "plugins/cordova-plugin-wkwebview-engine/src/www/ios/ios-wkwebview-exec.js",
+      "pluginId": "cordova-plugin-wkwebview-engine",
+      "clobbers": [
+        "cordova.exec"
+      ]
+    },
+    {
+      "id": "cordova-plugin-wkwebview-engine.ios-wkwebview",
+      "file": "plugins/cordova-plugin-wkwebview-engine/src/www/ios/ios-wkwebview.js",
+      "pluginId": "cordova-plugin-wkwebview-engine",
+      "clobbers": [
+        "window.WkWebView"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-add-swift-support": "1.7.2",
+    "cordova-plugin-alipay-v2": "1.0.0",
+    "cordova-plugin-baidumobstatistics": "0.0.2",
+    "cordova-plugin-clipboard": "1.0.0",
+    "cordova-plugin-inappbrowser": "3.0.0",
+    "cordova-plugin-qqsdk": "0.9.7",
+    "cordova-plugin-qrscanner": "2.6.0",
+    "cordova-plugin-wechat": "2.6.0",
+    "cordova-plugin-weibosdk": "0.6.3",
+    "cordova-plugin-whitelist": "1.3.3",
+    "cordova-plugin-wkwebview-engine": "1.1.4"
+  }
+}

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>商品列表</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="goods-list-page grey-bg" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<form class="fixed-bar goods-search-header" action="" method="get" @submit.prevent="subSearch">
+				<div>
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="search-wrod-bar">
+					<input class="search-input" v-model="keyword" ref="searchInput">
+				</div>
+			</form>
+			<div class="filter-wrapper">
+				<div class="filter-items">
+					<a href="javascript:;" class="item-btn" :class="{active: flag == 1}" @click="toggleSort">
+						<span>{{curSort.label}}</span>
+						<i class="icon iconfont" :class="[show.sort?' icon-up': 'icon-down']"></i>
+					</a>
+					<a href="javascript:;" class="item-btn" :class="{active: flag == 2}" @click="choiceType('salesDesc', 2)">
+						<span>销量</span>
+					</a>
+					<a href="javascript:;" class="item-btn price-sort" :class="{active: flag == 3}" @click="choiceType(['priceAsc','priceDesc'], 3)">
+						<span>价格</span>
+						<div class="price-icons">
+							<i class="icon iconfont icon-up" :class="{active: searchType == 'priceAsc'}"></i>
+							<i class="icon iconfont icon-down" :class="{active: searchType == 'priceDesc'}"></i>
+						</div>
+					</a>
+					<a href="javascript:;" class="item-btn" v-if="state.filter" @click="show.filter = true">
+						<span>筛选</span>
+						<i class="icon iconfont icon-filter"></i>
+					</a>
+				</div>
+				<div class="sort-options" v-show="show.sort">
+					<div class="items-wrapper">
+						<p class="item" :class="{active: searchType == item.val}" v-for="item in sortData" @click="choiceSort(item)">{{item.name}}</p>
+					</div>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="height-full">
+						<div class="scrollable">
+							<div class="wrapper">
+								<van-list v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载" :finished="finished"
+								 finished-text="没有更多了" :immediate-check="false" @load="getProduct()">
+									<div class="item" v-for="(item,index) in productList" @click="$url('goods_detail.html?id='+item.productId)">
+										<div class="goods-item-wrapper">
+											<div class="goods-item">
+												<div class="cover">
+													<img v-lazy="item.productImg">
+												</div>
+												<div class="info">
+													<div class="name">{{item.name}}</div>
+													<div class="sku">
+														<!--<span v-for="(sft,index) in item.specificationValues" v-if="index<3"> {{sft.value}} <i v-show="index<2"> </i></span>-->
+														<span v-for="(sft,index) in item.specificationValues"> {{sft.value}} <i v-show="index<2"> </i></span>
+													</div>
+													<div class="price-wrap">
+														<span class="price">￥{{item.price}}</span>
+														<span class="original-price">￥{{item.marketPrice}}</span>
+													</div>
+													<div class="goods-label" v-if="item.promotions.length">
+														<span class="red-txt">{{item.promotions[0].title}}</span>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</van-list>
+
+							</div>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+		<van-popup class="height-full" v-model="show.filter" position="right" :overlay="true">
+			<div class="filter-page height-full">
+				<div class="content-wrapper">
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+								<p class="ui-title">筛选</p>
+								<div class="floor" v-for="item in filterData.attributeInfo">
+									<div class="floor-head">
+										<p class="floor-title">{{item.name}}</span></p>
+									</div>
+									<div class="price-wrapper hide">
+										<input class="price-input" type="tel" placeholder="最低价">
+										<span class="area-hyphen"></span>
+										<input class="price-input" type="tel" placeholder="最低价">
+									</div>
+									<div class="btns-wrapper">
+										<span class="ui-btn" :class="{active: option.active}" v-for="option in item.options" @click="choiceAttr(option,item,true)">{{option.option}}</span>
+									</div>
+								</div>
+								<div class="floor" v-show="filterData.categoryInfo.length">
+									<div class="floor-head">
+										<p class="floor-title">全部分类 <span>（单选）</span></p>
+										<a href="javascript:;" class="more-btn hide">全部</a>
+									</div>
+									<div class="btns-wrapper">
+										<span class="ui-btn" :class="{active: item.active}" v-for="item in filterData.categoryInfo" @click="choiceAttr(item, {name: '分类'})">{{item.name}}</span>
+									</div>
+								</div>
+								<div class="floor" v-show="filterData.brandInfo.length">
+									<div class="floor-head">
+										<p class="floor-title">品牌</p>
+										<a href="javascript:;" class="more-btn hide">全部</a>
+									</div>
+									<div class="btns-wrapper" less>
+										<span class="ui-btn" :class="{active: item.active}" v-for="item in filterData.brandInfo" @click="choiceAttr(item, {name: '品牌'})">{{item.name}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="submit-wrapper fixed-bar">
+						<a href="javascript:;" class="ui-btn reset-btn" @click="resetFilter">重置</a>
+						<a href="javascript:;" class="ui-btn done-btn" @click="filterDone">确定</a>
+					</div>
+				</div>
+			</div>
+		</van-popup>
+		<div class="mask-block filter-overlay show" v-if="show.sort" @click="show.sort = false"></div>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/goods_list/require.config"></script>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的积分</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style>
+	.score-page .card-view::after {
+		width: 0
+	}
+	</style>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>我的积分</span>
+				</div>
+				<div class="tool-right tool-col">
+					<a href="score_describe.html" class="dfu-btn des-link">积分说明</a>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="score-page scrollable">
+						<div class="card-view"><br/>
+							<div class="top">可用积分</div>
+							<div class="total-number">{{score.point}}</div>
+							<!-- <div class="bottom">
+								<div class="wrapper">
+									<span class="text">将要到期积分：</span>
+									<span class="number"></span><br/>
+									<span class="time">截止日期：</span>
+								</div>
+							</div> -->
+						</div>
+						<div class="details">
+							<div class="block-title">
+								<span class="icon"></span>
+								<span class="text">积分明细</span>
+							</div>
+							<div class="list">
+								<div class="item" v-for="item in score.pointLogs">
+									<div class="info">
+										<span class="order-number">{{item.memo}} </span>
+										<span class="time">日期：{{item.time}}</span>
+									</div>
+									<span class="changes" v-show="item.debit>0">-{{item.debit}}</span>
+									<span class="changes add" v-show="item.credit>0">+{{item.credit}}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/score/require.config"></script>
+</body>
+
+</html>

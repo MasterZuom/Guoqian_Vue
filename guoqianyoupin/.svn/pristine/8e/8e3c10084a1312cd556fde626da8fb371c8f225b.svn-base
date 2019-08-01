@@ -1,0 +1,132 @@
+.coupon-page {
+  height: 100%;
+  background: #F4F4F4;
+  .coupons {
+    padding-top: 4.5333vw;
+    width: 92vw;
+    margin: 0 auto;
+    &.unused{
+      .price{
+       background: #24C3BE;
+       &::before{
+          background-image: url("../imgs/coupon/bg_1.jpg");
+        }
+      }
+    }
+    &.used{
+      .coupon-info{
+        .name{
+          color: #999;
+        }
+      }
+      .price{
+        background: #999;
+        &::before{
+          background-image: url("../imgs/coupon/bg_2.jpg");
+        }
+       }
+       .label{
+        .bg(url("../imgs/coupon/used.jpg"));
+      }
+    }
+
+    &.overdue{
+      .coupon-info{
+        .name{
+          color: #999;
+        }
+      }
+      .price{
+        background: #CCCBCB;
+        &::before{
+          background-image: url("../imgs/coupon/bg_3.jpg");
+        }
+       }
+      .label{
+        .bg(url("../imgs/coupon/overdue.jpg"));
+      }
+    }
+
+    .coupon-price-view{
+      position: relative;
+      .flex-box();
+      height: 24.8vw;
+    }
+    .label{
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 13.7333vw;
+      height: 13.7333vw;
+    }
+
+    .coupon-item{
+      padding-bottom: 2.6667vw;
+    }
+    .price{
+      .flex-box();
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      &::before{
+        content: "";
+        position: absolute;
+        display: block;
+        width: 1.4667vw;
+        height: 100%;
+        background-size: contain;
+        background-repeat:  no-repeat;
+        z-index: 1;
+        left: 0;
+        top: 0;
+      }
+      width: 33.8667vw;
+      color: #fff;
+      background: #24C3BE;
+       .value{
+        font-size: 4vw;
+        .number{
+          padding-right: 1.3333vw;
+          font-size: 10.6667vw;
+          font-family: "medium";
+        }
+      }
+      .describe{
+        padding-top: 1.3333vw;
+        font-size: 2.6667vw;
+      }
+    }
+    .coupon-info{
+      flex: 1;
+      padding: 4.2667vw 2.6667vw 0 2.9333vw;
+      background: #fff;
+      border: 0.1333vw solid #EAEAEA;
+      .name{
+        font-size:3.7333vw;
+      }
+      .time{
+        padding: 2.1333vw 0 3.4667vw;
+      }
+      .time,.coupon-number{
+        font-size:2.6667vw;
+        color: #999;
+      }
+      .bottom{
+        .flex-box();
+        align-items: center;
+        justify-content: space-between;
+      }
+      .btn{
+        .flex-box();
+        align-items: center;
+        justify-content: center;
+        width: 19.2vw;
+        height: 5.8667vw;
+        text-align: center;
+        font-size: 3.2vw;
+        border-radius:2.9333vw;
+        border: 1px solid #ccc;
+      }
+    }
+  }
+}

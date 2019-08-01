@@ -1,0 +1,25 @@
+//
+//  GQPlugin.m
+//  gqall
+//
+//  Created by jk on 2019/4/23.
+//
+
+#import "GQPlugin.h"
+#import "AppDelegate.h"
+
+
+@implementation GQPlugin
+
+- (void)checkOpenUrl:(CDVInvokedUrlCommand *)command{
+    NSString * url = ((AppDelegate *)[UIApplication sharedApplication].delegate).inputUrl.copy;
+    if(!url || [url isEqualToString:@""]){
+        return;
+    }
+    CDVPluginResult *commandResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:url];
+    [self.commandDelegate sendPluginResult:commandResult callbackId:command.callbackId];
+    ((AppDelegate *)[UIApplication sharedApplication].delegate).inputUrl = nil;
+}
+
+
+@end

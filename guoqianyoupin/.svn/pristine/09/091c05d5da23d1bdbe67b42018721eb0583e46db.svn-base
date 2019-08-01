@@ -1,0 +1,182 @@
+.no-msg-wrapper {
+  text-align: center;
+  padding-top: 37.3333vw;
+
+  img {
+    width: 21.8667vw;
+    height: 21.8667vw;
+  }
+
+  .tips {
+    padding-top: 3.7333vw;
+    font-size: 4vw;
+    color: #666;
+  }
+}
+
+.notification-page {
+  height: 100%;
+  background: #F4F4F4;
+
+  .list-wrapper {
+    padding: 4vw;
+  }
+
+  .msg-wrapper {
+
+    .item {}
+
+    .toast-item {
+      margin-bottom: 3.4667vw;
+
+      .time {
+        padding-bottom: 3.2vw;
+        display: block;
+        text-align: center;
+        font-size: 3.2vw;
+        color: #666;
+      }
+
+      .content {
+        padding: 5.3333vw 4vw;
+        background: #fff;
+        min-height: 21.3333vw;
+        overflow: hidden;
+        .radius(1.6vw);
+      }
+
+      .title {
+        font-size: 4vw;
+        padding-bottom: 2.1333vw;
+      }
+
+      .intro {
+        color: #666;
+        font-size: 3.4667vw;
+        line-height: 4vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        height: 7.8vw;
+      }
+    }
+  }
+
+  //商品推荐
+  .share-wrapper {
+    .item {
+      margin-bottom: 3.4667vw;
+
+      .time {
+        padding-bottom: 3.2vw;
+        display: block;
+        text-align: center;
+        font-size: 3.2vw;
+        color: #666;
+      }
+
+
+      .content {
+        padding: 5.3333vw 4vw;
+        background: #fff;
+        min-height: 21.3333vw;
+        overflow: hidden;
+        .radius(1.6vw);
+
+        .wrap {
+          .flex-box();
+        }
+      }
+
+      .label {
+        font-size: 4.2667vw;
+        font-weight: bold;
+        padding-bottom: 3.7333vw;
+      }
+
+      .cover {
+        position: relative;
+        flex: 0 0 21.3333vw;
+        height: 21.3333vw;
+        border: @1px solid #EFEFEF;
+
+        img {
+          .max-img();
+        }
+      }
+
+      .info {
+        .flex-box();
+        padding: 2vw 2.4vw;
+        flex-wrap: wrap;
+        width: 100%;
+        background: #F8F8F8;
+
+        .title {
+          font-size: 4vw;
+          line-height: 5.5vw;
+        }
+
+        .intro {
+          font-size: 3.2vw;
+          color: #AEADAD;
+          align-self: flex-end;
+        }
+      }
+    }
+  }
+
+  //促销公告
+  .block-wrapper {
+    .flex-box();
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .item {
+      background: #fff;
+      flex: 0 0 44vw;
+      margin-bottom: 4vw;
+    }
+
+    .cover {
+      width: 100%;
+      height: 29.3333vw;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .content {
+      height: 19.7333vw;
+      padding: 2.9333vw;
+      .flex-box();
+      flex-wrap: wrap;
+
+      .title {
+        width: 100%;
+        font-size: 3.7333vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-height: 4.5vw;
+        height: 8vw;
+      }
+
+      .time {
+        align-self: flex-end;
+        font-size: 2.6667vw;
+        color: #999;
+      }
+    }
+  }
+
+
+
+}

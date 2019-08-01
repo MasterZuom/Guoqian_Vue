@@ -1,0 +1,53 @@
+.comments-page {
+  .item {
+    margin-top: 2.1333vw;
+    padding: 0 3.7333vw 5.0667vw;
+    background-color: #fff;
+    .goods-item {
+      padding: 4vw 0 6.1333vw;
+      &::before {
+        display: none;
+      }
+    }
+    .content {
+      padding: 4vw 0 5.8667vw;
+      font-size: 3.7333vw;
+      line-height: 5.6vw;
+    }
+    .imgs-wrapper {
+      .flex-box();
+      .img-item {
+        margin-right: 0.6667vw;
+        position: relative;
+        width: 30.4vw;
+        height: 30.4vw;
+        img {
+          .max-img();
+        }
+      }
+    }
+  }
+  .grade-wrapper {
+    .flex-box();
+    align-items: center;
+    .time {
+      font-size: 2.9333vw;
+      color: #999;
+    }
+    .stars {
+      flex: 1;
+      .flex-box();
+      .icon {
+        padding: 0;
+        font-size: 4.2667vw !important;
+        margin-left: 1.3333vw;
+      }
+      .icon-star-full {
+        color: @red  !important;
+      }
+      .icon-star-empty {
+        color: #999 !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.goods-favor-page {
+  .goods-item {
+    .handles {
+      .ui-btn {
+        position: absolute;
+        bottom: 6.1333vw;
+        .fc();
+        width: 10.6667vw;
+        height: 6.4vw;
+        background-color: @red;
+        .radius(6vw);
+
+        .icon {
+          font-size: 4vw;
+          color: #fff;
+        }
+      }
+
+      .add-btn {
+        right: 2.6667vw;
+
+      }
+
+      .cancel-btn {
+        right: 15vw;
+      }
+    }
+  }
+}

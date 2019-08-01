@@ -1,0 +1,39 @@
+define(function (require, exports, moduel) {
+	var $ = require('jquery')
+	require('../common/common')
+
+	// alert('turnUrl')
+    resource({
+        type: 'POST',
+        // api: '/login',
+        api: '/weixin/post_wxLogin',
+        params: {
+            mobile: window.localStorage.getItem('jkCardMobile'),
+            socialUserId: getParam('socialUserId') || loginInfo.socialUserId || '',
+            uniqueId: getParam('uniqueId') || loginInfo.uniqueId ||'',
+            verificationCode: '',
+            jkcardToken: window.localStorage.getItem('jkcardtoken')
+        }
+    })
+        .then(function (result) {
+            if (result.code === 200) {
+                result.data.uuid=uuid()
+                var loginInfoParam = result.data;
+                loginInfoParam.socialUserId = getParam('socialUserId') || loginInfo.socialUserId || '';
+                loginInfoParam.uniqueId = getParam('uniqueId') || loginInfo.uniqueId ||'';
+                localStorage.setItem('loginInfo', JSON.stringify(loginInfoParam))
+
+                window.location.href = window.localStorage.getItem('turnUrl');
+                window.localStorage.removeItem('turnUrl');
+                window.localStorage.removeItem('jkCardMobile');
+                window.localStorage.removeItem('jkcardtoken');
+            } else {
+                // app.errMsg = app.error.code
+				alert(result.message)
+            }
+        })
+        .fail(function (result) {
+
+        })
+
+});

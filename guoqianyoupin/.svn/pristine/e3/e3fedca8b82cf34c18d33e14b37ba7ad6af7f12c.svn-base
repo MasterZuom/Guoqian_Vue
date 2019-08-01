@@ -1,0 +1,92 @@
+.score-page {
+  padding-bottom: 9vw;
+
+  .card-view {
+    position: relative;
+    width: 92.5333vw;
+    height: 39.4667vw;
+    margin: 0 auto;
+    color: #8A8A8A;
+    background-color: #F4F4F4;
+    .bg(url("../imgs/score/bg_integration@2x.png") no-repeat);
+
+    .top {
+      padding-top: 9vw;
+      font-size: 3.2vw;
+      text-align: center;
+    }
+
+    .total-number {
+      padding: 2.1vw 0 4vw 0;
+      font-family: "medium";
+      font-size: 13.3333vw;
+      text-align: center;
+      color: #fff;
+    }
+
+    .bottom {
+      .flex-box();
+      font-size: 4vw;
+
+      &>div {
+        .flex-box();
+        flex: 1;
+        justify-content: center;
+      }
+
+      .number {
+        max-width: 38%;
+        color: #fff;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+
+      .time {
+        display: block;
+        padding-top: 1.3333vw;
+        font-size: 2.4vw;
+      }
+    }
+  }
+
+  .details {
+    .block-title {
+      .flex-box();
+      align-items: center;
+      padding: 6.6667vw 0 3.7333vw 4vw;
+      font-size: 4vw;
+
+      .icon {
+        margin-right: 0.8vw;
+        width: 3.8667vw;
+        height: 3.8667vw;
+        .bg(url("../imgs/score/icon_1.png") no-repeat);
+      }
+    }
+
+    .item {
+      .flex-box();
+      align-items: center;
+      justify-content: space-between;
+      height: 15.7333vw;
+      padding: 0 4vw;
+      font-size: 3.7333vw;
+      border: @1px solid #F4F4F4;
+
+      .order-number {
+        display: block;
+        padding-bottom: 2.1333vw;
+      }
+
+      .time {
+        font-size: 2.9333vw;
+        color: #999;
+      }
+
+      .changes.add {
+        color: #C61A1A;
+      }
+    }
+  }
+}

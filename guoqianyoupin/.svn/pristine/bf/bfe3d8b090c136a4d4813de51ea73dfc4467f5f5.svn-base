@@ -1,0 +1,306 @@
+define(function (require, exports, moduel) {
+	var $ = require('jquery')
+	require('../common/common')
+	var api = require('../../api/index')
+	var goodsApi = require('../../api/goods')
+	var notifyApi = require('../../api/notification')
+	var Vue = require('vue')
+	var Vant = require('vant')
+	var nav = require('../../components/nav')
+	var slick = require('slick.min')
+	var Lazyload = Vant.Lazyload
+	
+	Vue.use(nav)
+	Vue.use(Vant)
+	Vue.use(Lazyload)
+
+	var local = window.location.href
+    var useInfo = {
+		token:getParam('token',local),
+		userName:getParam('userName',local),
+		displayName:getParam('displayName',local),
+		issueDate:getParam('issueDate',local),
+        expiration:getParam('expiration',local),
+		socialUserId:getParam('socialUserId',local),
+		uniqueId:getParam('uniqueId',local)
+	}
+
+    if(!loginInfo.token && !useInfo.token){
+        wxLogin('');
+        return
+    }
+
+    if (!loginInfo.token) {
+        window.localStorage.setItem('loginInfo', JSON.stringify(useInfo))
+    }
+
+	var app = new Vue({
+		data: function () {
+			return {
+				hotList: [],
+				searchHistroy: [],
+				categories: [],
+				banners: {},
+				quickNav: {},
+				ads: {},
+				brands: [],
+				recommends: [],
+				topX: {
+					slick: [],
+					list: []
+				},
+				categoryProducts: [],
+				loading: false,
+				keyword: '',
+				adPopups: {
+					date: '',
+					nowDate: '',
+					ad: {},
+					show: false
+				},
+				show: {
+					cateAll: false,
+					searchPage: false
+				},
+				showMsgTip: 0,
+				qrCodeValue: '',
+				appLinkUrl: '暂无',
+                isFixed:false
+			}
+		},
+		created: function () {
+			var adPopupDate = window.localStorage.getItem('adPopupDate')
+			var nowDate = (new Date()).getTime()
+			this.adPopups.date = adPopupDate
+			this.adPopups.nowDate = dateFormat(nowDate)
+
+			this.getCategories()
+			this.getBanners()
+			this.getBrands()
+			this.getRecommend()
+			this.getCategoryProducts()
+			this.getMsg()
+			this.searchHistroy = JSON.parse(window.localStorage.getItem('searchHistroy')) || []
+			this.hotSearch()
+		},
+		watch: {
+			'topX.slick': function () {
+				setTimeout(function () {
+					$('.slider').slick({
+						centerMode: true,
+						slidesToShow: 1,
+						centerPadding: '18vw',
+						arrows: false
+					});
+                    $('.ad-slider').slick({
+                        centerMode: true,
+                        slidesToShow: 1,
+                        centerPadding: '4.39999vw',
+                        arrows: false
+                    });
+				}, 0)
+			},
+		},
+		mounted: function () {
+			//this.$notify('');
+            window.addEventListener('scroll', this.handleScroll())
+		},
+        destroyed:function(){
+            window.removeEventListener('scroll',this.handleScroll())
+        },
+		methods: {
+			$url: $url,
+            handleScroll:function(e){
+				var _self = this
+				var scrollTop = e.srcElement.scrollTop;
+				if(scrollTop>20){
+                    _self.isFixed = true
+				}else {
+                    _self.isFixed = false
+				}
+            },
+			getMsg: function () {
+				//获取未读消息
+				if (!loginInfo.token) {
+					//未登录
+					return
+				}
+				notifyApi.getMessage({
+						page: 1,
+						category: 'share'
+					})
+					.then(function (res) {
+						if (res.code == 200) {
+							if (res.data.messageUnreadCount>0||res.data.promotionMessageUnreadCount>0||res.data.shareUnreadCount>0)
+								app.showMsgTip=1
+						}
+					})
+			},
+			closeAd: function () {
+				$('.box').hide()
+			},
+			hotSearch: function () {
+				//热搜
+				var _self = this
+				return goodsApi.hotSearch()
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.hotList = res.data
+						}
+					})
+					.fail(function () {
+
+					})
+			},
+			removeHistroy: function () {
+				//删除搜索历史
+				this.searchHistroy = []
+				window.localStorage.setItem('searchHistroy', JSON.stringify(this.searchHistroy))
+			},
+			showSearch: function () {
+				this.show.searchPage = true
+				this.$nextTick(function () {
+					this.$refs.searchInput.focus()
+				})
+			},
+			subSearch: function () {
+				if (!this.keyword) {
+					return false
+				}
+				this.$url('goods_list.html?keyword=' + this.keyword)
+			},
+			getCategories: function () {
+				//获取分类
+				var _self = this
+				return api.categories()
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.categories = res.data
+						}
+					})
+					.fail(function () {
+						_self.$notify('网络错误');
+					})
+					.always(function () {
+
+					})
+			},
+			imgLoad: function (url) {
+				//图片加载
+				return iPromise(function (resolve, reject) {
+					var img = new Image()
+					if (img.complete) {
+						resolve()
+						return
+					}
+					img.onload = function () {
+						resolve()
+					}
+					img.src = url
+				})
+			},
+			getBanners: function () {
+				//获取 banner 数据
+				var _self = this
+				return api.adPositions()
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.banners = res.data[0]
+							_self.quickNav = res.data[1]
+							_self.ads = res.data[2]
+							_self.adPopups.ad = res.data[3].ads[0]
+							//广告
+							var nowTime = new Date(_self.adPopups.nowDate.replace(/-/g,'/')).getTime();
+							if (_self.adPopups.ad.beginDate<nowTime &&
+							 _self.adPopups.ad.endDate>nowTime) {
+								if (_self.adPopups.date != _self.adPopups.nowDate) {
+									_self.imgLoad(_self.adPopups.ad.path)
+										.then(function () {
+											_self.adPopups.show = true
+											window.localStorage.setItem('adPopupDate', _self.adPopups.nowDate)
+										})
+								}
+							}
+							else
+								_self.adPopups.show = false
+						}
+					})
+					.fail(function () {
+						_self.$notify('网络错误');
+					})
+					.always(function () {
+
+					})
+			},
+			getBrands: function () {
+				//获取品牌
+				var _self = this
+				return api.brands()
+					.then(function (res) {
+						if (res.code == 200) {
+							res.data.forEach(function (v, i) {
+								if (i < 8) {
+									_self.brands.push(v)
+								}
+							})
+						}
+					})
+					.fail(function () {
+						_self.$notify('网络错误');
+					})
+					.always(function () {
+
+					})
+			},
+			getRecommend: function () {
+				var _self = this
+				return api.recommendations()
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.recommends = res.data
+							if (res.data[1]) {
+								res.data[1].recommendProducts.forEach(function (v, i) {
+									v.index = i + 1
+									if (i < 6) {
+										_self.topX.slick.push(v)
+									} else {
+										_self.topX.list.push(v)
+									}
+								})
+							}
+						}
+					})
+					.fail(function () {
+						_self.$notify('网络错误');
+					})
+					.always(function () {
+
+					})
+			},
+			getCategoryProducts: function () {
+				var _self = this
+				return api.categoryProducts()
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.categoryProducts = res.data
+						}
+					})
+					.fail(function () {
+						_self.$notify('网络错误');
+					})
+					.always(function () {
+
+					})
+			},
+			$linkUrl: function (item) {
+				//快捷导航
+				var url = linkTypeUrl(item.linkType, item.targetId)
+				$url(url)
+			}
+		}
+	}).$mount('#page');
+
+
+	
+
+});

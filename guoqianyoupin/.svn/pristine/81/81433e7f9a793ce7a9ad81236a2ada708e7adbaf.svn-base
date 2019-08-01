@@ -1,0 +1,174 @@
+.order-page.order-detail {
+  .order-detail-top {
+    padding-left: 5.3333vw;
+    height: 24vw;
+    color: #fff;
+    background-repeat: no-repeat;
+    background-color: @red;
+    background-size: 13.3333vw;
+    background-position: 81.8667vw 5.6vw;
+    .flex-box();
+    align-items: center;
+    background-image: url("../imgs/order/icon_waiting@2x.png");
+
+    &.state-done {
+      background-image: url("../imgs/order/icon_done@2x.png");
+    }
+
+    .state-title {
+      font-size: 5.3333vw;
+    }
+  }
+
+  .shipping-wrapper {
+    padding-bottom: 5.3333vw;
+
+    .shipping-item {
+      &>div {
+        width: 100%;
+      }
+
+      padding-left: 3.7333vw;
+      height: 20.2667vw;
+      .flex-box();
+      align-items: center;
+      font-size: 4vw;
+      background: #fff url("../imgs/order/address_bg.png") repeat-x 0 bottom;
+      background-size: auto 1.3333vw;
+    }
+
+    .name {
+      padding-right: 6.4vw;
+    }
+
+    .address-wrapper {
+      .flex-box();
+      align-items: center;
+      padding-top: 3.4667vw;
+      color: #989898;
+
+      .icon {
+        font-size: 4.2667vw;
+      }
+
+      .address {
+        display: block;
+        max-width: 95%;
+        font-size: 3.4667vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+    }
+  }
+
+  .order-block {
+    margin-bottom: 2.1333vw;
+    background-color: #fff;
+    padding: 4.8vw 2.6667vw;
+    font-size: 3.7333vw;
+    line-height: 6.4vw;
+  }
+
+  .shipping-info {
+    position: relative;
+
+    .code-btn {
+      position: absolute;
+      top: 5vw;
+      right: 2.6667vw;
+      text-align: center;
+      font-size: 0;
+      .icon {
+        font-size: 8vw;
+        display: block;
+      }
+      .label {
+        display: block;
+        font-size: 2.4vw;
+      }
+    }
+  }
+
+
+  .godos-detail {
+    margin-bottom: 2.1333vw;
+    background-color: #fff;
+
+    .item-title {
+      position: relative;
+      padding-left: 2.6667vw;
+      .flex-box();
+      align-items: center;
+      height: 10.6667vw;
+      font-size: 4vw;
+      .line-bottom();
+    }
+
+    .msg-wrapper {
+      .flex-box();
+      align-items: center;
+      min-height: 10.6667vw;
+      padding: 2.6667vw;
+      color: #999;
+      font-size: 3.7333vw;
+    }
+  }
+
+  .order-total {
+    margin-bottom: 2.1333vw;
+    padding: 5.3333vw 2.6667vw;
+    background-color: #fff;
+
+    .payments-info {
+      padding-bottom: 3.4667vw;
+      position: relative;
+      font-size: 3.7333vw;
+      line-height: 6.4vw;
+      .line-bottom();
+
+      .label {
+        display: inline-block;
+        width: 19vw;
+      }
+
+      .content {
+        font-family: "medium";
+      }
+    }
+
+    .total {
+      font-size: 4vw;
+      .flex-box();
+      padding-top: 3.7333vw;
+      justify-content: space-between;
+
+      .price {
+        color: @red;
+        font-family: "medium";
+      }
+    }
+  }
+
+  .btns-wrapper {
+    background-color: #fff;
+    padding: 5.3333vw 2.6667vw;
+    font-size: 3.2vw;
+    .flex-box();
+    align-items: center;
+    justify-content: flex-end;
+
+    .order-btn {
+
+      .flex-box();
+      align-items: center;
+      padding: 0 2.6667vw;
+      margin-left: 2.1333vw;
+      height: 6.4vw;
+      color: #fff;
+      background: @red;
+      box-shadow: 0vw 1.0667vw 2.1333vw 0vw rgba(198, 26, 26, 0.2);
+      border-radius: 3.2vw;
+    }
+  }
+}

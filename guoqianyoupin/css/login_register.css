@@ -1,0 +1,359 @@
+/* base style */
+* {
+  margin: 0;
+  padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "medium";
+  src: url('../fonts/medium.ttf') format('truetype');
+}
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: Helvetica, "PingFang-SC-Medium", "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  color: #333;
+  height: 100%;
+}
+[v-cloak] {
+  display: none;
+}
+a {
+  color: #333;
+}
+a,
+img {
+  border: 0;
+  outline: none;
+  text-decoration: none;
+}
+a:focus,
+a:hover {
+  text-decoration: none;
+  color: #333;
+}
+li {
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+br {
+  height: 0;
+  width: 0;
+  line-height: 0;
+}
+div,
+p,
+span,
+a {
+  line-height: 100%;
+}
+.height-full {
+  height: 100%;
+}
+.clear-fix:after,
+.clear-fix:before {
+  display: table;
+  content: " ";
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+}
+/*input {
+	border-style: none;
+	vertical-align: top;
+	text-align: center;
+	background-color: transparent;
+	color: #fff;
+}
+input:focus {
+	outline: none;
+}
+select {
+	border: solid 0 #000;
+	appearance: none;
+	background: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+select:focus {
+	outline: none;
+}*/
+.table-wrap {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.table-wrap .table-label {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.margin-0 {
+  margin: 0 !important;
+}
+.readonly {
+  border: 0;
+  background-color: #ececec;
+}
+.mask-block {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ui-blur {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+/* 
+
+.btn-flat {
+	background-color: @light-blue;
+	border-color: @light-blue;
+	box-shadow: 1px 1px 1px @blue;
+}
+
+.ui-btn(@padding:3px 0;) {
+	border: 0;
+	padding: @padding;
+	background-color: @light-blue;
+	outline: none;
+}
+
+.ui-block-btn(@bg-color:@light-blue, @hover-bg-color:@blue) {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #fff;
+	background-color: @bg-color;
+	outline: none;
+	border: 0;
+
+	&:hover {
+		background-color: @hover-bg-color;
+	}
+}
+
+.ui-block-btn {
+	.ui-block-btn();
+}
+
+.ghost-btn(@color:#fff) {
+	background: none;
+	border: 1px solid #b2b2b2;
+	.transition();
+
+	&:hover {
+		color: @color;
+		border-color: @light-blue;
+		background-color: @light-blue;
+	}
+}
+ */
+.ui-align {
+  text-align: center;
+}
+textarea {
+  resize: none;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.entrance-page {
+  position: relative;
+  width: 89.3333vw;
+  margin: 0 auto;
+  color: #333333;
+}
+.entrance-page .skip-btn {
+  position: absolute;
+  top: 9.3333vw;
+  right: 0;
+  font-size: 3.4667vw;
+}
+.entrance-page .greeting-wrapper {
+  position: relative;
+  padding-top: 22.6667vw;
+}
+.entrance-page .greeting-wrapper .greeting {
+  font-size: 6.6667vw;
+}
+.entrance-page .greeting-wrapper .tips {
+  position: absolute;
+  font-size: 3.2vw;
+  bottom: -6.4vw;
+  left: 0;
+}
+.entrance-page .form-wrapper {
+  padding-top: 17.8667vw;
+}
+.entrance-page .form-wrapper .input-group {
+  position: relative;
+  padding-bottom: 1.8667vw;
+  border-bottom: 0.1333vw solid #313439;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+}
+.entrance-page .form-wrapper .input-group:first-child {
+  margin-bottom: 5.3333vw;
+}
+.entrance-page .form-wrapper .input-group .icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 4.2667vw;
+  justify-content: center;
+}
+.entrance-page .form-wrapper .input-group .icon img {
+  display: block;
+}
+.entrance-page .form-wrapper .input-group .icon .phone-icon {
+  width: 2.9333vw;
+  height: 4.2667vw;
+}
+.entrance-page .form-wrapper .input-group .icon .mail-icon {
+  width: 4.2667vw;
+  height: 3.2vw;
+}
+.entrance-page .form-wrapper input {
+  padding: 0 2.4vw;
+  height: 6.4vw;
+  line-height: 100%;
+  font-size: 4vw;
+  border: 0;
+  outline: none;
+}
+.entrance-page .form-wrapper .phone-input {
+  width: 100%;
+}
+.entrance-page .form-wrapper .code-input {
+  width: 40vw;
+}
+.entrance-page .form-wrapper .msg-btn {
+  position: absolute;
+  right: 0;
+  bottom: 2.4vw;
+  width: 24.5333vw;
+  height: 8.5333vw;
+  font-size: 3.2vw;
+  text-align: center;
+  border: 1px solid #B4B4B4;
+  border-radius: 4.2667vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+}
+.entrance-page .form-wrapper .msg-btn span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+}
+.entrance-page .form-wrapper .msg-btn.sent-done {
+  width: 30.9333vw;
+}
+.entrance-page .form-wrapper .msg-btn.sent-done .timer {
+  color: #CB2139;
+}
+.entrance-page .form-wrapper .submit-wrapper {
+  padding-top: 11.4667vw;
+}
+.entrance-page .form-wrapper .submit-wrapper .submit-btn {
+  display: block;
+  height: 12.8vw;
+  font-size: 4.8vw;
+  color: #fff;
+  text-align: center;
+  line-height: 12.8vw;
+  background-color: #24C3BE;
+  box-shadow: 0 10px 25px rgba(36, 195, 190, 0.35);
+}
+.entrance-page .form-wrapper .agreement-link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  padding-top: 6.1333vw;
+  font-size: 3.4667vw;
+  color: #313439;
+}
+.entrance-page .form-wrapper .agreement-link a {
+  color: #24c3be;
+}
+.entrance-page .form-wrapper .agreement-link input {
+  width: 4.2667vw;
+  height: 4.2667vw;
+}
+.entrance-page .login-more .item-title {
+  padding: 18vw 0 5.8667vw;
+  font-size: 3.4667vw;
+  text-align: center;
+}
+.entrance-page .login-more .wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+}
+.entrance-page .login-more .login-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-direction: column;
+}
+.entrance-page .login-more .login-btn > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+}
+.entrance-page .login-more .wx {
+  width: 6.4vw;
+  height: 5.3333vw;
+}
+.entrance-page .login-more .qq {
+  width: 5.0667vw;
+  height: 5.8667vw;
+}
+.entrance-page .login-more .pay {
+  width: 5.8667vw;
+  height: 5.8667vw;
+}
+.entrance-page .login-more span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  padding-top: 2vw;
+}

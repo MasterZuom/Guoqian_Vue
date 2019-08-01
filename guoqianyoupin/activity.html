@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>拼团</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="activity-page grey-bg" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span v-show="type=='groupBuy'">拼团</span>
+					<span v-show="type=='flashSale'">秒杀</span>
+				</div>
+			</div>
+
+			<!-- topbar end-->
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="scrollable">
+						<!-- @click="$url('goods_detail.html?id='+item.productId+'&type='+item.productType+'&sku='+item.activitySkuId)" -->
+						<!-- <van-list v-model="loading" :offset="10" :finished="finished" finished-text="没有更多了" @load=""></van-list> -->
+						<div class="header">
+							<div class="swipe-wrapper">
+								<van-swipe :show-indicators="false">
+									<van-swipe-item v-for="item in activityAds" @click="$linkUrl(item)">
+										<img v-lazy="item.imageUrl">
+									</van-swipe-item>
+								</van-swipe>
+							</div>
+						</div>
+
+						<div class="activity-item" v-for="item in activityItems">
+							<div class="item-head">
+								<span class="ui-title">{{item.title}}</span>
+								<span class="more" @click="$url('seckill.html?id='+item.activityId+'&type='+item.activityAd.productType)">全部</span>
+							</div>
+							<div class="content">
+								<div class="recommend">
+									<div class="left" @click="$url('goods_detail.html?id='+item.activityAd.productId+'&type='+item.activityAd.productType+'&activitySkuId='+item.activityAd.activitySkuId)">
+										<img v-lazy="item.activityAd.imageUrl">
+									</div>
+									<div class="right">
+										<div class="goods-item" v-for="(goods, index) in item.activityProducts" v-if="index<2" @click="$url('goods_detail.html?id='+goods.productId+'&type='+goods.productType+'&activitySkuId='+goods.activitySkuId)">
+											<div class="cover">
+												<img v-lazy="goods.imageUrl">
+											</div>
+											<div class="info">
+												<div class="name">{{goods.name}}</div>
+												<div class="price">￥{{goods.groupBuyPrice}}</div>
+												<div class="label red-txt" v-show="type=='groupBuy'">{{goods.minOrderCount}}人拼 | 已拼{{goods.saleStock}}件</div>
+												<div class="label grey-txt" v-show="type=='flashSale'">已售{{goods.saleStock}} 剩余{{goods.stock}}</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="list">
+									<div class="goods-item" v-for="(goods, index) in item.activityProducts" v-if="index>=2 && index<6" @click="$url('goods_detail.html?id='+goods.productId+'&type='+goods.productType+'&activitySkuId='+goods.activitySkuId)">
+										<div class="cover">
+											<img v-lazy="goods.imageUrl">
+										</div>
+										<div class="info">
+											<div class="name">{{goods.name}}</div>
+											<div class="price">￥{{goods.groupBuyPrice}}</div>
+											<div class="label red-txt" v-show="type=='groupBuy'">{{goods.minOrderCount}}人拼 | 已拼{{goods.saleStock}}件</div>
+											<div class="label grey-txt" v-show="type=='flashSale'">已售{{goods.saleStock}} 剩余{{goods.stock}}</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/activity/require.config"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<!--一卡通过来的中间跳转页面-->
+<script src="libs/require-2.3.3min.js" data-main="js/turn/require.config"></script>
+</body>
+</html>

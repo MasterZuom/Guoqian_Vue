@@ -1,0 +1,209 @@
+.user-page{
+  background-color: #f1f1f1;
+    height: 100%;
+    .overflow();
+  .user-header{
+    height: 53.3333vw;
+    .bg(url("../imgs/user/bg@3x.png") no-repeat);
+    .header-wrapper{
+      position: relative;
+    }
+  }
+  .user-header{
+    .user-info{
+      .flex-box();
+      align-items: center;
+      padding: 18.9333vw 0 0 5.8667vw;
+    }
+    .avatar{
+      width: 18.1333vw;
+      height: 18.1333vw;
+      border-radius: 100%;
+      border: 0.5333vw;
+      overflow: hidden;
+      img{
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .info{
+      padding-left: 2.6667vw;
+      color: #E0E0E0;
+      .line1{
+        .flex-box();
+        align-items: center;
+        &:first-child{
+          padding-bottom: 3.7333vw;
+        }
+      }
+      .name{
+        font-size:6.4vw;
+        font-weight:bold;
+        padding-right: 3.2vw;
+      }
+      .membership{
+        width: 16.5333vw;
+        height: 5.3333vw;
+        img{
+          display: block;
+          width: 100%;
+          height: auto;
+        }
+      }
+      .phone-icon{
+        .bg(url("../imgs/user/phone@3x.png") no-repeat);
+        width: 2.6667vw;
+        height: 4.2667vw;
+      }
+      .phone-number{
+        font-size:3.7333vw;
+        padding-left: 1.8667vw;
+      }
+    }
+
+    .account_wrap{
+      a{
+        color: #ededee;
+      }
+      .top{
+        position: absolute;
+        top: 10.4vw;
+        right: 2.6667vw;
+        .flex-box();
+        align-items: center;
+        i{
+          font-size: 5.3333vw;
+        }
+        .message{
+          margin-left: 5.3333vw;
+          position: relative;
+        }
+        .icon-msg-tips{
+          display: block;
+          position: absolute;
+          right: -0.3vw;
+          top: -0.3vw;
+          width: 1.8667vw;
+          height: 1.8667vw;
+          background: #c61a1a;
+          border-radius: 100%;
+        }
+      }
+      .bottom{
+        position: absolute;
+        right: 4.5333vw;
+        top: 38.6667vw;
+        i{
+          font-size: 3.4667vw;
+        }
+        span{
+          padding-left: 0.8vw;
+          font-size:3.2vw;
+        }
+      }
+    }
+  }
+
+  // coupons-wrapper
+  .main-wrapper{
+    width: 94.6667vw;
+    margin: 0 auto;
+  }
+  .coupons-wrapper{
+    .flex-box();
+    height: 21.3333vw;
+    margin-top: -6.4vw;
+    margin-bottom: 3.3333vw;
+    padding-top: 4vw;
+    background: #fff;
+    border-radius: 1.6vw;
+    box-shadow:0vw 0.8vw 2.1333vw 0vw rgba(8,3,4,0.06);
+    .item-icon{
+      width: 5.8667vw;
+      height: 5.8667vw;
+    }
+   
+    .item{
+      .flex-box();
+      flex: 1;
+      flex-direction: column;
+     }
+     .icon-wrapper, .item-label, .item-number{
+      .flex-box();
+      justify-content: center;
+     }
+    .item-number{
+      align-items: center;
+      padding: 1.3333vw 0 0.6667vw 0;
+      font-size:3.2vw;
+      span{
+       font-size:4.8vw;
+      }
+    }
+    .item-label{
+      font-size: 2.6667vw
+    }
+  }
+
+  // banner
+  .banner{
+    img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  // tools-wrapper
+  .tools-wrapper{
+    .flex-box();
+    flex-wrap: wrap;
+    margin-top: 3.3333vw;
+    height:69.3333vw;
+    font-size: 3.7333vw;
+    background:rgba(255,255,255,1);
+    box-shadow:0vw 0.8vw 2.1333vw 0vw rgba(8,3,4,0.06);
+    border-radius:1.6vw;
+    .item{
+      width: 31.5vw;
+    }
+    .icon-wrapper{
+      .flex-box();
+      justify-content: center;
+      height: 9vw;
+      margin-top: 5vw;
+    }
+    .item-icon{
+      width: 6.2vw;
+      height: 6.2vw;
+    }
+    .item-label{
+      .flex-box();
+      justify-content: center
+    }
+  }
+
+  //contact-us
+  .contact-us{
+    .flex-box();
+    align-items: center;
+    justify-content: center;
+    margin: 2.6667vw 0;
+    height: 13.8667vw;
+    font-size: 3.7333vw;
+    background:rgba(255,255,255,1);
+    box-shadow:0vw 0.8vw 2.1333vw 0vw rgba(8,3,4,0.06);
+    border-radius:1.6vw;
+    .item-icon{
+      width: 5.3333vw;
+      height: 5.3333vw;
+      margin-right: 1.3333vw;
+      .bg(url("../imgs/user/icon_contact@3x.png") no-repeat);
+    }
+  }
+
+
+
+}

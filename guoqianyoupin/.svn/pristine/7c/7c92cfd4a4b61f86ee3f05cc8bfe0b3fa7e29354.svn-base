@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>关于我们</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style>
+		.article {
+			padding: 0 4vw;
+			font-size: 3.7333vw;
+			line-height: 5.6vw;
+		}
+
+		.top-toolbar {
+			border-bottom: 1px solid #EAEAEA;
+		}
+
+		b {
+			font-weight: 600;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="page">
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>关于我们</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container scrollable">
+					<!-- container -->
+					<article class="article">
+						<br>
+						<p><b>国乾优品网上商城</b>隶属于上海国乾科技有限公司，作为国乾科技“新零售”服务体系的重要环节，打造以智能生活为核心的网上一站式购物平台。<br/>商品品类涵盖手机数码、电脑网络设备、智能家居、个人健康、品质旅游。甄选品质好物，超高性价比，同比其他平台具有绝对的价格优势。<br/>
+							国乾优品精心挑选“黑科技”创意产品，紧跟科技前沿，广受消费者青睐。<br/>
+							国乾优品目前合作的热门品牌包括苹果、华为、戴森、Bose、B&O、JBL、联想、极米、象印等，正规供货渠道，正品货源，品质保证。<br/>
+							国乾优品线上线下同步销售，多维度消费场景、将以消费者为中心的会员、支付、库存、服务等数据全面打通，为用户提供良好的购物体验，顺应市场由价格消费时代向价值消费时代的全面转型。<br/>
+							<br/><br/>
+							国乾优品，汇聚全球3C爆品，开启轻奢智能生活。
+							<br/><br/>
+							<b>上海国乾科技有限公司</b>（简称国乾科技）作为国乾集团的子公司，与天宝集团相对控股，以消费金融及真实贸易场景下的供应链服务为两大战略方向，助力实体企业提供全方位服务的第三方平台。布局高科技互联网生态链产业，以大数据云服务来进行赋能，打造以产业、数据、新零售、新金融、互联网+以及物联网为依托的，形成“5新+2H”的欢乐、健康、智能、互联的服务体系。<br/>
+							从内容和服务层、能力层、技术层这三方面，为公司新战略的达成保驾护航。<br/><br/>
+							<b>上海国乾投资管理有限公司</b>（简称：国乾集团）成立于2015年，注册资本金10亿元人民币，总部建立在中国金融中心——上海。<br/>
+							国乾集团专注价值创造和增值，成为上市公司战略股东，对上市公司进行产业赋能。<br/>
+							选取值得关注的成长股，锁定现金流充盈的优质项目，凭借<b>“大集团+优资产+大重组+大协同”</b>四位一体的战略方针，构建起以<b>“市场体系+投行体系+投资体系”</b>为引擎驱动的业务发展模式，在大并购时代下，实现资本市场与优质资产的大对话。<br/><br/><br/><br/>
+							</p>
+						<br>
+
+					</article>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

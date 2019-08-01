@@ -1,0 +1,66 @@
+//商品通用
+.goods-item-wrapper {
+  .goods-item {
+    position: relative;
+    padding: 4.8vw 2.6667vw 0;
+    .flex-box();
+    .line-top();
+    height: 39.4667vw;
+    background: #fff;
+    &.out {
+      background: #F4F4F4;
+    }
+    .cover {
+      overflow: hidden;
+      position: relative;
+      width: 26.6667vw;
+      height: 26.6667vw;
+      border: @1px solid #EAEAEA;
+      img {
+        .max-img();
+      }
+      .out-cover {
+        position: absolute;
+        .fc();
+        width: 16vw;
+        height: 16vw;
+        font-size: 4vw;
+        color: #fff;
+        background: rgba(0, 0, 0, .3);
+        border-radius: 100%;
+        left: 50%;
+        top: 50%;
+        margin: -8vw 0 0 -8vw;
+        z-index: 9;
+      }
+    }
+    .info {
+      flex: 1 1 0;
+      padding-left: 2.9333vw;
+      width: 70%;
+      .name {
+        font-size: 4vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+      .sku {
+        display: block;
+        padding: 1.6vw 0 4vw;
+        font-size: 3.2vw;
+        color: #999;
+      }
+      .price {
+        .inB();
+        font-size: 4.8vw;
+        color: #C50303;
+      }
+      .original-price {
+        font-size: 3.2vw;
+        color: #999;
+        .inB();
+        text-decoration: line-through;
+      }
+    }
+  }
+}

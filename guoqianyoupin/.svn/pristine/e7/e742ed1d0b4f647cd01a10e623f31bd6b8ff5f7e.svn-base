@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>点评晒单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>点评晒单</span>
+				</div>
+				<div class="tool-right tool-col">
+					<a href="javascript:;" class="dfu-btn commit" @click="commit">发布</a>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page comment-page height-full">
+						<div class="scrollable">
+
+							<div class="order-item" v-show="goods.name">
+								<div class="order-content">
+									<div class="goods-item">
+										<div class="cover">
+											<img :src="goods.productImg">
+										</div>
+										<div class="info">
+											<div class="name">{{goods.name}}</div>
+											<div class="sku">数量：{{goods.quantity}}
+												<span v-for="sku in goods.specifications">{{sku}}</span>
+											</div>
+											<span class="price">￥{{goods.amountPaid}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="comment-wrapper">
+								<div class="grade-wrapper">
+									<span class="label">评分</span>
+									<div class="stars">
+										<van-rate v-model="score" icon="e icon iconfont icon-star-full" void-icon="e icon iconfont icon-star-empty"></van-rate>
+									</div>
+								</div>
+								<div class="input-comment">
+									<textarea placeholder="分享你的产品和服务体验…" v-model="content"></textarea>
+									<span class="text-length">{{content.length}}/100</span>
+								</div>
+								<div class="upload-wrapper">
+									<div class="imgs-wrapper">
+										<div class="upload-btn" v-if="uploadBtnSta">
+											<van-uploader :after-read="uploader" accept="image/*">
+												<img src="imgs/order/icon_photo@2x.png">
+												<span class="tips">上传凭证<br>最多3张</span>
+											</van-uploader>
+										</div>
+										<div class="img-item" v-for="(url, index) in imgs">
+											<img :src="url">
+											<span class="remove" @click="removeImg(index)">
+												<i class="icon iconfont icon-remove"></i>
+											</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+		</div>
+
+		<van-popup class="page-loading" v-model="show.pageLoading" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.pageLoading" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/post_comment/require.config"></script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+//商品详情
+@import 'color';
+@import 'bs';
+
+.series-list {
+	padding: 0 10px;
+	font-size: 0;
+	min-height: 100%;
+	overflow: hidden;
+
+	.item {
+		display: block;
+		margin-bottom: 0.2666666667rem;
+		padding: 15px;
+		width: 90%;
+		font-size: 0.32rem;
+		border: 1px solid #ddd;
+		background-color: #fff;
+		margin: 15px auto;
+		.radius(8px);
+		padding: 25px;
+		-webkit-box-shadow: 0 0 30px #c1c1c1;
+		box-shadow: 0 0 40px #c1c1c1;
+		border-radius: 10px;
+		-moz-border-radius: 10px;
+		-webkit-border-radius: 10px;
+
+		.img-wrap {
+			position: relative;
+			width: 100%;
+			padding-top: 100%;
+			background: url("../imgs/loading_1.gif") no-repeat center;
+		}
+
+		.info-wrapper {
+			padding: 20px;
+		}
+
+		.price {
+			color: @dft;
+		}
+
+		.handle {
+			margin: 10px 0;
+
+			a {
+				display: block;
+				text-align: center;
+				color: @dft;
+			}
+
+			i {
+				transform: scaleX(-1);
+			}
+		}
+	}
+}

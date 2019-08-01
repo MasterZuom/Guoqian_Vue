@@ -1,0 +1,498 @@
+/* base style */
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "medium";
+  src: url('../fonts/medium.ttf') format('truetype');
+}
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  font-family: Helvetica, "PingFang-SC-Medium", "Helvetica Neue", "微软雅黑", Tahoma, Arial, sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  color: #333;
+  height: 100%;
+}
+[v-cloak] {
+  display: none;
+}
+a {
+  color: #333;
+}
+a,
+img {
+  border: 0;
+  outline: none;
+  text-decoration: none;
+}
+a:focus,
+a:hover {
+  text-decoration: none;
+  color: #333;
+}
+li {
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+br {
+  height: 0;
+  width: 0;
+  line-height: 0;
+}
+div,
+p,
+span,
+a {
+  line-height: 100%;
+}
+.height-full {
+  height: 100%;
+}
+.clear-fix:after,
+.clear-fix:before {
+  display: table;
+  content: " ";
+  clear: both;
+  visibility: hidden;
+  overflow: hidden;
+}
+/*input {
+	border-style: none;
+	vertical-align: top;
+	text-align: center;
+	background-color: transparent;
+	color: #fff;
+}
+input:focus {
+	outline: none;
+}
+select {
+	border: solid 0 #000;
+	appearance: none;
+	background: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+}
+select:focus {
+	outline: none;
+}*/
+.table-wrap {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.table-wrap .table-label {
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.margin-0 {
+  margin: 0 !important;
+}
+.readonly {
+  border: 0;
+  background-color: #ececec;
+}
+.mask-block {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.ui-blur {
+  -webkit-filter: blur(5px);
+  filter: blur(5px);
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+/* 
+
+.btn-flat {
+	background-color: @light-blue;
+	border-color: @light-blue;
+	box-shadow: 1px 1px 1px @blue;
+}
+
+.ui-btn(@padding:3px 0;) {
+	border: 0;
+	padding: @padding;
+	background-color: @light-blue;
+	outline: none;
+}
+
+.ui-block-btn(@bg-color:@light-blue, @hover-bg-color:@blue) {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding: 10px 0;
+	color: #fff;
+	font-size: 0.8rem;
+	text-align: center;
+	color: #fff;
+	background-color: @bg-color;
+	outline: none;
+	border: 0;
+
+	&:hover {
+		background-color: @hover-bg-color;
+	}
+}
+
+.ui-block-btn {
+	.ui-block-btn();
+}
+
+.ghost-btn(@color:#fff) {
+	background: none;
+	border: 1px solid #b2b2b2;
+	.transition();
+
+	&:hover {
+		color: @color;
+		border-color: @light-blue;
+		background-color: @light-blue;
+	}
+}
+ */
+.ui-align {
+  text-align: center;
+}
+textarea {
+  resize: none;
+}
+.float-right {
+  float: right;
+}
+.float-left {
+  float: left;
+}
+.user-page {
+  background-color: #f1f1f1;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.user-page .user-header {
+  height: 53.3333vw;
+  background: url("../imgs/user/bg@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .user-header .header-wrapper {
+  position: relative;
+}
+.user-page .user-header .user-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 18.9333vw 0 0 5.8667vw;
+}
+.user-page .user-header .avatar {
+  width: 18.1333vw;
+  height: 18.1333vw;
+  border-radius: 100%;
+  border: 0.5333vw;
+  overflow: hidden;
+}
+.user-page .user-header .avatar img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.user-page .user-header .info {
+  padding-left: 2.6667vw;
+  color: #E0E0E0;
+}
+.user-page .user-header .info .line1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.user-page .user-header .info .line1:first-child {
+  padding-bottom: 3.7333vw;
+}
+.user-page .user-header .info .name {
+  font-size: 6.4vw;
+  font-weight: bold;
+  padding-right: 3.2vw;
+}
+.user-page .user-header .info .membership {
+  width: 16.5333vw;
+  height: 5.3333vw;
+}
+.user-page .user-header .info .membership img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.user-page .user-header .info .phone-icon {
+  background: url("../imgs/user/phone@3x.png") no-repeat;
+  background-size: 100%;
+  width: 2.6667vw;
+  height: 4.2667vw;
+}
+.user-page .user-header .info .phone-number {
+  font-size: 3.7333vw;
+  padding-left: 1.8667vw;
+}
+.user-page .user-header .account_wrap a {
+  color: #ededee;
+}
+.user-page .user-header .account_wrap .top {
+  position: absolute;
+  top: 10.4vw;
+  right: 2.6667vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.user-page .user-header .account_wrap .top i {
+  font-size: 5.3333vw;
+}
+.user-page .user-header .account_wrap .top .message {
+  margin-left: 5.3333vw;
+  position: relative;
+}
+.user-page .user-header .account_wrap .top .icon-msg-tips {
+  display: block;
+  position: absolute;
+  right: -0.3vw;
+  top: -0.3vw;
+  width: 1.8667vw;
+  height: 1.8667vw;
+  background: #c61a1a;
+  border-radius: 100%;
+}
+.user-page .user-header .account_wrap .bottom {
+  position: absolute;
+  right: 4.5333vw;
+  top: 38.6667vw;
+}
+.user-page .user-header .account_wrap .bottom i {
+  font-size: 3.4667vw;
+}
+.user-page .user-header .account_wrap .bottom span {
+  padding-left: 0.8vw;
+  font-size: 3.2vw;
+}
+.user-page .main-wrapper {
+  width: 94.6667vw;
+  margin: 0 auto;
+}
+.user-page .coupons-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 21.3333vw;
+  margin-top: -6.4vw;
+  margin-bottom: 3.3333vw;
+  padding-top: 4vw;
+  background: #fff;
+  border-radius: 1.6vw;
+  -webkit-box-shadow: 0vw 0.8vw 2.1333vw 0vw rgba(8, 3, 4, 0.06);
+          box-shadow: 0vw 0.8vw 2.1333vw 0vw rgba(8, 3, 4, 0.06);
+}
+.user-page .coupons-wrapper .points .item-icon {
+  width: 5.8667vw;
+  height: 5.6vw;
+  background: url("../imgs/user/icon_integral@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .coupons-wrapper .coupons .item-icon {
+  width: 6.4vw;
+  height: 5.8667vw;
+  background: url("../imgs/user/icon_coupon@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .coupons-wrapper .gift-card .item-icon {
+  width: 5.6vw;
+  height: 5.3333vw;
+  background: url("../imgs/user/icon_gift@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .coupons-wrapper .money .item-icon {
+  width: 5.6vw;
+  height: 5.6vw;
+  background: url("../imgs/user/icon_rebate@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .coupons-wrapper .item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.user-page .coupons-wrapper .icon-wrapper,
+.user-page .coupons-wrapper .item-label,
+.user-page .coupons-wrapper .item-number {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.user-page .coupons-wrapper .item-number {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1.3333vw 0 0.6667vw 0;
+  font-size: 3.2vw;
+}
+.user-page .coupons-wrapper .item-number span {
+  font-size: 4.8vw;
+}
+.user-page .coupons-wrapper .item-label {
+  font-size: 2.6667vw;
+}
+.user-page .banner img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.user-page .tools-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-top: 3.3333vw;
+  height: 69.3333vw;
+  font-size: 3.7333vw;
+  background: #ffffff;
+  -webkit-box-shadow: 0vw 0.8vw 2.1333vw 0vw rgba(8, 3, 4, 0.06);
+          box-shadow: 0vw 0.8vw 2.1333vw 0vw rgba(8, 3, 4, 0.06);
+  border-radius: 1.6vw;
+}
+.user-page .tools-wrapper .item {
+  width: 31.5vw;
+}
+.user-page .tools-wrapper .icon-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 5vw 0 3.3333vw 0;
+}
+.user-page .tools-wrapper .item-icon.icon-1 {
+  width: 6.4vw;
+  height: 6.4vw;
+  background: url("../imgs/user/icon_shouhou@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-2 {
+  width: 6.9333vw;
+  height: 4.8vw;
+  background: url("../imgs/user/icon_fapiao@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-3 {
+  width: 6.9333vw;
+  height: 6.1333vw;
+  background: url("../imgs/user/icon_tongzhi@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-4 {
+  width: 6.4vw;
+  height: 5.0667vw;
+  background: url("../imgs/user/icon_shoucang@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-5 {
+  width: 6.6667vw;
+  height: 5.8667vw;
+  background: url("../imgs/user/icon_pingjia@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-6 {
+  width: 5.3333vw;
+  height: 6.4vw;
+  background: url("../imgs/user/icon_dizhi@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-7 {
+  width: 6.1333vw;
+  height: 5.8667vw;
+  background: url("../imgs/user/icon_tuiguang@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-8 {
+  width: 6.9333vw;
+  height: 6.1333vw;
+  background: url("../imgs/user/icon_zixun@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-icon.icon-9 {
+  width: 6.6667vw;
+  height: 6.4vw;
+  background: url("../imgs/user/icon_wenti@3x.png") no-repeat;
+  background-size: 100%;
+}
+.user-page .tools-wrapper .item-label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.user-page .contact-us {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: 2.6667vw 0;
+  height: 13.8667vw;
+  font-size: 3.7333vw;
+  background: #ffffff;
+  -webkit-box-shadow: 0vw 0.8vw 2.1333vw 0vw rgba(8, 3, 4, 0.06);
+          box-shadow: 0vw 0.8vw 2.1333vw 0vw rgba(8, 3, 4, 0.06);
+  border-radius: 1.6vw;
+}
+.user-page .contact-us .item-icon {
+  width: 5.3333vw;
+  height: 5.3333vw;
+  margin-right: 1.3333vw;
+  background: url("../imgs/user/icon_contact@3x.png") no-repeat;
+  background-size: 100%;
+}

@@ -1,0 +1,173 @@
+.entrance-page{
+	position: relative;
+	width: 89.3333vw;
+	margin: 0 auto;
+	color: #333333;
+	.skip-btn{
+		position: absolute;
+		top: 9.3333vw;
+		right: 0;
+		font-size: 3.4667vw;
+		z-index: 9;
+	}
+	.greeting-wrapper{
+		position: relative;
+		padding-top: 22.6667vw;
+		.greeting{
+			font-size: 6.6667vw;
+		}
+		.tips{
+			position: absolute;
+			font-size: 3.2vw;
+			bottom: -6.4vw;
+			left: 0;
+		}
+	}
+
+	.form-wrapper{
+		padding-top: 17.8667vw;
+		.input-wrapper{
+			position: relative;
+			.error-tips{
+				position: absolute;
+				left: 0;
+				bottom: -5vw;
+				font-size: 3.2vw;
+				color: #CB2139;
+			}
+		}
+		.input-group{
+			position: relative;
+			padding-bottom: 1.8667vw;
+			border-bottom: 0.1333vw solid #313439;
+			.flex-box();
+			align-items: center;
+			&:first-child{
+				margin-bottom: 5.3333vw;
+			}
+			.icon{
+					.flex-box();
+					width: 4.2667vw;
+					justify-content:center;
+				img{
+					display: block;
+				}
+				.phone-icon{
+					width: 2.9333vw;
+					height: 4.2667vw;
+				}
+				.mail-icon{
+					width: 4.2667vw;
+					height: 3.2vw;
+				}
+			}
+		}
+		input{
+			padding: 0 2.4vw;
+			height: 6.4vw;
+			line-height: 100%;
+			font-size: 4vw;
+			border: 0;
+			outline: none;
+		}
+		.phone-input{
+			width: 100%;
+		}
+		.code-input{
+			width: 40vw;
+		}
+		.msg-btn{
+			position: absolute;
+			right: 0;
+			bottom: 2.4vw;
+			width: 24.5333vw;
+			height:8.5333vw;
+			font-size: 3.2vw;
+			text-align: center;
+			border: 1px solid #B4B4B4;
+			border-radius:4.2667vw;
+			.flex-box();
+			justify-content:center;
+			span{
+				.flex-box();
+				align-items: center;
+			}
+			&.sent-done{
+				width: 30.9333vw;
+				.timer{
+					color: #CB2139;
+				}
+			}
+		}
+
+		.submit-wrapper{
+			padding-top: 11.4667vw;
+			.submit-btn{
+				display: block;
+				height: 12.8vw;
+				font-size: 4.8vw;
+				color: #fff;
+				text-align: center;
+				line-height: 12.8vw;
+				background-color: #24C3BE;
+				box-shadow: 0 10px 25px rgba(36, 195, 190, .35);
+			}
+		}
+
+		.agreement-link{
+			.flex-box();
+			align-items: center;
+			padding-top: 6.1333vw;
+			font-size: 3.4667vw;
+			color: #313439;
+			a{
+				color: #24c3be;
+			}
+			input{
+					width: 4.2667vw;
+					height: 4.2667vw;
+			}
+		}
+	}
+
+	.login-more{
+		.item-title{
+			padding: 18vw 0 5.8667vw;
+			font-size: 3.4667vw;
+			text-align: center;
+		}
+		.wrapper{
+			.flex-box();
+			justify-content:center;
+		}
+		.login-btn{
+			.flex-box();
+			flex: 1;
+			justify-content:center;
+			flex-direction: column;
+		}
+		.login-btn>div{
+			.flex-box();
+			justify-content:center;
+		}
+		.wx{
+			width: 6.4vw;
+			height: 5.3333vw;
+		}
+		.qq{
+			width: 5.0667vw;
+			height: 5.8667vw;
+		}
+		.pay{
+			width: 5.8667vw;
+			height: 5.8667vw;
+		}
+		span{
+			.flex-box();
+			justify-content:center;
+			padding-top: 2vw;
+		}
+	}
+
+
+}

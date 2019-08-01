@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我要提问</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>我要提问</span>
+				</div>
+				<div class="tool-right tool-col">
+					<a href="javascript:;" class="dfu-btn commit" @click="commit">发布</a>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page consultation-page height-full">
+						<div class="scrollable">
+
+							<div class="order-item">
+								<div class="order-content">
+									<div class="goods-item">
+										<div class="cover">
+											<img :src="goodsData.defaultImgae">
+										</div>
+										<div class="info">
+											<div class="name">{{goodsData.name}}</div>
+											<span class="sku red-txt">{{goodsData.caption}}</span>
+											<span class="price">￥{{goodsData.price}}</span>
+										</div>
+										<div class="add-btn" @click="addCart"><i class="icon iconfont icon-cart"></i></div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<textarea class="input-control" v-model="content" placeholder="请输入您的问题，卖家会在收到信息的第一时间为您解答哦"></textarea>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/consultation/require.config"></script>
+</body>
+
+</html>

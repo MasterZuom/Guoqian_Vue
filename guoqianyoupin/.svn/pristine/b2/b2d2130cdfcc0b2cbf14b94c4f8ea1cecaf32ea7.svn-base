@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>购物车</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col" v-if="show.canBack"><a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a></div>
+				<div class="page-title tool-col">
+					<span>购物车</span>
+				</div>
+				<div class="tool-right tool-col">
+					<div class="cart-edit-btns">
+						<span class="edit-btn" v-show="show.editBtn" @click="showEditBar">编辑</span>
+						<span class="edit-done" v-show="!show.editBtn" @click="editDone">完成</span>
+					</div>
+					<div class="notice-btn">
+						<a href="notification_center.html" class="ui-message">
+							<i class="icon iconfont icon-xiaoxi"></i>
+							<span class="icon-msg-tips" v-if="showMsgTip"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page shopping-cart content-wrapper">
+						<div class="views">
+							<div class="scrollable">
+								<div class="cart-list">
+									<van-list v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载" :finished="finished"
+									 finished-text="" :immediate-check="false" @load="getCartList">
+										<div class="order-item">
+											<div class="order-content">
+												<div class="goods-item" v-for="item in cartList">
+													<div class="check-wrapper">
+														<i class="icon iconfont" :class="[item.active ? 'icon-checked' : 'icon-check']" @click="selectItem(item)"></i>
+													</div>
+													<div class="cover" @click="$url('goods_detail.html?id='+item.productId+'&inviter='+item.inviter)">
+														<img v-lazy="item.skuThumbnail">
+													</div>
+													<div class="info" @click="$url('goods_detail.html?id='+item.productId+'&inviter='+item.inviter)">
+														<div class="name">{{item.skuName}}</div>
+														<div class="sku">
+															<span>数量：{{item.skuQuantity}}</span>
+															<span v-for="sft in item.specificationValues">{{sft.value}}</span>
+														</div>
+														<span class="price">￥{{item.skuPrice}}</span>
+													</div>
+													<div class="num-handle">
+														<div class="num-bar">
+															<div class="num-btn minus" @click="minus(item)">
+																<i class="icon iconfont icon-minus"></i>
+															</div>
+															<div class="input-wrapper">
+																<input type="tel" class="num" v-model.lazy.number="item.skuQuantity" @focus="inputFocus(item)" @change="changeNum(item)">
+															</div>
+															<div class="num-btn plus" @click="plus(item)">
+																<i class="icon iconfont icon-plus"></i>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</van-list>
+								</div>
+
+								<div class="no-msg-wrapper" style="padding: 10vw 0" v-show="!loading && !cartList.length">
+									<img src="imgs/order/icon_shopping@2x.png" alt="">
+									<p class="tips">购物车暂没商品哦~</p>
+								</div>
+
+								<div class="recommend-wrapper" v-show="recommends.length">
+									<span class="item-title">爆品推荐</span>
+									<div class="col-2">
+										<div class="product-item" @click="$url('goods_detail.html?id='+item.productId)" v-for="item in recommends.slice(0, 2)">
+											<div class="img-wrapper">
+												<img v-lazy="item.productImage">
+											</div>
+											<div class="info">
+												<span class="name">{{item.productName}}</span>
+												<div class="price-info">
+													<span class="original-price grey-txt">¥{{item.proMarketPrice}}</span>
+													<span class="price red-txt">¥{{item.productPrice}}</span>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="fixed-bar cart-toolbar">
+
+							<div class="promotions" v-show="price.promotions.length">
+								<p class="red-txt" v-for="item in price.promotions">
+									<span>{{item.type}}：</span>
+									<span>{{item.title}}</span>
+									<span>{{item.name}}</span>
+									<span>-￥{{item.discountAmount}}</span>
+								</p>
+								<p class="red-txt">促销金额： -￥{{price.promotionDiscount}}</p>
+							</div>
+							<div class="handle-bar">
+								<div class="check-wrapper" @click="selectAll">
+									<i class="icon iconfont" :class="[checkedAll ? 'icon-checked' : 'icon-check']"></i>
+									<span>全选</span>
+								</div>
+								<div class="right" v-show="show.editBtn">
+									<div class="total">
+										<span class="number">共{{totalNum}}件</span>
+										<span class="price">￥{{subtotal}}</span>
+									</div>
+									<span class="buy-btn" @click="checkBill">去结算</span>
+								</div>
+								<div class="edit-btns" v-show="!show.editBtn">
+									<span class="ui-btn add-favor" @click="addFavorite">加入收藏</span>
+									<span class="ui-btn remove" @click="showRemoveConfirm">删除</span>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<!-- 删除 confirm -->
+			<div class="imodal remove-confirm" v-show="show.confirm">
+				<div class="modal-dialog">
+					<div class="modal-body">
+						<div class="confirm-wrapper">
+							<div class="content">
+								<p class="msg">确定要删除这<span class="num">{{removeLength}}</span>件商品吗？</p>
+							</div>
+							<div class="handles">
+								<span class="cancel-btn ui-btn" @click="show.confirm=0">取消</span>
+								<span class="confirm-btn ui-btn" @click="removeItems">确定</span>
+							</div>
+						</div>
+					</div>
+					<div class="mask-block show"></div>
+				</div>
+			</div>
+
+			<!-- 底部导航 -->
+			<navigation :cart-num="cartNum"></navigation>
+			<!-- 底部导航 end -->
+		</div>
+
+		<van-popup class="page-loading" v-model="show.loading" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.loading" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/cart/require.config"></script>
+</body>
+
+</html>

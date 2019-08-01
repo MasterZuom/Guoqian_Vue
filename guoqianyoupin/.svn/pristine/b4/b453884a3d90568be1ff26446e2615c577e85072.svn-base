@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>限时秒杀</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	 <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *"> -->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="goods-list-page grey-bg" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span v-if="type=='groupBuy'">团购</span>
+					<span v-if="type=='flashSale'">限时秒杀</span>
+				</div>
+			</div>
+
+			<div class="seckill-theme" v-show="goodsList.length && type=='flashSale'">
+				<div class="theme">
+					<span class="icon">
+						<img src="imgs/icons/lightning@2x.png">
+					</span>
+					<span class="title">{{activity.title}}</span>
+				</div>
+				<count-down class="time-wrapper" v-if="activity.currentDate" v-on:ms-time="getMsTime" v-on:start_callback="countDownS_cb(1)"
+				 v-on:end_callback="countDownE_cb(2)" :current-time="activity.currentDate" :start-time="activity.startDate"
+				 :end-time="activity.endDate" :tip-text="'距离开始文字1'" :tip-text-end="'距结束'" :end-text="'活动结束'" :hour-txt="'小时'"
+				 :minutes-txt="'分钟'" :seconds-txt="'秒'">
+					<span class="label">距结束</span>
+					<div class="countdown">
+						<span v-show="msTime.day" style="background: #FFF;color: #000;width: 10vw;">{{msTime.day}}天</span>
+						<span>{{msTime.hour}}</span>
+						<span>{{msTime.minutes}}</span>
+						<span>{{msTime.seconds}}</span>
+					</div>
+				</count-down>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="height-full">
+						<div class="scrollable">
+							<van-list v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载" :finished="finished" @load="getList">
+								<div class="list">
+									<div class="item" v-for="item in goodsList">
+										<div class="goods-item-wrapper">
+											<div class="goods-item">
+												<div class="cover">
+													<img v-lazy="item.image">
+												</div>
+												<div class="info">
+													<div class="name">{{item.name}}</div>
+													<span class="sku">
+														<span v-for="sft in item.specificationValues">{{sft.value}}</span>
+													</span>
+													<div class="price-wrap">
+														<span class="price">￥{{item.price}}</span>
+														<span class="original-price">￥{{item.marketPrice}}</span>
+													</div>
+													<div class="goods-label">
+														<div class="label red-txt" v-show="type=='groupBuy'">{{item.minOrderCount}}人拼 | 已拼{{item.saledStock}}件</div>
+														<div class="label grey-txt" v-show="type=='flashSale'"><span class="red-txt">已售{{item.saledStock}}</span> 剩余{{item.stock}}</div>
+													</div>
+												</div>
+												<div class="handles">
+													<span class="ui-btn" @click="$url('goods_detail.html?id='+item.productId+'&type='+item.productType+'&activitySkuId='+item.activitySkuId)">立即抢购</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</van-list>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/seckill/require.config"></script>
+</body>
+
+</html>

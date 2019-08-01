@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>首页</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak style="background: #F7F7F7">
+		<div class="content-wrapper index" id="index">
+			<!-- topbar -->
+			<!--<div class="fixed-bar search-land top-fixed-bar" :class="{'is-fixed' : isFixed}" v-show="!show.searchPage">-->
+				<!--<div class="col-l">-->
+					<!--<div class="ui-btn" @click="scanWXQRCode">-->
+						<!--<i class="icon iconfont icon-saoma"></i>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--<div class="search-wrapper" @click="showSearch">-->
+					<!--<i class="icon iconfont icon-sousuo"></i>-->
+					<!--&lt;!&ndash; <input class="search-input"> &ndash;&gt;-->
+				<!--</div>-->
+				<!--<div class="col-r">-->
+					<!--<div class="notice-btn ui-btn">-->
+						<!--<a href="notification_center.html" class="ui-message">-->
+							<!--<i class="icon iconfont icon-xiaoxi"></i>-->
+							<!--<span class="icon-msg-tips" v-if="showMsgTip"></span>-->
+						<!--</a>-->
+					<!--</div>-->
+				<!--</div>-->
+			<!--</div>-->
+			<!-- topbar end-->
+			<div class="views index-wrap">
+				<div class="container">
+					<!-- container -->
+					<div class="search-page height-full" v-show="show.searchPage">
+						<div class="content-wrapper">
+							<div class="">
+								<form class="search-land model-2" action="" method="get" @submit.prevent="subSearch">
+									<div class="col-l">
+										<a href="javascript:;" class="ui-btn" @click="show.searchPage = 0">
+											<i class="icon iconfont icon-left"></i>
+										</a>
+									</div>
+									<div class="search-wrapper">
+										<i class="icon iconfont icon-sousuo"></i>
+										<input type="search" class="search-input" placeholder="请输入搜索" v-model="keyword" ref="searchInput">
+									</div>
+									<div class="col-r">
+										<a href="javascript:;" class="search-btn ui-btn" @click="subSearch">搜索</a>
+									</div>
+								</form>
+							</div>
+
+							<!-- 默认首页 -->
+							<div class="default-page">
+								<div class="block-item" v-show="hotList.length">
+									<p class="block-title">热搜</p>
+									<div class="tags">
+										<span class="ui-tag" v-for="item in hotList" @click="$url('goods_list.html?keyword='+item.keyWord)">{{item.keyWord}}</span>
+									</div>
+								</div>
+
+								<div class="block-item" v-show="searchHistroy.length">
+									<p class="block-title">
+										<span>历史搜索</span>
+										<span class="icon iconfont icon-shanchu" @click="removeHistroy"></span>
+									</p>
+									<div class="views">
+										<div class="tags">
+											<span class="ui-tag" v-for="item in searchHistroy" @click="$url('goods_list.html?keyword='+item)">{{item}}</span>
+										</div>
+									</div>
+								</div>
+
+								<!-- 留存 -->
+								<div class="recent-search hide">
+									<p class="block-title">历史搜索</p>
+									<div class="views">
+										<div class="history-list">
+											<div class="item">
+												<span class="label"></span>
+												<div class="tag-wrapper">
+													<span class="ui-tag"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 搜索结果 -->
+							<div class="association-result views hide">
+								<!-- scrollable -->
+								<div class="content">
+									<div class="item">
+										<a href="javascript:;"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="index-page height-full" v-show="!show.searchPage">
+						<div class="scrollable" style="overflow: scroll;position: relative" @scroll="handleScroll">
+							<div class="fixed-bar search-land top-fixed-bar" :class="{'is-fixed' : isFixed}" v-show="!show.searchPage">
+								<div class="col-l">
+									<div class="ui-btn" @click="scanWXQRCode">
+										<i class="icon iconfont icon-saoma"></i>
+									</div>
+								</div>
+								<div class="search-wrapper" @click="showSearch">
+									<i class="icon iconfont icon-sousuo"></i>
+									<!-- <input class="search-input"> -->
+								</div>
+								<div class="col-r">
+									<div class="notice-btn ui-btn">
+										<a href="notification_center.html" class="ui-message">
+											<i class="icon iconfont icon-xiaoxi"></i>
+											<span class="icon-msg-tips" v-if="showMsgTip"></span>
+										</a>
+									</div>
+								</div>
+							</div>
+
+							<!--  -->
+							<div class="floor module-001">
+								<div class="recommend-banner">
+									<van-swipe :autoplay="3000" indicator-color="white" v-if="banners.ads">
+										<van-swipe-item v-for="item in banners.ads" @click="$linkUrl(item)">
+											<img v-lazy="item.path" />
+										</van-swipe-item>
+									</van-swipe>
+								</div>
+								<div class="quick-nav" v-if="quickNav.ads">
+									<div class="item" v-for="item in quickNav.ads" @click="$linkUrl(item)">
+										<div class="img-wrapper">
+											<img v-lazy="item.path">
+										</div>
+										<span class="bold">{{item.title}}</span>
+									</div>
+								</div>
+								<!--限时抢购-->
+								<div class="seckill" v-if="recommends[3]">
+									<div class="item-head">
+										<div class="ui-title">
+											<span class="floor-title bold">新品推荐</span>
+										</div>
+									</div>
+									<div class="product-wrapper">
+										<div class="product-item" @click="$url('goods_detail.html?id='+item.id)" v-for="item in recommends[3].recommendProducts">
+											<div class="img-wrapper">
+												<img v-lazy="item.image">
+											</div>
+											<div class="info">
+												<span class="name">{{item.name}}</span>
+												<div class="price-info">
+													<p class="price bold">¥{{item.price}}</p>
+													<p class="original-price grey-txt" v-if="item.marketPrice>0 && item.marketPrice!=item.price">¥{{item.marketPrice}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- <div class="new-user-coupon">
+										<img src="imgs/index/coupon.jpg">
+									</div> -->
+								</div>
+							</div>
+
+							<!-- 爆款 top10-->
+							<div class="floor module-002" v-if="recommends[0]">
+								<span class="floor-title bold">国乾爆款 Top10</span>
+								<div class="slider">
+									<div class="product-item" @click="$url('goods_detail.html?id='+item.id)" v-for="(item,index) in topX.slick">
+										<div class="img-wrapper">
+											<img :src="item.image">
+											<div class="top-label">
+												<img :src="'/imgs/index/top_'+item.index+'.png'">
+											</div>
+										</div>
+										<div class="info">
+											<span class="name bold">{{item.name}}</span>
+											<div class="price-info">
+												<p class="price red-txt bold">¥{{item.price}}</p>
+												<p class="original-price grey-txt" v-if="item.marketPrice>0 && item.marketPrice!=item.price">¥{{item.marketPrice}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="list">
+									<div class="product-item" @click="$url('goods_detail.html?id='+item.id)" v-for="(item,index) in topX.list">
+										<div class="img-wrapper">
+											<img :src="item.image">
+											<div class="top-label">
+												<img :src="'/imgs/index/top_'+item.index+'.png'">
+											</div>
+										</div>
+										<div class="info">
+											<span class="name bold">{{item.name}}</span>
+											<div class="price-info">
+												<p class="price red-txt bold">¥{{item.price}}</p>
+												<p class="original-price grey-txt" v-if="item.marketPrice>0 && item.marketPrice!=item.price">¥{{item.marketPrice}}</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 品牌推荐 -->
+							<div class="floor module-003">
+								<span class="floor-title bold">品牌爆品推荐</span>
+								<div class="brand-list">
+									<div class="item" v-for="item in brands" @click="$url('goods_list.html?filter=true&bId='+item.id)">
+										<img v-lazy="item.logo" :alt="item.name">
+									</div>
+								</div>
+
+								<div v-if="recommends[1]">
+									<div class="product-item-full" @click="$url('goods_detail.html?id='+item.id)" v-for="item in recommends[1].recommendProducts">
+										<div class="img-wrapper">
+											<img v-lazy="item.image">
+										</div>
+										<div class="info">
+											<p class="name bold">{{item.name}}</p>
+											<div class="price-info">
+												<span class="price red-txt bold">¥{{item.price}}</span>
+												<span class="original-price grey-txt" v-if="item.marketPrice>0 && item.marketPrice!=item.price">¥{{item.marketPrice}}</span>
+												<span class="desc red-txt">
+													<span v-for="promotion in item.promotions">{{promotion}}</span>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- 国乾甄选 -->
+							<div class="floor module-004" v-if="ads.ads">
+								<span class="floor-title bold">国乾甄选</span>
+								<div class="ad-slider">
+									<div class="ad-slider-img" v-for="item in ads.ads">
+										<img :src="item.path" :alt="item.title" @click="$linkUrl(item)">
+									</div>
+								</div>
+								<!--<div class="banner-land small">-->
+									<!--<div class="img-wrapper" v-if="ads.ads[0]">-->
+										<!--<img v-lazy="ads.ads[0].path" :alt="ads.ads[0].title" @click="$linkUrl(ads.ads[0])">-->
+									<!--</div>-->
+									<!--<div class="img-wrapper" v-if="ads.ads[1]">-->
+										<!--<img v-lazy="ads.ads[1].path" :alt="ads.ads[1].title" @click="$linkUrl(ads.ads[1])">-->
+									<!--</div>-->
+								<!--</div>-->
+								<!--<div class="banner-land large" v-if="ads.ads[2]">-->
+									<!--<div class="img-wrapper">-->
+										<!--<img v-lazy="ads.ads[2].path" :alt="ads.ads[2].title" @click="$linkUrl(ads.ads[2])">-->
+									<!--</div>-->
+								<!--</div>-->
+							</div>
+
+							<!-- 甄选分类 -->
+							<div class="floor module-005">
+								<div class="cate-item" v-for="item in categoryProducts">
+									<div class="item-head">
+										<span class="item-title bold">{{item.name}}</span>
+										<span class="more bold" @click="$url('goods_list.html?filter=true&cId='+item.id)">更多</span>
+									</div>
+									<div class="item-banner" v-if="item.appAdPosition">
+										<div class="ad-banner" v-if="item.appAdPosition.ads" @click="$linkUrl(item.appAdPosition.ads[0])">
+											<img v-lazy="item.appAdPosition.ads[0].path">
+										</div>
+									</div>
+									<div class="list"  v-if="item.quantity==3">
+										<div class="product-item" v-for="(goods,index) in item.recommendProducts" v-if="index<3" @click="$url('goods_detail.html?id='+goods.id)" style="width: 26.6667vw;">
+											<div class="img-wrapper" style="width: 26.6667vw;height: 26.6667vw;">
+												<img v-lazy="goods.image">
+											</div>
+											<div class="info">
+												<span class="name bold">{{goods.name}}</span>
+												<div class="price-info">
+													<p class="price red-txt bold">¥{{goods.price}}</p>
+													<p class="original-price grey-txt" v-if="item.marketPrice>0 && item.marketPrice!=item.price">¥{{item.marketPrice}}</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="list"  v-if="item.quantity==2">
+										<div class="product-item" v-for="(goods,index) in item.recommendProducts" v-if="index<2" @click="$url('goods_detail.html?id='+goods.id)">
+											<div class="img-wrapper">
+												<img v-lazy="goods.image">
+											</div>
+											<div class="info">
+												<span class="name">{{goods.name}}</span>
+												<div class="price-info">
+													<span class="price red-txt">¥{{goods.price}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!--爆款清单-->
+							<div class="floor module-006" v-if="recommends[2]">
+								<span class="item-title bold">为你推荐</span>
+								<div class="col-2">
+									<div class="product-item" @click="$url('goods_detail.html?id='+item.id)" v-for="item in recommends[2].recommendProducts">
+										<div class="img-wrapper">
+											<img v-lazy="item.image">
+										</div>
+										<div class="info">
+											<span class="name bold">{{item.name}}</span>
+											<div class="price-info">
+												<p class="price red-txt bold">¥{{item.price}}</p>
+												<p class="original-price grey-txt" v-if="item.marketPrice>0 && item.marketPrice!=item.price">¥{{item.marketPrice}}</p>
+											</div>
+											<!--<div class="desc">-->
+												<!--<span class="red-txt" v-for="promotions in item.promotions">{{promotions}}</span>-->
+												<!--<span class="line-icon"></span>-->
+											<!--</div>-->
+										</div>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="index-end">到底啦~</div>
+						</div>
+					</div>
+					<!-- container end -->
+
+
+				</div>
+			</div>
+
+			<!-- 首页弹出Ad -->
+			<van-popup class="ad-popup" v-model="adPopups.show">
+				<div class="close-btn" @click="adPopups.show=false"><img src="imgs/icons/close@2x.png"></div>
+				<div class="content" @click="$linkUrl(adPopups.ad)">
+					<img :src="adPopups.ad.path">
+				</div>
+			</van-popup>
+
+
+			<!-- 底部导航 -->
+			<navigation v-show="!show.searchPage"></navigation>
+			<!-- 底部导航 end -->
+
+		</div>
+	</div>
+
+	<!--<script src="cordova.js"></script>-->
+	<!--<script src="cordova_plugins.js"></script>-->
+	<script src="libs/jweixin-1.0.0.js"></script>
+	<script src="libs/require-2.3.3min.js" data-main="js/index/require.config"></script>
+</body>
+
+</html>

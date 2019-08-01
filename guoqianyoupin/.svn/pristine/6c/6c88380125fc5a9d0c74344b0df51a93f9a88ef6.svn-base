@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>常见问题</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+    <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style>
+		.article {
+			padding: 0 4vw;
+			font-size: 3.7333vw;
+			line-height: 5.6vw;
+		}
+
+		.top-toolbar {
+			border-bottom: 1px solid #EAEAEA;
+		}
+
+		b {
+			font-weight: 600;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="page">
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>常见问题</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container scrollable">
+					<!-- container -->
+					<article class="article">
+						<br>
+						<p>
+							<b>1. 什么是国乾优品积分？</b><br/>
+    国乾优品为了答谢所有在官网上成功注册或购物的用户，特推出的一种积分奖励政策。<br/><br/><br/>
+
+<b>2.  国乾优品积分如何获得？</b><br/>
+     在国乾优品官网购物实付金额满一元即可获得一个积分，礼品卡及返利金支付除外，优惠券抵扣部分不积分；<br/> 注册成功后可获得注册积分奖励；在指定专区购物可获得多倍积分。<br/><br/><br/>
+
+<b>3.  国乾优品的积分有效期是多久？</b><br/>
+     会员积分在获取到败后的一年内有效，过期清零。<br/>
+     例如：在2018年1月3日获得，积分有效期为2018年1月3日至2019年1月2日晚23:59分。<br/><br/><br/>
+
+<b>4. 购物积分计算规则？</b>
+    1) 在国乾优品购物消费实付金额每满人民币1元可获得1积分，不满1元不积分，礼品卡及返利金支付除外，优惠券抵扣部分不积分。在指定专区购物消费，积分根据活动专区规则发放（如2倍积分专区购物，每满人民币1元可获得2积分，不满1元不积分），积分会在订单已完成时由系统发放至账户。<br/>
+    2) 积分只在同一会员账户内累计，不同账户的积分不能合并，因此，会员购物时务必注册成正式会员并使用同一账户。<br/>
+    3) 若产生退货，则从会员账户中扣除相应积分。<br/>
+    4) 国乾优品保留调整积分计算比例的权利。<br/>
+    5)最终解释权归国乾优品所有。<br/><br/><br/>
+
+<b>5. 积分查询</b><br/>
+    会员可登陆国乾优品进入“个人中心”>>“我的积分”，查询积分明细。<br/><br/><br/>
+
+<b>6. 为什么我买了东西却没得到积分？</b><br/>
+    1) 订单状态为已完成，方可获取积分。<br/>
+    2) 确认收货的订单中，使用现金券、购物卡抵扣金额部分由于已享受优惠，故不再赠送积分。<br/>
+    3) 积分可能因用户机器设备、地域等情况存在延时，请耐心等候。订单完成后10天内若还没有获得积分，请及时与客服联系。<br/><br/><br/>
+
+<b>7. 积分有什么用处？</b><br/>
+    会员可以在微信积分商城中使用积分兑换相应商品。<br/><br/><br/>
+
+<b>8. 积分兑换商品规则？</b><br/>
+    1) 会员可在一年有效期内使用账户积分兑换商品。<br/>
+    2) 兑换成功后，系统自动扣除相应积分，并于兑换后的第二个工作日通过默认快递方式发出商品。<br/>
+    3) 赠品非质量问题不予退换货。如因产品质量问题，可在确认收货后5日内申请退换货服务。<br/><br/><br/>
+							</p>
+						<br>
+
+					</article>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+
+</html>

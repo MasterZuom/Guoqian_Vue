@@ -1,0 +1,346 @@
+.card-page {
+  height: 100%;
+  background: #F4F4F4;
+
+  .cards {
+    padding-top: 5.3333vw;
+    width: 92vw;
+    margin: 0 auto;
+    min-height: 88%;
+
+    &.unused {
+
+      .card-top,
+      .total {
+        background: -webkit-linear-gradient(-174deg, #24ABC3, #24C3BE);
+        background: linear-gradient(-86deg, #24ABC3, #24C3BE);
+      }
+    }
+
+    &.used {
+
+      .card-top,
+      .total {
+        background: -webkit-linear-gradient(-174deg, #6C6C6C, #A3A3A3);
+        background: linear-gradient(-86deg, #6C6C6C, #A3A3A3);
+      }
+
+      .txt,
+      .rmb,
+      .number {
+        color: #999 !important;
+      }
+
+      .label {
+        .bg(url("../imgs/gift_card/used.jpg"));
+      }
+    }
+
+    &.overdue {
+
+      .card-top,
+      .total {
+        background: -webkit-linear-gradient(-174deg, #BCBCBC, #DADADA);
+        background: linear-gradient(-86deg, #BCBCBC, #DADADA);
+      }
+
+      .txt,
+      .rmb,
+      .number {
+        color: #CBCBCB !important;
+      }
+
+      .describe-info {
+        color: #C6C6C6 !important;
+      }
+
+      .label {
+        .bg(url("../imgs/gift_card/overdue.jpg"));
+      }
+    }
+
+    .card-price-view {
+      border-radius: 1.6vw;
+      overflow: hidden;
+
+      .card-top {
+        padding: 0 4.2667vw 0 3.7333vw;
+        .flex-box();
+        align-items: center;
+        justify-content: space-between;
+        height: 11.7333vw;
+        color: #fff;
+
+        .card-title {
+          .flex-box();
+          align-items: center;
+        }
+
+        .detail-btn {
+          .flex-box();
+          align-items: center;
+          font-size: 2.9333vw;
+          color: #fff;
+
+          i {
+            margin-left: 1.6vw;
+            font-size: 3.7333vw;
+          }
+        }
+
+        .card-number {
+          padding-left: 1.8667vw;
+          font-size: 2.6667vw;
+        }
+      }
+
+      .card-main {
+        position: relative;
+        height: 28vw;
+        background: #fff;
+        border-bottom-left-radius: 1.6vw;
+        border-bottom-right-radius: 1.6vw;
+        border: @1px solid #EAEAEA;
+        border-top: 0;
+        overflow: hidden;
+      }
+
+      .price-info {
+        .flex-box();
+        justify-content: center;
+        align-items: center;
+
+        .txt {
+          padding-top: 2.4vw;
+          font-size: 4vw;
+        }
+
+        .rmb {
+          padding-top: 2.4vw;
+          color: #24C3BE;
+          font-size: 4.8vw;
+        }
+
+        .number {
+          padding-right: 1.3333vw;
+          font-family: "medium";
+          color: #24C3BE;
+          font-size: 9.6vw;
+        }
+
+        .total {
+          .flex-box();
+          align-items: center;
+          padding: 0 2.6667vw;
+          height: 6.6667vw;
+          font-family: "medium";
+          font-size: 4.8vw;
+          color: #fff;
+          border-radius: 3.3333vw 3.3333vw 3.3333vw 0vw;
+
+          b {
+            font-size: 2.4vw;
+          }
+        }
+      }
+
+      .describe-info {
+        color: #999;
+        padding-left: 3.7333vw;
+
+        .describe {
+          padding: 3.4667vw 0 1.3333vw;
+          font-size: 3.2vw;
+        }
+
+        .time {
+          font-size: 2.6667vw;
+        }
+      }
+    }
+
+    .label {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 13.7333vw;
+      height: 13.7333vw;
+    }
+
+    .card-item {
+      padding-bottom: 3.2vw;
+    }
+  }
+
+  .add-card-btn {
+    .fc();
+    margin: 3.3333vw auto 3.3333vw;
+    width: 47.4667vw;
+    height: 10.6667vw;
+    background: rgba(36, 195, 190, 1);
+    box-shadow: 0vw 1.0667vw 2.1333vw 0vw rgba(36, 195, 190, 0.24);
+    border-radius: 5.3333vw;
+    color: #fff;
+  }
+
+  .no-msg-wrapper {
+    min-height: 88%;
+  }
+}
+
+
+// 绑定礼品卡
+.bind-card-dialog {
+  width: 82.6667vw;
+  height: 83.3333vw;
+  background: #fff;
+  background: url("../imgs/gift_card/bg_bdlpk.png") no-repeat;
+  background-size: 100%;
+  overflow: hidden;
+
+  .ui-title {
+    .fc();
+    font-size: 4.8vw;
+    height: 15.4667vw;
+  }
+
+  .input-wrapper {
+    padding: 0 5.3333vw;
+    font-size: 4vw;
+  }
+
+  .input-group {
+    border: @1px solid #ccc;
+    margin-bottom: 2.6667vw;
+  }
+
+  .input-control {
+    padding: 0 1.3333vw;
+    width: 100%;
+    height: 10.6667vw;
+    font-size: 4vw;
+    background: #fff;
+  }
+
+  .verify-wrapper {
+    .flex-box();
+    align-items: center;
+    margin-bottom: 2.6667vw;
+
+    .ui-btn {
+      .fc();
+      width: 36vw;
+      height: 9.6vw;
+      color: #24C3BE;
+      background: #fff;
+      background: linear-gradient(0deg, #b5fffa 0%, #fff 100%);
+      border: @1px solid #24C3BE;
+      border-radius: 4.6667vw;
+    }
+
+    .price {
+      color: @red;
+      padding-left: 4vw;
+    }
+  }
+
+  .captcha-wrapper {
+    .flex-box();
+    align-items: center;
+
+    .captcha-input {
+      border: @1px solid #ccc;
+      width: 50.1333vw;
+      margin-right: 3.7333vw;
+    }
+  }
+
+  .van-dialog__footer {
+    margin-top: 4vw;
+
+    .van-dialog__confirm {
+      color: @blue;
+    }
+  }
+}
+
+
+// 使用详情
+.git-card-detail {
+  background: #fff;
+  border-radius: 1.3333vw;
+
+  .card-use-details {
+    width: 80vw;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+
+    .close-btn {
+      position: absolute;
+      padding: 3.2vw;
+      top: 0;
+      right: 0;
+    }
+
+    .details-title {
+      .flex-box();
+      align-items: center;
+      justify-content: center;
+      height: 13.3333vw;
+    }
+
+    .table-header {
+      background: #ddd;
+      color: #999;
+      font-size: 3.2vw;
+      height: 7.4667vw;
+    }
+
+    .table-item {
+      .flex-box();
+      justify-content: space-between;
+      align-items: center;
+
+      .table-label {
+        flex: 1;
+        .flex-box();
+        justify-content: center;
+      }
+
+      .time {
+        font-size: 2.4vw;
+      }
+
+      .detail {
+        font-size: 2.6667vw;
+        flex-direction: column;
+
+        p {
+          padding-bottom: 1.3333vw;
+        }
+      }
+
+      .time {
+        font-size: 3.2vw
+      }
+    }
+
+    .scrollable {
+      height: 60vh;
+
+      .table-item {
+        position: relative;
+        padding: 2vw 0;
+        .line-bottom();
+      }
+    }
+  }
+}
+
+.header-toolbar {
+  .des-link {
+    font-size: 3.7333vw;
+    padding-right: 4vw;
+  }
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<script type="text/javascript" src="libs/KDNWidget/KDNWidget.js"></script>
+	<link rel="stylesheet" href="libs/KDNWidget/KDNWidget.css" type="text/css">
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col" v-if="curStatus === 'invoice'">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span v-show="curStatus !== 'invoice'">我的订单</span>
+					<span v-show="curStatus === 'invoice'">我的发票</span>
+				</div>
+				<div class="tool-right tool-col">
+					<div class="notice-btn">
+						<a href="notification_center.html" class="ui-message">
+							<i class="icon iconfont icon-xiaoxi"></i>
+							<span class="icon-msg-tips" v-if="showMsgTip"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- topbar end-->
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page tab-wrapper height-full">
+						<div class="tab-nav" v-show="curStatus !== 'invoice'">
+							<div class="tab-btn" :class="{active: curStatus == ''}" @click="$url('#all')">
+								<span>全部</span>
+							</div>
+							<div class="tab-btn" :class="{active: curStatus == 'pendingPayment'}" @click="$url('#pendingPayment')">
+								<span>待付款</span>
+							</div>
+							<div class="tab-btn" :class="{active: curStatus == 'shipped'}" @click="$url('#shipped')">
+								<span>待收货</span>
+							</div>
+							<div class="tab-btn" :class="{active: curStatus == 'afterSale'}" @click="$url('#afterSale')">
+								<span>退换/售后</span>
+							</div>
+						</div>
+						<div class="views">
+							<div class="scrollable">
+								<div class="order-list">
+									<van-list v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载" :finished="finished"
+									 @load="getOrderList(0,true)">
+										<div class="order-item" v-for="item in orderList">
+											<div class="order-header">
+												<span class="order-number">订单：{{item.sn}}</span>
+												<span class="order-state">{{item.status}}</span>
+											</div>
+											<div class="order-content">
+												<div class="goods-item" v-for="goods in item.orderItemVOs" >
+													<div class="cover">
+														<img v-lazy="goods.avatar">
+													</div>
+													<div class="info" @click="$url('order_detail.html?sn='+item.sn+'&itemId='+goods.itemId)">
+														<div class="name">{{goods.name}}</div>
+														<div class="sku">
+															<span>数量：{{goods.quantity}}</span>
+															<span v-for="info in goods.specifications">{{info}}</span>
+														</div>
+														<span class="price">￥{{goods.salePrice}}</span>
+													</div>
+													<div class="handles">
+														<a :href="'post_comment.html?pId='+goods.productId+'&itemId='+goods.itemId+'&orderId='+item.id" class="order-btn" v-if='(item.statusUs=="completed"||item.statusUs=="received") && (item.exReviewStatus=="noComment" || item.exReviewStatus==null)'>点评晒单</a>
+														<a :href="'comment_detail.html?pId='+goods.productId+'&itemId='+goods.itemId+'&orderId='+item.id" class="order-btn" v-if='(item.statusUs=="completed"||item.statusUs=="received") && (item.exReviewStatus!="noComment" && item.exReviewStatus!=null)'>查看点评</a>
+														<a :href="'after_sale.html?sn='+item.sn+'&itemId='+goods.itemId" class="order-btn" v-if="goods.itemBtnStatus.afterSale">申请售后</a>
+														<a :href="'after_sale_detail.html?sn='+item.sn+'&itemId='+goods.itemId" class="order-btn" v-if="goods.itemBtnStatus.afterSaleView">查看售后</a>
+														<span  @click="logistics(goods.delivery,goods.trackNo)" class="order-btn" v-if="goods.itemBtnStatus.logistics">查看物流</span>
+													</div>
+												</div>
+											</div>
+											<div class="order-footer">
+												<div class="statistics">
+													<span clss="count">共{{item.quantity}}件</span>
+													<span class="payment">实付款：￥{{item.amountPaid}} 待付款：￥{{item.amountPayable}}</span>
+												</div>
+												<div class="handles">
+													<div class="order-btn" @click="cancelOrder(item)" v-if="item.btnStatus.cancel">取消订单</div>
+													<div class="order-btn" @click="$url('pay.html?sn='+item.sn)" v-if="item.btnStatus.pay">立即支付</div>
+													<!-- <div class="order-btn" @click="logistics(item)" v-if="item.btnStatus.logistics">查看物流</div>-->
+													<div class="order-btn" @click="confirmOrder(item)" v-if="item.btnStatus.confirm">确认收货</div>
+													<div class="order-btn" @click="removeOrder(item)" v-if="item.btnStatus.remove">删除订单</div>
+													<div class="order-btn" @click="buyAgain(item)" v-if="item.btnStatus.buyAgain">再次购买</div>
+												</div>
+											</div>
+										</div>
+									</van-list>
+								</div>
+								<div class="no-msg-wrapper" v-show="!loading && !orderList.length && !error">
+									<img src="imgs/coupon/icon_zanwulipinka@3x.png" alt="">
+									<p class="tips">暂无订单</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<!-- 底部导航 -->
+			<navigation v-if="curStatus !== 'invoice'"></navigation>
+			<!-- 底部导航 end -->
+
+			<!-- 物流信息 -->
+			<van-popup class="logistics-view" v-model="show.logistics" :overlay="true">
+				<iframe width='100%' height='100%' frameborder='0' :src="logisticsUrl"></iframe>
+			</van-popup>
+		</div>
+	</div>
+
+<!--	<script src="cordova.js"></script>
+	<script src="cordova_plugins.js"></script>-->
+	<script src="libs/require-2.3.3min.js" data-main="js/order_list/require.config"></script>
+</body>
+
+</html>

@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>填写订单</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style>
+	.submit-btn {
+		border: 0px;
+		height: 10.6667vw;
+	    font-size: 4.8vw;
+	    color: #fff;
+	    background: #24c3be;
+	    width: 20%;
+	    float: left;
+	}
+	.input-control {
+	    width: 78%;
+	    height: 10.6667vw;
+	    border: 1px solid #ccc;
+	    float: left;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="page" class="confirm-order grey-bg" v-cloak>
+		<div class="content-wrapper" :class="{'ui-blur': show.pageLoading}">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>填写订单</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="height-full">
+						<div class="scrollable">
+							<div class="shipping-wrapper" @click="show.addressList=true">
+								<div class="shipping-item">
+									<div v-show="!selectedAddr.id">请选择配送地址</div>
+									<div v-show="selectedAddr.id">
+										<div class="user-info">
+											<span class="name">{{selectedAddr.consignee}}</span>
+											<span class=phone>{{selectedAddr.phone}}</span>
+										</div>
+										<div class="address-wrapper">
+											<i class="icon iconfont icon-map"></i>
+											<span class="address">{{selectedAddr.areaName}}{{selectedAddr.address}}</span>
+										</div>
+									</div>
+									<i class="icon iconfont icon-right"></i>
+								</div>
+							</div>
+
+							<div class="godos-detail">
+								<div class="order-item">
+									<div class="order-content">
+										<div class="goods-item" v-for="item in bill.orderItemVO">
+											<div class="cover">
+												<img :src="item.skuImg">
+											</div>
+											<div class="info">
+												<div class="name">{{item.name}}</div>
+												<span class="sku">
+													<span class="grey-txt" v-for="spec in item.specifications">
+														{{spec}}
+													</span>
+												</span>
+												<div class="calc-wrapper">
+													<span class="price">￥{{item.price}}</span>
+													<span class="num">x{{item.quantity}}</span>
+												</div>
+												<div class="promotions" v-show="item.promotionvos.length">
+													<p class="red-txt" v-for="itemd in item.promotionvos" style="font-size:3vw ">
+														<span>{{itemd.title}}</span>
+														<!--<span class="tips">{{itemd.name}}</span>-->
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="msg-wrapper">
+									<span class="label">留言</span>
+									<div class=mark>
+										<input type="text" v-model="memo">
+									</div>
+								</div>
+							</div>
+
+							<div class="order-block pay-info">
+								<div class="item" @click="show.payType = true">
+									<span class="label">支付方式</span>
+									<div class="content">
+										<div class="select-wrapper" v-if="jkCardMember==0">
+											<span v-if="state.payType==0">请选择</span>
+											<span v-if="state.payType=='online'">在线支付</span>
+											<span v-if="state.payType=='jkcardPay'">一卡通支付</span>
+											<i class="icon iconfont icon-more"></i>
+										</div>
+										<span v-if="jkCardMember==-1">线上支付</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="order-block">
+								<div class="item" v-if="jkCardMember==-1 || (jkCardMember==0 && state.payType=='online')" @click="show.invoice = true">
+									<span class="label">发票</span>
+									<div class="content">
+										<div class="select-wrapper">
+											<div v-show="state.invoice.request">
+												<span v-show="invoiceTemporary.payerType == 'PERSONAL'">个人</span>
+												<span v-show="invoiceTemporary.payerType == 'COMPANY'">{{invoiceTemporary.company}}</span>
+											</div>
+											<span v-show="!state.invoice.request">不开票</span>
+											<i class="icon iconfont icon-more"></i>
+										</div>
+									</div>
+								</div>
+								<div class="item" v-if="jkCardMember==0 && state.payType==0">
+									<span class="label">发票</span>
+									<div class="content">
+										<span style="color: #999">不开票</span>
+										<i class="icon iconfont icon-more"></i>
+									</div>
+								</div>
+								<div class="item" v-if="jkCardMember==0 && state.payType=='jkcardPay'">
+									<span class="label">发票</span>
+									<div class="content" style="color: #c61a1a;">*一卡通支付的订单，本平台不提供发票</div>
+								</div>
+<!--								<div class="item" @click="show.coupon = true" v-if="orderType!='groupBuy'&&orderType!='flashSale'">
+									<span class="label">优惠券</span>
+									<div class="content">
+										<div class="select-wrapper">
+											<span class="red-txt" v-show="selectedCoupon.active">{{selectedCoupon.code}}&lt;!&ndash; 优惠{{selectedCoupon.introduction}}元 &ndash;&gt;</span>
+											<span class="grey-txt" v-show="!coupons.usable.length">无可用</span>
+											<span v-show="coupons.usable.length && !selectedCoupon.active">{{coupons.usable.length}}张可用</span>
+											<i class="icon iconfont icon-more"></i>
+										</div>
+									</div>
+								</div>
+								<div class="item" @click="show.cards = true">
+									<span class="label">礼品卡</span>
+									<div class="content">
+										<div class="select-wrapper">
+											<span class="red-txt" v-show="selectedCard.active">{{selectedCard.cardNumber}}&lt;!&ndash; 优惠{{selectedCard.balance}}元 &ndash;&gt;</span>
+											<span class="grey-txt" v-show="!cards.length">无可用</span>
+											<span v-show="!selectedCard.active && cards.length">{{cards.length}}张可用</span>
+											<i class="icon iconfont icon-more"></i>
+										</div>
+									</div>
+								</div>
+								<div class="item">
+									<div>
+										<span class="label">返利</span>
+										<input type="number" class="rebates-input" v-model.lazy="rebate" placeholder="输入你要使用的金额" v-show="bill.rebateBalance">
+									</div>
+									<div class="content">
+										<div class="select-wrapper">
+											<span v-show="bill.rebateBalance">{{bill.rebateBalance}}元可用</span>
+											<span v-show="!bill.rebateBalance">无可用</span>
+										</div>
+									</div>
+								</div>-->
+							</div>
+
+
+							<div class="order-block shipping-info">
+								<div class="item">
+									<span class="label">配送</span>
+									<div class="content">
+										<div class="wrapper">
+											<div class="options" v-show="shippings.normal.id" @click="shippingMethodId = shippings.normal.id; selectedShop.id=0;">
+												<span>默认普通快递</span>
+												<i class="icon iconfont" :class="[ shippingMethodId == shippings.normal.id ? 'icon-checked': 'icon-check']"></i>
+											</div>
+											<div class="options" v-show="shippings.shop.id" @click="show.shops = true" style="margin-top: 3.4667vw; ">
+												<span class="grey-txt shop-btn">查看所有门店</span>
+												<span>到店自提</span>
+												<i class="icon iconfont" :class="[shippingMethodId == shippings.shop.id ? 'icon-checked': 'icon-check']"></i>
+											</div>
+										</div>
+										<div class="address-info" v-show="shippingMethodId == shippings.shop.id">
+											<p class="red-txt">*到店提货前请先联系门店，以便及时备货</p>
+											<p>{{selectedShop.name}}</p>
+											<div>地址：{{selectedShop.address}} <br/>
+											电话：{{selectedShop.phone}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="order-block order-total">
+								<div class="payments-ino">
+									<div class="item">
+										<span class="label">商品金额</span>
+										<span class="content red-txt">￥{{statements.price}}</span>
+									</div>
+<!--									<div class="item">
+										<span class="label">优惠券</span>
+										<span class="content red-txt">
+											-￥{{statements.couponDiscount}}
+										</span>
+									</div>
+									<div class="item">
+										<span class="label">促销</span>
+										<span class="content red-txt">-￥{{statements.promotionDiscount || 0}}</span>
+									</div>
+									<div class="item">
+										<span class="label">礼品卡</span>
+										<span class="content red-txt">-￥{{statements.giftCardDiscount || 0}}</span>
+									</div>
+									<div class="item">
+										<span class="label">返利</span>
+										<span class="content red-txt">-￥{{statements.rebatePaidAmount || 0}}</span>
+									</div>-->
+									<div class="item">
+										<span class="label">运费</span>
+										<span class="content">￥{{statements.freight || 0}}</span>
+									</div>
+								</div>
+							</div>
+
+
+							
+						</div>
+						
+						<!-- container end -->
+					</div>
+				</div>
+			</div>
+
+			<div class="fixed-bar order-submit-bar">
+				<span class="total-price">￥{{statements.amountPayable}}</span>
+				<div class="buy-btn" @click="subOrder">去支付</div>
+			</div>
+		</div>
+
+		<!--支付方式-->
+		<div v-if="jkCardMember==0">
+			<van-actionsheet v-model="show.payType">
+			<div class="payType-page invoice-page">
+				<div class="content-wrapper">
+					<div class="rte">
+						<div class="airblock">
+							<span class="close-btn" @click="show.payType = false">
+								<i class="icon iconfont icon-close"></i>
+							</span>
+						</div>
+					</div>
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+								<div class="floor">
+									<p class="ui-title">选择支付方式</p>
+									<div class="btn-wrapper">
+										<a href="javascript:;" class="tab-btn" :class="{active: state.payType == 'online'}" @click="state.payType = 'online'">在线支付</a>
+										<a href="javascript:;" class="tab-btn" v-if="statements.amountPayable<=jkCardBalance" :class="{active: state.payType == 'jkcardPay'}" @click="state.payType = 'jkcardPay'">一卡通支付</a>
+										<a href="javascript:;" class="tab-btn" v-if="statements.amountPayable>jkCardBalance" @click="$toast('余额不足')">一卡通支付</a>
+									</div>
+									<p class="desc" v-if="jkCardMember==0">一卡通余额：{{jkCardBalance}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bottom-block">
+						<div class="ui-submit" @click="savePayType">确定</div>
+					</div>
+				</div>
+
+			</div>
+		</van-actionsheet>
+		</div>
+
+		<!-- 发票 -->
+		<van-actionsheet v-model="show.invoice">
+			<div class="invoice-page">
+				<div class="content-wrapper">
+					<div class="rte">
+						<div class="airblock">
+							<span class="tips-btn">发票须知</span>
+							<span class="close-btn" @click="show.invoice = false">
+								<i class="icon iconfont icon-close"></i>
+							</span>
+						</div>
+					</div>
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+								<div class="floor">
+									<p class="ui-title">是否开发票</p>
+									<div class="btn-wrapper">
+										<a href="javascript:;" class="tab-btn" :class="{active: !state.invoice.request}" @click="state.invoice.request = false;show.invoice = false">不开发票</a>
+										<a href="javascript:;" class="tab-btn" :class="{active: state.invoice.request}" @click="state.invoice.request = true">开发票</a>
+									</div>
+									<!--<p class="warm-info" v-if="state.invoice.request == true">开发票不能使用一卡通支付！</p>-->
+								</div>
+								<div class="floor" v-if="state.invoice.request">
+									<p class="ui-title">发票类型</p>
+									<div class="btn-wrapper">
+										<a href="javascript:;" class="tab-btn" :class="{active: state.invoice.type == 1}" @click="state.invoice.type = 1">电子普通发票</a>
+										<a href="javascript:;" class="tab-btn" :class="{active: state.invoice.type == 2}" @click="state.invoice.type = 2">增值税专用发票</a>
+									</div>
+									<p class="desc" v-if="state.invoice.type == 1">电子普通发票将在订单结束后发送至您提供的邮箱。</p>
+									<p class="desc" v-if="state.invoice.type == 2">纸质发票将和产品同步邮寄，请注意查收。</p>
+								</div>
+
+								<div class="floor" v-if="state.invoice.request">
+									<p class="ui-title">发票抬头<span class="title-tips">（以下为必填项）</span></p>
+									<div class="btn-wrapper" v-show="state.invoice.type == 1">
+										<a href="javascript:;" class="tab-btn" :class="{active: state.invoice.payerType == 1}" @click="state.invoice.payerType = 1">个人</a>
+										<a href="javascript:;" class="tab-btn" :class="{active: state.invoice.payerType == 2}" @click="state.invoice.payerType = 2">单位</a>
+									</div>
+									<div class="input-wrapper" v-show="invoiceType1">
+										<div class="input-group">
+											<input class="input-control phone-input" @blur="scrollTop" placeholder="请填写单位名称" v-model="invoiceTemporary.company">
+										</div>
+										<div class="input-group">
+											<input class="input-control phone-input" @blur="scrollTop" placeholder="请填写纳税人识别号" v-model="invoiceTemporary.taxpayer">
+										</div>
+									</div>
+									<div class="input-wrapper" v-show="invoiceType2">
+										<div class="input-group">
+											<span class="label">注册地址：</span>
+											<input class="input-control phone-input" @blur="scrollTop" v-model="invoiceTemporary.registerAddress">
+										</div>
+										<div class="input-group">
+											<span class="label">注册电话：</span>
+											<input class="input-control phone-input" @blur="scrollTop" type="tel" v-model="invoiceTemporary.registerPhone">
+										</div>
+										<div class="input-group">
+											<span class="label">开户银行：</span>
+											<input class="input-control phone-input" @blur="scrollTop" v-model="invoiceTemporary.bankName">
+										</div>
+										<div class="input-group">
+											<span class="label">开户账号：</span>
+											<input class="input-control phone-input" @blur="scrollTop" type="tel" v-model="invoiceTemporary.bankAcount">
+										</div>
+									</div>
+									<p class="ui-title">发票内容：商品明细</p>
+									<p class="desc">发票内容将显示详细商品名称与价格信息</p>
+								</div>
+								<div class="floor" v-if="state.invoice.request">
+									<p class="ui-title">收票人信息</p>
+									<div class="input-wrapper">
+										<div class="input-group" v-if="state.invoice.type == 2">
+											<span class="label">收件人：</span>
+											<input class="input-control phone-input" @blur="scrollTop" v-model="invoiceTemporary.receiverName">
+										</div>
+										<div class="input-group" v-if="state.invoice.type == 2">
+											<span class="label">联系方式：</span>
+											<input class="input-control phone-input" @blur="scrollTop" type="tel" v-model="invoiceTemporary.receiverPhone">
+										</div>
+										<div class="input-group" v-if="state.invoice.type == 2">
+											<span class="label">收票地址：</span>
+											<input class="input-control phone-input" @blur="scrollTop" v-model="invoiceTemporary.receiverAddress">
+										</div>
+										<div class="input-group" v-if="state.invoice.type == 1">
+											<span class="label">收票邮箱：</span>
+											<input class="input-control phone-input" @blur="scrollTop" v-model="invoiceTemporary.receiverEmail">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bottom-block">
+						<div class="ui-submit" @click="saveInvoice">确定</div>
+					</div>
+				</div>
+
+			</div>
+		</van-actionsheet>
+
+		<!-- 优惠券 -->
+		<van-actionsheet v-model="show.coupon">
+			<div class="coupon-page">
+				<div class="content-wrapper">
+					<div class="ui-header">
+						<p class="item-title">优惠券</p>
+						<div class="tab-nav">
+							<div :class="show.couponTab==1 ? 'tab-btn active' : 'tab-btn' " @click="show.couponTab=1">
+								<span class="ui-title">可用优惠券</span>
+								<span class="num">{{coupons.usable.length}}</span>
+							</div>
+							<div :class="show.couponTab==2 ? 'tab-btn active' : 'tab-btn' " @click="show.couponTab=2">
+								<span class="ui-title">不可用优惠券</span>
+								<span class="num">{{coupons.unusable.length}}</span>
+							</div>
+						</div>
+						<div class="airblock">
+							<!-- <span class="tips-btn">使用说明</span> -->
+							<span class="close-btn" @click="show.coupon=false">
+								<i class="icon iconfont icon-close"></i>
+							</span>
+						</div>
+					</div>
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+
+								<div >
+									<!-- unused used  overdue -->
+									<div v-if="show.couponTab==1" class=" coupons unused">
+										<div class="coupon-item" v-for="item in coupons.usable" @click="choiceCoupon(item)">
+											<div class="coupon-price-view">
+												<div class="price">
+													<p class="value">
+														<span class="number">{{item.introduction}}</span>元
+													</p>
+													<span class="describe hide">满5000元可用</span>
+												</div>
+												<div class="coupon-info">
+													<p class="name">{{item.name}}</p>
+													<p class="time"><span>{{item.timeStr}} </span></p>
+													<div class="bottom">
+														<span class="coupon-number hide">券码：022551254411</span>
+													</div>
+												</div>
+												<div class="checked" v-show="item.active"></div>
+											</div>
+											<p class="desc hide">暂不可用：该商品未满2000元这是测试文字</p>
+										</div>
+										<div class="input-group">
+											<input type="text" v-model="newCouponSn" class="input-control" @blur="scrollTop" placeholder="请输入优惠券券码">
+											<button class="submit-btn" @click="addCoupon()">添加</button>
+										</div>
+									</div>
+
+									<div v-if="show.couponTab==2" class=" coupons used">
+										<div class="coupon-item" v-for="item in coupons.unusable">
+											<div class="coupon-price-view">
+												<div class="price" >
+													<p class="value">
+														<span class="number">{{item.introduction}}</span>元
+													</p>
+													<span class="describe hide">满5000元可用</span>
+												</div>
+												<div class="coupon-info">
+													<p class="name">{{item.name}}</p>
+													<p class="time"><span>{{item.timeStr}} </span></p>
+													<div class="bottom">
+														<span class="coupon-number hide">券码：022551254411</span>
+													</div>
+												</div>
+												<div class="checked" v-show="item.active"></div>
+											</div>
+											<p class="desc hide">暂不可用：该商品未满2000元这是测试文字</p>
+										</div>
+									</div>
+								</div>
+								<div class="no-msg-wrapper hide">
+									<img src="imgs/coupon/icon_zanwulipinka@3x.png" alt="">
+									<p class="tips">暂无礼券</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="bottom-block">
+						<div class="ui-submit" @click="couponDone">确定</div>
+					</div>
+				</div>
+			</div>
+		</van-actionsheet>
+
+		<!-- 礼品卡 -->
+		<van-actionsheet v-model="show.cards">
+			<div class="card-page">
+				<div class="content-wrapper">
+					<div class="ui-header">
+						<p class="item-title">礼品卡</p>
+						<div class="tab-nav">
+							<div class="tab-btn active">
+								<span class="ui-title">可用礼品卡</span>
+								<span class="num">{{cards.length}}</span>
+							</div>
+							<div class="tab-btn hide">
+								<span class="ui-title">不可用礼品卡</span>
+								<span class="num">0</span>
+							</div>
+						</div>
+						<div class="airblock">
+							<!-- <span class="tips-btn">使用说明</span> -->
+							<span class="close-btn" @click="show.cards=false">
+								<i class="icon iconfont icon-close"></i>
+							</span>
+						</div>
+					</div>
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+
+								<div class="cards unused">
+									<!-- unused used  overdue -->
+									<div class="card-item" v-for="item in cards" @click="choiceCard(item)">
+										<div class="card-price-view">
+											<div class="card-top">
+												<div class="card-title">
+													<span>礼品卡</span>
+													<span class="card-number">券码：{{item.cardNumber}}</span>
+												</div>
+												<a href="javascript:;" class="detail-btn hide">使用明细 <i class="icon iconfont icon-wenhao"></i></a>
+											</div>
+											<div class="card-main">
+												<div class="price-info">
+													<span class="txt">余额</span>
+													<span class="rmb">￥</span>
+													<span class="number">{{item.balance}}</span>
+													<span class="total">{{item.amount}}<b>元</b></span>
+												</div>
+												<div class="describe-info">
+													<p class="describe">使用范围：全场通用</p>
+													<p class="time">有效期至：<span>{{item.timeStr}} </span></p>
+												</div>
+												<div class="checked" v-show="item.active"></div>
+											</div>
+										</div>
+										<p class="desc hide">暂不可用：该商品未满2000元这是测试文字</p>
+									</div>
+
+								</div>
+								<div class="no-msg-wrapper hide">
+									<img src="imgs/coupon/icon_zanwulipinka@3x.png" alt="">
+									<p class="tips">暂无礼品卡</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="bottom-block">
+						<div class="ui-submit" @click="cardDone">确定</div>
+					</div>
+				</div>
+			</div>
+		</van-actionsheet>
+
+		<!-- 自提门店 -->
+		<van-actionsheet v-model="show.shops">
+			<div class="shops-page">
+				<div class="content-wrapper">
+					<div class="ui-header">
+						<div class="item-title">
+							请选择自提门店
+							<span class="tips red-txt">*到店提货前请先联系门店，以便及时备货</span>
+						</div>
+						<div class="airblock">
+							<span class="close-btn" @click="show.shops = false">
+								<i class="icon iconfont icon-close"></i>
+							</span>
+						</div>
+					</div>
+					<div class="views">
+						<div class="container">
+							<div class="scrollable">
+								<van-list v-model="state.shopLoading" :offset="10" :error.sync="state.shopError" error-text="请求失败，点击重新加载"
+								 :finished="state.shopFinished" :immediate-check="true" @load="getShops">
+									<div class="shop-list">
+										<div class="item" v-for="item in shops" @click="choiceShop(item)">
+											<div class="info">
+												<p>地址：{{item.address}}</p>
+												<p>电话：{{item.phone}}</p>
+											</div>
+											<i class="icon iconfont" :class="[item.active ? 'icon-checked' : 'icon-check']"></i>
+										</div>
+									</div>
+								</van-list>
+							</div>
+						</div>
+					</div>
+
+					<div class="bottom-block">
+						<div class="ui-submit" @click="shopDone">确定</div>
+					</div>
+				</div>
+			</div>
+		</van-actionsheet>
+
+		<!-- 地址 -->
+		<van-popup class="address-page" v-model="show.addressList" position="right" :overlay="false" >
+			<div class="content-wrapper"  style="padding-top: constant(safe-area-inset-top); 
+padding-top: env(safe-area-inset-top); 
+padding-left: constant(safe-area-inset-left); 
+padding-left: env(safe-area-inset-left); 
+padding-right: constant(safe-area-inset-right); 
+padding-right: env(safe-area-inset-right); 
+padding-bottom: constant(safe-area-inset-bottom); 
+padding-bottom: env(safe-area-inset-bottom); ">
+				<!-- topbar -->
+				<div class="fixed-bar header-toolbar">
+					<div class="tool-left tool-col">
+						<span class="back-btn" @click="show.addressList=false"><i class="icon iconfont icon-left"></i></span>
+					</div>
+					<div class="page-title tool-col">
+						<span>地址管理</span>
+					</div>
+				</div>
+				<!-- topbar end-->
+				<div class="views">
+					<div class="container">
+						<!-- container -->
+						<div class="scrollable">
+							<van-list v-model="state.addrLoading" :offset="10" :error.sync="state.addrError" error-text="请求失败，点击重新加载"
+							 :finished="state.addrFinished" :immediate-check="false" @load="getAddressList">
+								<div class="address-list">
+									<div class="item" v-for="item in address" @click="choiceAddr(item)">
+										<div class="check-wrapper"><i class="icon iconfont" :class="[item.active ? 'icon-checked' : 'icon-check']"></i></div>
+										<div class="adress-info">
+											<div class="user-info">
+												<span class="name">{{item.consignee}}</span>
+												<span class="phone">{{item.phone}}</span>
+												<span class="default-address" v-show="item.default">默认</span>
+											</div>
+											<div class="address-wrapper">
+												<span class="address">{{item.areaName + item.address}}</span>
+											</div>
+										</div>
+										<div class="handles">
+											<a @click.stop="showAddrEdit(item)" class="edit-btn">编辑</a>
+										</div>
+									</div>
+								</div>
+							</van-list>
+							<div class="no-msg-wrapper" v-show="!state.addrLoading && !address.length">
+								<img src="imgs/common/icon_no_map.png" alt="">
+								<p class="tips">还没有收货地址哦</p>
+							</div>
+						</div>
+						<!-- container end -->
+					</div>
+				</div>
+				<div class="fixed-bar address-toolbar">
+					<div @click="showAddrEdit(false)" class="new-address-btn">新建收货地址</div>
+				</div>
+			</div>
+		</van-popup>
+
+		<!-- 添加地址 -->
+		<van-popup class="address-edit-page" v-model="show.addressEdit" position="right" :overlay="false">
+			<div class="content-wrapper"  style="padding-top: constant(safe-area-inset-top); 
+padding-top: env(safe-area-inset-top); 
+padding-left: constant(safe-area-inset-left); 
+padding-left: env(safe-area-inset-left); 
+padding-right: constant(safe-area-inset-right); 
+padding-right: env(safe-area-inset-right); 
+padding-bottom: constant(safe-area-inset-bottom); 
+padding-bottom: env(safe-area-inset-bottom); ">
+				<!-- topbar -->
+				<div class="fixed-bar header-toolbar">
+					<div class="tool-left tool-col">
+						<span class="back-btn" @click="show.addressEdit=false"><i class="icon iconfont icon-left"></i></span>
+					</div>
+					<div class="page-title tool-col">
+						<span>地址管理</span>
+					</div>
+					<div class="tool-right tool-col">
+						<div class="save-address" @click="saveAddress">保存</div>
+					</div>
+				</div>
+				<!-- topbar end-->
+
+				<div class="views">
+					<div class="container">
+						<!-- container -->
+						<div class="address-edit-page content-wrapper grey-bg">
+							<div class="views">
+								<div class="scrollable">
+									<div class="address-form">
+										<div class="item">
+											<span class="label">收货人：</span>
+											<div class="content">
+												<input @blur="scrollTop" v-model="addrEdit.address.consignee">
+											</div>
+										</div>
+										<div class="item">
+											<span class="label">联系方式：</span>
+											<div class="content">
+												<input type="tel" @blur="scrollTop" v-model.number="addrEdit.address.phone">
+											</div>
+										</div>
+										<div class="item" @click="showArea">
+											<span class="label">所在地区：</span>
+											<span class="content">
+												<span v-for="place in addrEdit.seletArea" v-if="place">{{place.name}}</span>
+												<span v-if="!addrEdit.seletArea.length">{{addrEdit.address.areaName}}</span>
+											</span>
+											<van-loading size="20px" v-show="state.areaLoading"></van-loading>
+										</div>
+										<div class="item street-item">
+											<span class="label">详细地址：</span>
+											<textarea placeholder="请输入详细地址..." @blur="scrollTop" class="street" v-model="addrEdit.address.address"></textarea>
+										</div>
+										<div class="item handles">
+											<span class="label">设为默认地址</span>
+											<div class="switch-btn">
+												<van-switch active-color="#07c160" size="100%" v-model="addrEdit.address.default" />
+											</div>
+										</div>
+									</div>
+									<van-actionsheet v-model="show.area">
+										<van-area :area-list="areaList" @cancel="hideArea(false)" @confirm="hideArea" :value="addrEdit.dftArea"></van-area>
+									</van-actionsheet>
+								</div>
+
+
+							</div>
+						</div>
+
+						<!-- container end -->
+					</div>
+				</div>
+
+
+			</div>
+		</van-popup>
+
+		<van-popup class="page-loading" v-model="show.pageLoading || state.lockOrder" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.pageLoading || state.lockOrder" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+
+		<van-popup class="loading-1" v-model="show.loading" :overlay="false">
+			<van-loading color="#c61a1a"></van-loading>
+		</van-popup>
+
+
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/confirmorder/require.config"></script>
+</body>
+
+</html>

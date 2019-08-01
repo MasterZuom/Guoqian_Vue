@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的礼券</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>我的礼券</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="coupon-page">
+						<div class="tab-wrapper height-full">
+							<div class="tab-nav">
+								<div class="tab-btn" :class="{active: index == 0}" @click="switchItem(0)">
+									<span>未使用</span>
+								</div>
+								<div class="tab-btn" :class="{active: index == 1}" @click="switchItem(1)">
+									<span>已使用</span>
+								</div>
+								<div class="tab-btn" :class="{active: index == 2}" @click="switchItem(2)">
+									<span>已失效</span>
+								</div>
+							</div>
+							<div class="tab-content views">
+								<div class="tab-view scrollable">
+									<van-list v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载" :finished="finished"
+									 finished-text="" :immediate-check="false" @load="getCoupon">
+										<div class="coupons" :class="{unused: index == 0, used: index == 1, overdue: index == 2}">
+											<!-- unused used  overdue -->
+											<div class="coupon-item" v-for="item in coupon[items[index]]">
+												<div class="coupon-price-view">
+													<div class="price">
+														<p class="value">
+															<span class="number">{{item.introduction}}</span>
+														</p>
+														<span class="describe">满{{item.minimumPrice}}元可用</p>
+													</div>
+													<div class="coupon-info">
+														<p class="name">{{item.name}}</p><br/>
+														<p class="time"><span>{{item.dateStr}}</span></p>
+														<div class="bottom">
+															<span class="coupon-number hide">券码：022551254411</span>
+															<!--<span class="btn" v-if="!index">立即使用</span>-->
+														</div>
+													</div>
+													<div class="label"></div>
+												</div>
+											</div>
+										</div>
+									</van-list>
+									<div class="no-msg-wrapper" v-show="!loading && !error && !coupon[items[index]].length">
+										<img src="imgs/coupon/icon_zanwulipinka@3x.png">
+										<p class="tips">暂无礼券</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/coupon/require.config"></script>
+</body>
+
+</html>

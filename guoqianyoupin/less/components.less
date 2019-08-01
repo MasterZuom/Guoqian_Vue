@@ -1,0 +1,424 @@
+//组件
+//———————————————————————— 底部导航 ————————————————————————
+.nav-toolbar {
+  // width:750px;
+  // height:120px;
+  // background:rgba(255,255,255,1);
+  height: 16vw;
+  background: #fff;
+  box-shadow: 0vw 0vw 3.2vw 0vw rgba(26, 17, 18, 0.09);
+  z-index: 8;
+
+  .tab {
+    text-align: center;
+    flex: 1;
+
+    &.active {
+      color: #2CC7BC;
+    }
+  }
+
+  .icon-wrapper {
+    position: relative;
+    padding: 3.2vw 0 1.3333vw;
+
+    .icon {
+      font-size: 6.1333vw
+    }
+  }
+
+  .img-wrapper {
+    position: relative;
+    padding: 3.2vw 0 0.3333vw;
+
+    img {
+      width: 5.4vw;
+      height: auto;
+    }
+  }
+
+  .number {
+    position: absolute;
+    right: 25%;
+    top: 14%;
+    display: inline-block;
+    min-width: 4vw;
+    min-height: 4vw;
+    padding: 0.6667vw;
+    text-align: center;
+    line-height: 2.8vw;
+    font-size: 2.1333vw;
+    color: #fff;
+    border-radius: 100%;
+    background-color: #C50303;
+  }
+
+
+
+  .label {
+    font-size: 3.4667vw;
+  }
+}
+
+//———————————————————————— 顶部的导航 ————————————————————————
+.header-toolbar {
+  position: relative;
+  height: 12vw;
+  .flex-box();
+  align-items: center;
+  background: #fff;
+
+  .tool-right {
+    flex: 0 0 25%;
+    justify-content: flex-end;
+  }
+
+  .tool-left {
+    flex: 0 0 25%;
+  }
+
+  .tool-col {
+    .flex-box();
+    height: 100%;
+    align-items: center;
+  }
+
+  .back-btn {
+    .flex-box();
+    justify-content: center;
+    align-items: center;
+    width: 12vw;
+    height: 12vw;
+
+    .icon {
+      font-size: 4.5333vw;
+    }
+  }
+
+  .page-title {
+    font-size: 4.8vw;
+    justify-content: center;
+    align-items: center;
+    flex: 0 0 50%;
+    text-align: center;
+
+    &:first-child:not(:last-child) {
+      margin-left: 25%
+    }
+  }
+
+  .dfu-btn {
+    .fc();
+    height: 100%;
+    min-width: 13.3333vw;
+    padding: 0 1.3333vw;
+    font-size: 4vw;
+  }
+}
+
+//———————————————————————— page loading view ————————————————————————
+.van-loading {
+  overflow: hidden;
+}
+
+.loading-1 {
+  background: none;
+}
+
+.page-loading {
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, .5);
+  transition: none;
+
+  // &:after {
+  //   display: block;
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   width: 100%;
+  //   height: 100%;
+  //   content: "";
+  //   z-index: 2;
+  // }
+}
+
+
+//———————————————————————— tab view ————————————————————————
+.tab-wrapper {
+  .flex-box();
+  .column();
+
+  .tab-nav {
+    .flex-box();
+    align-items: center;
+    height: 7.4667vw;
+    background: #fff;
+  }
+
+  .tab-btn {
+    .flex-box();
+    justify-content: center;
+    flex: 1;
+    height: 100%;
+
+    &.active {
+      color: #24C3BE;
+
+      span {
+        position: relative;
+      }
+
+      span::before {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        width: 100%;
+        height: 0.5333vw;
+        background: #24C3BE;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+}
+
+//———————————————————————— 模态框 ————————————————————————
+.onePxLine() {
+  content: "";
+  display: block;
+  position: absolute;
+  background: @color;
+}
+
+.line-top(@color: #EAEAEA, @value: 1px) {
+  &::before {
+    .onePxLine();
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    transform: scale(1, .5);
+  }
+}
+
+.line-bottom(@color: #EAEAEA, @value: 1px) {
+  &::before {
+    .onePxLine();
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: @value;
+    transform: scale(1, .5);
+  }
+}
+
+.line-left(@color: #EAEAEA, @value: 1px) {
+  &::before {
+    .onePxLine();
+    top: 0;
+    left: 0;
+    width: @value;
+    height: 100%;
+    transform: scale(.5, 1);
+  }
+}
+
+.line-right(@color: #EAEAEA, @value: 1px) {
+  &::before {
+    .onePxLine();
+    top: 0;
+    left: 0;
+    width: @value;
+    height: 100%;
+    transform: scale(.5, 1);
+  }
+}
+
+//———————————————————————— 模态框 ————————————————————————
+.imodal {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1050;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0; // background-color: rgba(0, 0, 0, .5);
+
+  .mask-block {
+    z-index: -1;
+  }
+
+  .dialog-header {
+    position: relative;
+
+    .close-btn {
+      position: absolute;
+      right: 0;
+      top: 0;
+      display: block;
+      width: 6.6667vw;
+      height: 6.6667vw;
+      .flex-box();
+      align-items: center;
+      justify-content: center;
+
+      .icon {
+        font-size: 2.1333vw;
+      }
+    }
+  }
+}
+
+//———————————————————————— 中线标题 ————————————————————————
+.label-title {
+  font-size: 3.2vw;
+  text-align: center;
+
+  &:after,
+  &:before {
+    display: inline-block;
+    content: '';
+    width: 37.3333vw;
+    height: 1px;
+    vertical-align: middle;
+    background-color: #DCDCDC;
+    transform: scale(1, .5);
+  }
+
+  &:before {
+    margin-right: 3.2vw;
+  }
+
+  &:after {
+    margin-left: 3.2vw;
+  }
+}
+
+//———————————————————————— 数量加减组件 ————————————————————————
+.num-bar {
+  .flex-box();
+  align-items: center;
+  border: 1px solid #D3D3D3;
+  .radius(3.2vw);
+
+  .num-btn {
+    height: 6.4vw;
+    width: 6.4vw;
+    .flex-box();
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      font-size: 2.6667vw;
+    }
+  }
+
+  .input-wrapper {
+    height: 6.4vw;
+    border: 1px solid #D3D3D3;
+    border-width: 0 1px;
+  }
+
+  input {
+    display: block;
+    width: 8vw;
+    height: 100%;
+    text-align: center;
+    font-size: 3.2vw;
+    border: 0;
+  }
+}
+
+//———————————————————————— input check-box ————————————————————————
+.check-box {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+
+  .wrap {
+    display: inline-block;
+    position: relative;
+    color: #e4e4e4;
+    font-size: 0.3733333333rem;
+  }
+
+  input {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+  i.fa-check-circle {
+    color: #e94045;
+  }
+}
+
+//———————————————————————— input check-box ————————————————————————
+.ui-message {
+  position: relative;
+
+  i {
+    font-size: 5.3333vw;
+  }
+
+  .icon-msg-tips {
+    display: block;
+    position: absolute;
+    right: -0.3vw;
+    top: -0.3vw;
+    width: 1.8667vw;
+    height: 1.8667vw;
+    background: #c61a1a;
+    border-radius: 100%;
+  }
+}
+
+//———————————————————————— dialog ————————————————————————
+.ui-dialog-1 {
+  position: absolute;
+  width: 80vw;
+  height: 11.7333vw;
+  background: rgba(4, 4, 4, .7);
+  border-radius: 1.3333vw;
+  .flex-box();
+  align-items: center;
+  justify-content: center;
+  left: 50%;
+  top: -2.1333vw;
+  margin-left: -40vw;
+
+  .msg {
+    font-size: 3.2vw;
+    color: #fff;
+  }
+}
+
+//———————————————————————— ui label ————————————————————————
+.ui-tag {
+  display: inline-block;
+  min-width: 19.4667vw;
+  padding: 1.3333vw 3.7333vw;
+  font-size: 3.7333vw;
+  color: #999;
+  background: #F7F7F7;
+  .radius(3.2vw);
+}
+
+.copy-btn {
+  .inB();
+  text-align: center;
+  font-size: 2.6667vw;
+  width: 9.0667vw;
+  height: 4.8vw;
+  line-height: 4.8vw;
+  color: @red;
+  border: @1px solid @red;
+  border-radius: 2.4vw;
+}

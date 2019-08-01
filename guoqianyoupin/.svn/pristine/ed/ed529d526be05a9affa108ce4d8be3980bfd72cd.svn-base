@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>会员权益</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>会员权益</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="wrapper membership-page">
+						<div class="membership-info">
+							<div class="member-info">
+								<div class="avatar">
+									<img :src="memberInfo.headIcon">
+								</div>
+								<span class="name">{{memberInfo.name}}</span>
+								<span class="points">当前积分: <span>{{memberInfo.point}}</span></span>
+							</div>
+							<div class="level-wrapper">
+								<div class="item" :class="{active: currentRank == 1}">
+									<div class="item-icon" @click="benefitRank(1)">
+										<img src="imgs/icons/icon_vip_02def.svg">
+									</div>
+									<span class="item-label" :class="{active: memberInfo.memberRankId == 1}">普通会员</span>
+								</div>
+								<div class="item" :class="{active: currentRank == 2}">
+									<div class="item-icon" @click="benefitRank(2)">
+										<img src="imgs/icons/icon_vip_03tongpai.svg">
+									</div>
+									<span class="item-label" :class="{active: memberInfo.memberRankId == 2}">铜牌会员</span>
+								</div>
+								<div class="item" :class="{active: currentRank == 3}">
+									<div class="item-icon" @click="benefitRank(3)">
+										<img src="imgs/icons/icon_vip_04yinpai.svg">
+									</div>
+									<span class="item-label" :class="{active: memberInfo.memberRankId == 3}">银牌会员</span>
+								</div>
+								<div class="item" :class="{active: currentRank == 4}">
+									<div class="item-icon" @click="benefitRank(4)">
+										<img src="imgs/icons/icon_vip_05jinpai.svg">
+									</div>
+									<span class="item-label" :class="{active: memberInfo.memberRankId == 4}">金牌会员</span>
+								</div>
+							</div>
+						</div>
+						<div class="privilege-wrapper">
+							<p class="block-title">{{benefit.memberRankName}}专享</p>
+							<div class="item-wrapper">
+								<div class="item hide">
+									<span class="icon-wrapper">
+										<span class="item-icon"></span>
+									</span>
+									<span class="name">分期免息券</span>
+									<span class="label">1张/月</span>
+								</div>
+								<div class="item">
+									<span class="icon-wrapper">
+										<img class="item-icon" src="imgs/icons/icon_vipquanyi_youhuizuhe.svg"></span>
+									</span>
+									<span class="name">优惠组合</span>
+									<span class="label">{{benefit.couponCount}}张/月</span>
+								</div>
+								<div class="item hide">
+									<span class="icon-wrapper">
+										<span class="item-icon"></span>
+									</span>
+									<span class="name">免运费券</span>
+									<span class="label">1张/月</span>
+								</div>
+								<div class="item">
+									<span class="icon-wrapper">
+										<img class="item-icon" src="imgs/icons/icon_vipquanyi_jifen.svg"></span>
+									</span>
+									<span class="name">积分翻倍</span>
+									<span class="label">{{benefit.pointScaleCount}}倍</span>
+								</div>
+								<div class="item" v-show="benefit.hasBirthdayGift">
+									<span class="icon-wrapper">
+										<img class="item-icon" src="imgs/icons/icon_vipquanyi_shengri.svg"></span>
+									</span>
+									<span class="name">生日礼</span>
+									<span class="label"></span>
+								</div>
+							</div>
+							<div class="notice-slide hide">
+								<a href="#">
+									<span class="icon"></span>特别升级：购买指定金融投资商品，享受消费金额翻倍升级会员服务。
+								</a>
+							</div>
+							<p class="notes">注：1. 会员升级所需金额累计消费计算。2. 购物获取积分，自获取积分之日起，满自然年自动过期。 </p>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/membership/require.config"></script>
+</body>
+
+</html>

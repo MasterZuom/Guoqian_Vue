@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的礼品卡</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>我的礼品卡</span>
+				</div>
+				<div class="tool-right tool-col">
+					<a href="card_describe.html" class="dfu-btn des-link">使用说明</a>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="card-page">
+						<div class="tab-wrapper height-full">
+							<div class="tab-nav">
+								<div class="tab-btn" :class="{active: index == 0}" @click="switchItem(0)">
+									<span>可用</span>
+								</div>
+								<div class="tab-btn" :class="{active: index == 1}" @click="switchItem(1)">
+									<span>已使用</span>
+								</div>
+								<div class="tab-btn" :class="{active: index == 2}" @click="switchItem(2)">
+									<span>已失效</span>
+								</div>
+							</div>
+							<div class="tab-content views">
+								<div class="tab-view scrollable">
+									<van-list class="cards-list" v-model="loading" :offset="10" :error.sync="error" error-text="请求失败，点击重新加载"
+									 :finished="finished" finished-text="" :immediate-check="false" @load="getCard">
+										<div class="cards" :class="{unused: index == 0, used: index == 1, overdue: index == 2}" v-show="card[items[index]].length">
+											<!-- unused used  overdue -->
+											<div class="card-item" v-for="item in card[items[index]]">
+												<div class="card-price-view">
+													<div class="card-top">
+														<div class="card-title">
+															<span>礼品卡</span>
+															<span class="card-number">券码：{{item.cardNumber}}</span>
+														</div>
+														<a href="javascript:;" class="detail-btn" @click="getDetail(item.id)">使用明细 <i class="icon iconfont icon-wenhao"></i></a>
+													</div>
+													<div class="card-main">
+														<div class="price-info">
+															<span class="txt">余额</span>
+															<span class="rmb">￥</span>
+															<span class="number">{{item.balance}}</span>
+															<span class="total">{{item.amount}}<b>元</b></span>
+														</div>
+														<div class="describe-info">
+															<p class="describe">使用范围：{{item.scope}}</p>
+															<p class="time">有效期至：<span>{{dateFormat(item.beginDate)}} 至 {{dateFormat(item.endDate)}}</span></p>
+														</div>
+														<div class="label"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</van-list>
+									<div class="no-msg-wrapper" v-show="!loading && !error && !card[items[index]].length">
+										<img src="imgs/coupon/icon_zanwulipinka@3x.png" alt="">
+										<p class="tips">暂无礼品卡</p>
+									</div>
+									<div class="add-card-btn">
+										<span @click="show.bind=true">绑定礼品卡</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<!-- 绑定礼品卡 -->
+			<van-dialog class="bind-card-dialog" v-model="show.bind" show-cancel-button confirm-button-text="确认绑定" :before-close="bind">
+				<div class="content">
+					<div class="ui-title">绑定礼品卡</div>
+					<div class="input-wrapper">
+						<div class="input-group">
+							<input type="text" placeholder="请输入卡号" class="input-control" v-model="cardNumber">
+						</div>
+						<div class="input-group">
+							<input type="text" placeholder="请输入卡密 不区分大小写" class="input-control" v-model="cardSecret">
+						</div>
+						<div class="verify-wrapper">
+							<span class="ui-btn" @click="verify">验证金额</span>
+							<span class="price" v-show="price">{{price}}元</span>
+						</div>
+						<div class="captcha-wrapper">
+							<div class="captcha-input">
+								<input type="text" placeholder="请输入验证码" class="input-control" v-model="captcha">
+							</div>
+							<img :src="captchaUrl" @click="getCaptcha">
+						</div>
+					</div>
+				</div>
+			</van-dialog>
+
+			<!-- 使用记录 -->
+			<van-popup class="git-card-detail" v-model="show.detail">
+				<div class="card-use-details">
+					<div class="details-title dialog-header">
+						<span class="title">使用明细</span>
+						<span class="close-btn" @click="show.detail=false">
+							<i class="icon iconfont icon-close"></i>
+						</span>
+					</div>
+					<div class="table-item table-header">
+						<div class="table-label">日期</div>
+						<div class="table-label">来源</div>
+						<div class="table-label">支出</div>
+					</div>
+					<div class="scrollable" style="overflow: auto">
+						<div class="table-item" v-for="item in detail">
+							<div class="table-label time">{{dateFormat(item.createdDate)}}</div>
+							<div class="table-label detail">
+								<p>订单号：{{item.orderSn}}</p>
+								<p v-for="source in item.items">{{source}}</p>
+							</div>
+							<div class="table-label number" v-show="item.debit">- {{item.debit}}</div>
+							<div class="table-label number red-txt" v-show="item.credit">+ {{item.credit}}</div>
+						</div>
+					</div>
+				</div>
+			</van-popup>
+
+			<div class="imodal git-card-detail hide">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="card-use-details">
+							<div class="details-title dialog-header">
+								<span class="title">使用明细</span>
+								<a href="javascript:;" class="close-btn">
+									<i class="icon iconfont icon-close"></i>
+								</a>
+							</div>
+							<div class="table-item table-header">
+								<div class="table-label">日期</div>
+								<div class="table-label">来源</div>
+								<div class="table-label">支出</div>
+							</div>
+							<div class="scrollable">
+								<div class="table-item">
+									<div class="table-label time">2018-08-20</div>
+									<div class="table-label detail">
+										订单号：201808245522 <br>
+										戴森负离子吹风机
+									</div>
+									<div class="table-label number">- 5</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="mask-block show"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/gift_card/require.config"></script>
+</body>
+
+</html>

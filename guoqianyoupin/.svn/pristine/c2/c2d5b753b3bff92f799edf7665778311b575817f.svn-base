@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>品类</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+	<style>
+		input::-webkit-input-placeholder{
+			line-height: 6vw;
+		 }
+	</style>
+</head>
+
+<body>
+	<div id="page" class="grey-bg" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar search-land" v-show="!show.searchPage">
+				<div class="col-l">
+					<a href="qrcode_scan.html" class="ui-btn">
+						<i class="icon iconfont icon-saoma"></i>
+					</a>
+				</div>
+				<div class="search-wrapper" @click="showSearch">
+					<i class="icon iconfont icon-sousuo"></i>
+					<!-- <input class="search-input"> -->
+				</div>
+				<div class="col-r">
+					<div class="notice-btn ui-btn">
+						<a href="notification_center.html" class="ui-message">
+							<i class="icon iconfont icon-xiaoxi"></i>
+							<span class="icon-msg-tips" v-if="showMsgTip"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- topbar end-->
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+
+					<div class="search-page height-full" v-show="show.searchPage">
+						<div class="content-wrapper">
+							<div class="">
+								<form class="search-land model-2" action="" method="get" @submit.prevent="subSearch">
+									<div class="col-l">
+										<a href="javascript:;" class="ui-btn" @click="show.searchPage = 0">
+											<i class="icon iconfont icon-left"></i>
+										</a>
+									</div>
+									<div class="search-wrapper">
+										<i class="icon iconfont icon-sousuo"></i>
+										<input type="search" class="search-input" placeholder="请输入搜索" v-model="keyword" ref="searchInput">
+									</div>
+									<div class="col-r">
+										<a href="javascript:;" class="search-btn ui-btn" @click="subSearch">搜索</a>
+									</div>
+								</form>
+							</div>
+
+							<!-- 默认首页 -->
+							<div class="default-page">
+								<div class="block-item" v-show="hotList.length">
+									<p class="block-title">热搜</p>
+									<div class="tags">
+										<span class="ui-tag" v-for="item in hotList" @click="$url('goods_list.html?keyword='+item.keyWord)">{{item.keyWord}}</span>
+									</div>
+								</div>
+
+								<div class="block-item" v-show="searchHistroy.length">
+									<p class="block-title">
+										<span>历史搜索</span>
+										<span class="icon iconfont icon-shanchu" @click="removeHistroy"></span>
+									</p>
+									<div class="views">
+										<div class="tags">
+											<span class="ui-tag" v-for="item in searchHistroy" @click="$url('goods_list.html?keyword='+item)">{{item}}</span>
+										</div>
+									</div>
+								</div>
+
+								<!-- 留存 -->
+								<div class="recent-search hide">
+									<p class="block-title">历史搜索</p>
+									<div class="views">
+										<div class="history-list">
+											<div class="item">
+												<span class="label"></span>
+												<div class="tag-wrapper">
+													<span class="ui-tag"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- 搜索结果 -->
+							<div class="association-result views hide">
+								<!-- scrollable -->
+								<div class="content">
+									<div class="item">
+										<a href="javascript:;"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="category-main height-full" v-show="!show.searchPage">
+						<div class="root-list scrollable">
+							<div class="wrapper">
+								<div class="item" :class="{active: index==curIndex}" v-for="(item,index) in category" @click="choiceCate(item, index)">{{item.parentName}}</div>
+							</div>
+						</div>
+						<div class="category-content">
+							<div class="scrollable">
+								<div class="wrapper">
+									<div class="item" v-for="item in categoryItems" @click="$url('goods_list.html?filter=true&cId='+curCategoryId+'&bId='+item.id)" v-if="item.imgUrl">
+										<!-- + '&bId='+item.id -->
+										<div class="img-wrapper" v-if="item.imgUrl">
+											<img v-lazy="item.imgUrl" >
+										</div>
+										<span class="label">{{item.name}}</span>
+									</div>
+									<div class="item" v-for="item in categoryItems" @click="$url('goods_list.html?filter=true&cId='+item.id)" v-if="!item.imgUrl">
+										<!-- + '&bId='+item.id -->
+										<div class="img-wrapper" v-if="item.imgUrl">
+											<img v-lazy="item.imgUrl" >
+										</div>
+										<span class="label">{{item.name}}</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<!-- 底部导航 -->
+			<navigation v-show="!show.searchPage"></navigation>
+			<!-- 底部导航 end -->
+		</div>
+
+		<van-popup class="loading-1" v-model="show.loading" :overlay="false">
+			<van-loading color="#c61a1a"></van-loading>
+		</van-popup>
+
+	</div>
+	<script src="libs/require-2.3.3min.js" data-main="js/category/require.config"></script>
+</body>
+
+</html>

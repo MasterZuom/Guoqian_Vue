@@ -1,0 +1,145 @@
+define(function (require, exports, moduel) {
+	var $ = require('jquery')
+	require('../common/common')
+	var commentApi = require('../../api/comments')
+	var memberApi = require('../../api/member')
+	var pluginApi = require('../../api/plugin')
+	var orderApi = require('../../api/order')
+	var Vue = require('vue')
+	var Vant = require('vant')
+	Vue.use(Vant)
+
+	var app = new Vue({
+		data: function () {
+			return {
+				productId: '',
+				itemId: '',
+				goods: {},
+				memberId: '',
+				score: 5,
+				content: '',
+				imgs: [],
+				loading: false,
+				finished: false,
+				page: 1,
+				show: {
+					pageLoading: true
+				},
+				state: {
+					locked: false
+				},
+				totalPage: ''
+			}
+		},
+		created: function () {
+			this.productId = Number(getParam('pId'))
+			this.itemId = Number(getParam('itemId'))
+			this.getMember()
+			this.getGoods()
+		},
+
+		mounted: function () {
+			//this.$notify('');
+		},
+		computed: {
+			uploadBtnSta: function () {
+				if (this.imgs.length >= 3) {
+					return false
+				}
+				return true
+			}
+		},
+		methods: {
+			$url: $url,
+			getGoods: function () {
+				var _self = this
+				orderApi.orderGoods(_self.itemId)
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.goods = res.data
+						}
+					})
+					.always(function () {
+						_self.show.pageLoading = false
+					})
+			},
+			getMember: function () {
+				var _self = this
+				return memberApi.info()
+					.then(function (res) {
+						_self.memberId = res.data.id
+					})
+			},
+			uploader: function (files) {
+				//上传头像
+				var _self = this
+				var oData = new FormData()
+				oData.append('file', files.file)
+				oData.append('fileType', 'image')
+				pluginApi.uploader(oData)
+					.then(function (res) {
+						if (res.code == 200) {
+							_self.imgs.push(res.data.url)
+						}
+					})
+					.fail(function (res) {
+						_self.$notify('网络错误');
+					})
+			},
+			removeImg: function (i) {
+				//删除图片
+				this.imgs.splice(i, 1)
+			},
+			commit: function () {
+				var _self = this
+
+				if (_self.content.length > 100) {
+					_self.$toast({
+						message: '评论字数超出限制'
+					})
+					return
+				}
+				if (_self.state.locked) {
+					return
+				}
+				_self.state.locked = true
+
+				var imgs = _self.imgs.join(',')
+				commentApi.save({
+						content: _self.content || '此用户未填写评价。',
+						creatDate: '',
+						memberId: _self.memberId,
+						productId: _self.productId,
+						score: _self.score,
+						images: imgs,
+						show: true
+					})
+					.then(function (res) {
+						_self.$toast({
+							message: res.message,
+							duration: 1000
+						})
+						setTimeout(function () {
+							window.history.back(-1)
+						}, 1100)
+					})
+					.fail(function (res) {
+						if (res.status == 422) {
+							_self.$toast({
+								message: res.responseJSON.message
+							})
+							return
+						}
+						_self.$notify('网络错误')
+					})
+					.always(function () {
+						_self.state.locked = false
+					})
+			}
+		}
+	}).$mount('#page');
+
+
+
+
+});

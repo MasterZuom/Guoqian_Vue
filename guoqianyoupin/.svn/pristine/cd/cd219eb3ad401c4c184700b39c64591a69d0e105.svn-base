@@ -1,0 +1,464 @@
+//common js ：通用方法
+var log = console.log;
+
+var loginInfo = JSON.parse(window.localStorage.getItem('loginInfo')) || {}
+
+//Object.assign
+var _extends = Object.assign || function (target) {
+        for (var i = 1; i < arguments.length; i++) {
+            var source = arguments[i];
+            //遍历一个对象的自身和继承来的属性，
+            //常常配合hasOwnProperty筛选出对象自身的属性
+            for (var key in source) {
+                //使用call方法,避免原型对象扩展带来的干扰
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+        return target;
+    };
+
+function isPassive() {
+    var supportsPassiveOption = false;
+    try {
+        addEventListener("test", null, Object.defineProperty({}, 'passive', {
+            get: function () {
+                supportsPassiveOption = true;
+            }
+        }));
+    } catch (e) {}
+    return supportsPassiveOption;
+}
+
+function uuid() {
+    var s = [];
+    var hexDigits = "0123456789abcdef";
+    for (var i = 0; i < 36; i++) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+    }
+    s[14] = "4"; // bits 12-15 of the time_hi_and_version field to 0010
+    s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1); // bits 6-7 of the clock_seq_hi_and_reserved to 01
+    s[8] = s[13] = s[18] = s[23] = "-";
+
+    var uuid = s.join("");
+    return uuid;
+}
+
+//是否微信中
+function isWeiXin() {
+    var ua = window.navigator.userAgent.toLowerCase();
+    if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+        return true;
+    } else {
+        return false;
+    }
+}
+var regModel = {
+    float: /^\d+(\.\d+)?$/g, //只能匹配数字和小数
+    int: /^\d+$/, //整数
+    tel: /^1[0-9]{10}$/, //简化验证手机
+    userPass: /^([0-9a-zA-Z]{6,16})$/,
+    test: function (reg, val) {
+        var result = this[reg].test(val);
+        this.float.lastIndex = 0;
+        return result;
+    }
+};
+regModel.float.lastIndex = 0;
+
+//Deferred
+var iPromise = function (fn) {
+    var defer = $.Deferred();
+    var view = (fn && fn(defer.resolve, defer.reject))
+    defer.notify(view)
+    return defer.promise();
+};
+
+//跳转
+var $url = function (url, opts) {
+	/* opts [{key, val}] */
+    iPromise(function (resolve, reject) {
+        var count = 0
+        if (opts && opts.length) {
+            opts.forEach(function (v, i) {
+                count++
+                for (var attr in v) {
+                    localStorage.setItem(attr, JSON.stringify(v[attr]))
+                }
+                if (count == opts.length) {
+                    resolve()
+                }
+            })
+        } else {
+            resolve()
+        }
+    }).then(function () {
+        location.href = url
+    })
+}
+
+var linkTypeUrl = function (type, targetId) {
+    //linkType跳转链接
+    var paramsKey = ['id', 'activitySkuId', 'type', 'groupSn'];
+    var paramsVal;
+    var params = [];
+    var url = ''
+    switch (type) {
+        case 'product':
+            url = 'goods_detail.html?id=' + targetId
+            break;
+        case 'category':
+            url = 'goods_list.html?filter=true&cId=' + targetId
+            break;
+        case 'flashSale':
+            url = 'activity.html?type=flashSale'
+            break;
+        case 'groupBuy':
+            url = 'activity.html?type=groupBuy'
+            break;
+        case 'article':
+            url = 'article.html?id=' + targetId
+            break;
+        case 'activityProductSku':
+            paramsVal = targetId.split(',')
+            paramsVal.forEach(function (v, i) {
+                params.push(paramsKey[i] + '=' + v)
+            })
+            url = 'goods_detail.html?' + params.join('&')
+            break;
+        default:
+    }
+    return url
+}
+
+//Json
+function jsonParse(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+var _ERR_STATUS = {
+    networkError: 'networkError',
+    dataFaild: 'failed'
+}
+//返回 promise 对象 ajax
+function resource(config) {
+    config = config || {}
+
+    config.apiBaseUrl = 'https://gquat.crmservices.cn/h5shop/api'
+    // config.apiBaseUrl = 'http://10.20.20.87:8080/h5shop/api'
+
+    config.type = config.type || 'GET'
+    config.dataType = config.dataType || "json"
+    config.url = config.url || config.apiBaseUrl + config.api;
+    config.params ? config.contentType = 'application/json' : ''
+
+    if (config.token) {
+        config.headers = {
+            Accept: "application/json; charset=utf-8",
+            Authorization: 'GcToken:' + config.token
+        }
+    }
+    config.data = config.data || JSON.stringify(config.params)
+
+    return iPromise(function (resolve, reject) {
+        if (config.dataType === 'getUrl') {
+            resolve(config.url)
+            return
+        }
+        return $.ajax(config)
+            .done(function (response) {
+                if (response.code === 403) {
+                    window.localStorage.removeItem('loginInfo')
+                    window.localStorage.removeItem('cartNum')
+                    window.location.href = 'login.html'
+                }
+            })
+            .done(function (response) {
+                resolve(response)
+            })
+            .fail(function (xhr, status, err) {
+                reject(xhr, status, err)
+            })
+    })
+}
+
+
+//订单状态
+function orderSta(val) {
+    var status = '';
+    if (val == 'pendingPayment') {
+        status = '等待付款'
+    }
+    if (val == 'pendingReview') {
+        status = '等待审核'
+    }
+    if (val == 'pendingShipment') {
+        status = '等待发货'
+    }
+    if (val == 'shipped') {
+        status = '已发货'
+    }
+    if (val == 'received') {
+        status = '已收货'
+    }
+    if (val == 'completed') {
+        status = '已完成'
+    }
+    if (val == 'failed') {
+        status = '已失败'
+    }
+    if (val == 'canceled') {
+        status = '已取消'
+    }
+    if (val == 'denied') {
+        status = '已拒绝'
+    }
+    if (val == 'pendingGroupBuySuccess') {
+        status = '待成团'
+    }
+    if (val == 'groupBuyFailure') {
+        status = '未成团'
+    }
+    return status;
+}
+
+//url 参数
+function getParam(name, urlString) {
+    var url = urlString || location.href;
+    var pattern = new RegExp("[?&]" + name + "\=([^&]+)", "g");
+    var matcher = pattern.exec(url);
+    var items = null;
+    if (null != matcher) {
+        try {
+            items = decodeURIComponent(decodeURIComponent(matcher[1]));
+        } catch (e) {
+            try {
+                items = decodeURIComponent(matcher[1]);
+            } catch (e) {
+                items = matcher[1];
+            }
+        }
+    }
+    return items;
+};
+
+//时间戳转换
+function dateFormat(timestamp, type, fn) {
+    var oDate = new Date(timestamp)
+    var Y = oDate.getFullYear();
+    var M = (oDate.getMonth() + 1 < 10 ? '0' + (oDate.getMonth() + 1) : oDate.getMonth() + 1);
+    var D = (oDate.getDate() < 10 ? '0' + oDate.getDate() : oDate.getDate())
+    var h = oDate.getHours();
+    var m = oDate.getMinutes();
+    var s = oDate.getSeconds();
+    if (m < 10) {
+        m = '0' + m
+    }
+    if (s < 10) {
+        s = '0' + s
+    }
+
+    var result = Y + '-' + M + '-' + D
+    if (type == 1) {
+        result = Y + '-' + M + '-' + D
+    }
+    if (type == 2) {
+        result = Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s
+    }
+    if (type == 3) {
+        result = M + '-' + D + ' ' + h + ':' + m
+    }
+    return result
+}
+
+//微信授权
+function  wxLogin(turnFlag) {
+    var _self = this;
+    _self.resource({
+        type: 'get',
+        api: '/weixin/pre_wxLogin',
+        data: {}
+    })
+        .then(function (res) {
+            if (res.code=='200')
+            {
+                var data = res.data;
+                // window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ data.appid +'&redirect_uri='+ data.redirect_uri +'&response_type='+ data.response_type +'&scope='+ data.scope +'&state=STATE#wechat_redirect'
+                window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ data.appid +'&redirect_uri='+ data.redirect_uri + '?turnFlag=' + turnFlag + '&response_type='+ data.response_type +'&scope='+ data.scope +'&state=STATE#wechat_redirect'
+            }
+
+        })
+}
+
+if(getParam('jkcardtoken')){//一卡通过来用户判断
+    jkCardLogin();
+    // return
+}
+
+function  jkcardWXLogin() {
+    var _self = this;
+    _self.resource({
+        type: 'get',
+        api: '/weixin/pre_wxLogin',
+        data: {}
+    })
+        .then(function (res) {
+            if (res.code=='200')
+            {
+                var data = res.data;
+                var localHost=window.location.protocol+"//"+window.location.host
+                window.location.href='https://open.weixin.qq.com/connect/oauth2/authorize?appid='+ data.appid +'&redirect_uri='+localHost+'/turn.html' + '&response_type='+ data.response_type +'&scope='+ data.scope +'&state=STATE#wechat_redirect'
+            }
+
+        })
+}
+
+
+
+//从一卡通小程序跳过来的用户判断和登录
+function jkCardLogin(){
+
+    if(getParam('mobile')){
+    	window.localStorage.setItem('jkCardMobile', getParam('mobile'));
+    }
+    if(getParam('jkcardtoken')){
+        window.localStorage.setItem('jkcardtoken', getParam('jkcardtoken'));
+    }
+    if(getParam('jkcardopenid')){
+        window.localStorage.setItem('jkcardopenid', getParam('jkcardopenid'));
+    }
+
+    var uniqueId = getParam('uniqueId') || loginInfo.uniqueId || '';
+
+    // if(uniqueId){//微信已授权 尝试登录
+    //     resource({
+    //         type: 'POST',
+    //         api: '/weixin/post_wxLogin',
+    //         params: {
+    //             mobile: getParam('mobile'),
+    //             socialUserId: getParam('socialUserId') || loginInfo.socialUserId || '',
+    //             uniqueId: uniqueId,
+    //             verificationCode: '',
+    // 			jkcardToken:getParam('jkcardtoken')
+    //
+    //         }
+    //     })
+    //         .then(function (result) {
+    //             if (result.code === 200) {
+    //                 var loginInfoParam = result.data;
+    //                 loginInfoParam.socialUserId = getParam('socialUserId') || loginInfo.socialUserId || '';
+    //                 loginInfoParam.uniqueId = uniqueId;
+    //                 window.localStorage.setItem('loginInfo', JSON.stringify(loginInfoParam))
+    //             } else {
+    //                 // window.location.href = 'login.html';
+    //             }
+    //         })
+    //         .fail(function (result) {
+    //             // window.location.href = 'login.html';
+    //         })
+    // }else {//微信未授权 调取授权
+    if(!uniqueId){
+        var localUrl = window.location.href;
+        window.localStorage.setItem('turnUrl', localUrl);
+
+        // window.opener = null;
+        // window.open("", "_self", "");
+        // window.close();
+
+        jkcardWXLogin();
+        return false
+    }
+
+    // }
+
+}
+
+
+// 屏蔽微信分享
+function onBridgeReadyHideShare() {
+    WeixinJSBridge.call('hideOptionMenu');
+    // WeixinJSBridge.call("hideMenuItems({['menuItem:share:QZone','menuItem:share:appMessage','menuItem:share:qq','menuItem:share:timeline','menuItem:favorite']})");
+}
+
+if (typeof WeixinJSBridge == "undefined") {
+    if (document.addEventListener) {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReadyHideShare, false);
+    } else if (document.attachEvent) {
+        document.attachEvent('WeixinJSBridgeReady', onBridgeReadyHideShare);
+        document.attachEvent('onWeixinJSBridgeReady', onBridgeReadyHideShare);
+    }
+} else {
+    onBridgeReadyHideShare();
+}
+
+//微信扫一扫
+function scanWXQRCode() {
+    resource({
+        type: 'GET',
+        api: '/weixin/wxAuth_config',
+        data: "currentUrl="+(window.location.href).split('#')[0]
+    })
+        .then(function (result) {
+            if (result.code === 200) {
+                var data = result.data;
+                wx.config({
+                    debug: false,
+                    appId: data.appId, // 必填，公众号的唯一标识
+                    timestamp: data.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: data.nonceStr, // 必填，生成签名的随机串
+                    signature: data.signature,// 必填，签名
+                    jsApiList: ['scanQRCode'] // 必填，需要使用的JS接口列表
+                });
+
+                wx.scanQRCode({
+                    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                    scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                    success: function (res) {
+                        var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+
+                        if(result.indexOf('flag=login') != -1){
+                            resource({
+                                type: 'POST',
+                                api: '/login/verifyScanLogin/?sessionId='+getParam('sessionId',result),
+                                token: loginInfo.token
+                            })
+                                .then(function (e) {
+                                    if(e.code==200){
+                                        alert('登录成功')
+                                    }else {
+                                        alert(e.message)
+                                    }
+                                })
+                                .fail(function (result) {
+                                    alert('扫码失败')
+                                })
+                        }
+                        if(result.indexOf('productId') != -1){
+                            window.location.href = 'goods_detail.html?id='+getParam('productId',result)
+                        }
+                    }
+                });
+            }
+
+        })
+}
+
+// 清除缓存中的除uniqueId以外的信息
+function clearSomeUserInfo() {
+    var uniqueId = JSON.parse(window.localStorage.getItem('loginInfo')).uniqueId;
+    var loginInfo = {
+        uniqueId:uniqueId
+    }
+    window.localStorage.getItem('loginInfo')
+    window.localStorage.setItem('loginInfo',JSON.stringify(loginInfo))
+}
+
+//百度统计
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?1eac1520e261e0485d2cd427f4b1c62c";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();

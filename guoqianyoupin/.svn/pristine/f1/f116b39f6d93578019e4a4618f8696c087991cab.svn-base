@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>我的</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *;url-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="wrapper user-page">
+						<div class="user-header">
+							<div class="header-wrapper">
+								<div class="user-info">
+									<div class="avatar" @click="$url('account.html')">
+										<img :src="introduce.headIcon">
+									</div>
+									<div class="info" v-show="introduce.phone" @click="$url('account.html')">
+										<div class="line1">
+											<span class="name">{{introduce.nickname}}</span>
+											<div class="membership">
+												<img :src="'imgs/icons/'+rankImg+'.svg'">
+											</div>
+										</div>
+										<div class="line1">
+											<div class="phone-icon"></div>
+											<span class="phone-number">{{introduce.phone}}</span>
+										</div>
+									</div>
+								</div>
+								<div class="account_wrap">
+									<div class="top">
+										<a href="setup.html" class="setup"><i class="icon iconfont icon-shezhi"></i></a>
+										<a href="notification_center.html" class="message">
+											<i class="icon iconfont icon-xiaoxi"></i>
+											<span class="icon-msg-tips" v-if="showMsgTip"></span>
+										</a>
+									</div>
+									<div class="bottom" v-if="!isPersonalEnabled">
+										<a href="membership.html" class="vipcenter"><i class="icon iconfont icon-huiyuan"></i><span>会员中心</span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="main-wrapper">
+							<div class="coupons-wrapper" v-if="!isPersonalEnabled">
+								<div class="points item">
+									<a href="score.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_01_jifen.svg">
+										</span>
+										<span class="item-number"><span>{{introduce.point}}</span>分</span>
+										<span class="item-label">积分</span>
+									</a>
+								</div>
+								<div class="coupons item">
+									<a href="gift_coupon.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_02_youhuiquan.svg">
+										</span>
+										<span class="item-number"><span>{{introduce.couponNumber}}</span>张</span>
+										<span class="item-label">优惠券</span>
+									</a>
+								</div>
+								<div class="gift-card item">
+									<a href="gift_card.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_03_lipinka.svg">
+										</span>
+										<span class="item-number"><span>{{introduce.giftCardNumber}}</span>张</span>
+										<span class="item-label">礼品卡</span>
+									</a>
+								</div>
+								<div class="money item">
+									<a href="rebates.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_04_fanli.svg">
+										</span>
+										<span class="item-number"><span>{{introduce.backMoney}}</span>元</span>
+										<span class="item-label">返利</span>
+									</a>
+								</div>
+							</div>
+
+							<div class="banner" style="margin-top: -6.4vw;">
+								<!--@click="$url('share_code.html')"-->
+								<img src="imgs/user/banner@3x.png">
+							</div>
+
+							<div class="tools-wrapper">
+								<div class="item">
+									<a href="order_list.html#afterSale">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_shouhou.svg">
+										</span>
+										<span class="item-label">我的售后</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="order_list.html#invoice">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_fapiao.svg">
+										</span>
+										<span class="item-label">我的发票</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="arrival_notice.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_daohuotongzhi.svg">
+										</span>
+										<span class="item-label">到货通知</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="goods_favor.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_shoucang.svg">
+										</span>
+										<span class="item-label">我的收藏</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="comments.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_pingjia.svg">
+										</span>
+										<span class="item-label">我的评价</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="address.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_dizhi.svg">
+										</span>
+										<span class="item-label">我的地址</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="invite_list.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_tuiguang.svg">
+										</span>
+										<span class="item-label">我的推广</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="user_consultation.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_zixun-16.svg">
+										</span>
+										<span class="item-label">我的咨询</span>
+									</a>
+								</div>
+								<div class="item">
+									<a href="faq.html">
+										<span class="icon-wrapper">
+											<img class="item-icon" src="imgs/icons/icon_zixun-13.svg">
+										</span>
+										<span class="item-label">常见问题</span>
+									</a>
+								</div>
+							</div>
+
+							<div class="contact-us">
+								<div class="item-icon"></div>
+								<!--<a href="#" @click="phoneCall">联系我们</a>-->
+								<a href="tel:400-0000-688">联系我们</a>
+							</div>
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<!-- 底部导航 -->
+			<navigation></navigation>
+			<!-- 底部导航 end -->
+		</div>
+
+
+
+	</div>
+	<!--<script src="cordova.js"></script>-->
+	<!--<script src="cordova_plugins.js"></script>-->
+	<script src="libs/require-2.3.3min.js" data-main="js/user/require.config"></script>
+</body>
+
+</html>

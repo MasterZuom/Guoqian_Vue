@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>申请售后</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>申请售后</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="order-page after-sale height-full">
+						<div class="scrollable">
+
+							<div class="order-item" v-if="goods.name">
+								<div class="order-content">
+									<div class="goods-item">
+										<div class="cover">
+											<img :src="goods.skuImg">
+										</div>
+										<div class="info">
+											<div class="name">{{goods.name}}</div>
+											<div class="sku">数量：{{goods.quantity}}
+												<span v-for="sku in goods.specifications">{{sku}}</span>
+											</div>
+											<span class="price">￥{{goods.salePrice}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="options-wrapper">
+								<div class="item">
+									<span class="item-label">退款原因</span>
+									<div class="right">
+										<span class="selected">{{reasonArr[reason]}}</span>
+										<i class="icon iconfont icon-bottom"></i>
+									</div>
+									<select v-model="reason">
+										<option :value="index" v-for="(item,index) in reasonArr">{{item}}</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="options-wrapper">
+								<div class="item">
+									<span class="item-label">退货方式</span>
+									<div class="right">
+										<span class="selected">{{aftersale.requestType}}</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="options-wrapper return-wrapper">
+								<div class="item">
+									<span class="item-label">退款金额</span>
+									<div class="right">
+										<div>
+											<input type="tel" class="price" v-model="price">
+											<span class="red-txt">元</span>
+										</div>
+										<span class="describe">最多￥{{aftersale.refundAmount}}，礼品卡/返利金支付部分退款金额需协商后返还。</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="options-wrapper">
+								<div class="item">
+									<span class="item-label">退款说明</span>
+									<div class="mark">
+										<textarea class="content" v-model="content" style="font-size:3.2vw"></textarea>
+									</div>
+								</div>
+							</div>
+
+							<div class="upload-wrapper">
+								<span class="item-label">上传说明</span>
+								<div class="imgs-wrapper">
+									<div class="upload-btn" v-if="uploadBtnSta">
+										<van-uploader :after-read="uploader" accept="image/*">
+											<img src="imgs/order/icon_photo@2x.png">
+											<span class="tips">上传凭证<br>最多3张</span>
+										</van-uploader>
+									</div>
+									<div class="img-item" v-for="(url, index) in imgs">
+										<img :src="url">
+										<span class="remove" @click="removeImg(index)">
+											<i class="icon iconfont icon-remove"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="after-sale-info">
+								<p>退货说明：</p>
+								<p>1.所有商品全国联保，享受三包服务（详细条款以各品牌规定为准）。</p>
+								<p>2.收货5日内，商品（含附件、赠品、包装未拆封）完好可申请无理由退货（雅萌除外）。</p>
+								<p>3.商品如有质量问题，开具有效检测单后可根据三包条例处理。</p>
+								<p>4.买家在退货申请通过后48小时内依据客服提供的地址将货品退回，退货运费敬请自理。</p>
+								<p>5.仓库收到商品后15个工作日内完成退款打款，实际到账时间以银行系统结算时间为准。</p>
+							</div>
+
+						</div>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+
+			<div class="fixed-bar after-sale-submit">
+				<!-- <div class="submit-btn">提交</div> -->
+				<span class="submit-btn" @click="apply">提交</span>
+			</div>
+		</div>
+		<van-popup class="page-loading" v-model="show.pageLoading" :lock-scroll="true" :overlay="false">
+			<van-popup class="loading-1" v-model="show.pageLoading" :overlay="false">
+				<van-loading color="#c61a1a"></van-loading>
+			</van-popup>
+		</van-popup>
+	</div>
+
+	<script src="libs/require-2.3.3min.js" data-main="js/after_sale/require.config"></script>
+</body>
+
+</html>

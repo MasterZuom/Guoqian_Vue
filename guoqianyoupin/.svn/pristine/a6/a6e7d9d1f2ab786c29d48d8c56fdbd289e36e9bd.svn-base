@@ -1,0 +1,106 @@
+.address-page {
+  background: #F4F4F4;
+
+  .address-list {
+    background-color: #fff;
+  }
+
+  .item {
+    position: relative;
+    .flex-box();
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 3.7333vw;
+    height: 19.4667vw;
+    .line-top();
+
+    .check-wrapper {
+      .icon {
+        margin-right: 3.7333vw;
+        font-size: 4.8vw;
+      }
+
+      .icon-check {
+        color: #BFBFBF;
+      }
+
+      .icon-checked {
+        color: @red;
+      }
+    }
+
+    .adress-info {
+      width: 80%;
+    }
+
+    .user-info {
+      font-size: 4vw;
+      .flex-box();
+      align-items: center;
+    }
+
+    .name {
+      max-width: 50%;
+      padding-right: 5.6vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .phone {
+      color: #999;
+    }
+
+    .default-address {
+      .flex-box();
+      align-items: center;
+      justify-content: center;
+      margin-left: 4.2667vw;
+      font-size: 2.9333vw;
+      width: 8.6667vw;
+      height: 4vw;
+      background: @red;
+      color: #fff;
+    }
+
+    .address-wrapper {
+      padding-top: 2.9333vw;
+
+      .address {
+        display: block;
+        max-width: 95%;
+        font-size: 3.2vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+    }
+
+    .edit-btn {
+      position: relative;
+      .flex-box();
+      align-items: center;
+      justify-content: center;
+      width: 14.1333vw;
+      height: 6.6667vw;
+      font-size: 3.2vw;
+      color: #666;
+      .line-left()
+    }
+  }
+
+  .address-toolbar {
+    .fc();
+    background: #fff;
+    padding: 2.6667vw 0;
+
+    .new-address-btn {
+      .fc();
+      width: 92vw;
+      height: 10.6667vw;
+      background-color: @blue;
+      font-size: 4.8vw;
+      color: #fff;
+    }
+  }
+}

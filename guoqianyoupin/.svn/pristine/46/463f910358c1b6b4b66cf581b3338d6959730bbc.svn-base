@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+	<meta charset="utf-8">
+	<title>推荐有礼</title>
+	<meta name="viewport"
+		content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=contain">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' http://192.168.212.47:8180; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; media-src * ;img-src *">-->
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script>
+		var initConfig = {};
+	</script>
+</head>
+
+<body>
+	<div id="page" class="share-page" v-cloak>
+		<div class="content-wrapper">
+			<!-- topbar -->
+			<div class="fixed-bar header-toolbar">
+				<div class="tool-left tool-col">
+					<a href="javascript:history.back(-1)" class="back-btn"><i class="icon iconfont icon-left"></i></a>
+				</div>
+				<div class="page-title tool-col">
+					<span>推荐有礼</span>
+				</div>
+			</div>
+			<!-- topbar end-->
+
+			<div class="views">
+				<div class="container">
+					<!-- container -->
+					<div class="wrapper">
+						<p class="ui-title">
+							<span>邀请好友</span>
+							<span>领取福利</span>
+						</p>
+						<div class="content">
+							<img class="logo" src="imgs/share_code/logo.jpg">
+							<div class="code-wrapper"></div>
+						</div>
+					</div>
+					<div class="footer">
+						<div class="share-btn" @click="show.share=true">立即分享</div>
+						<a href="javascript:;" @click="show.rules=true"><img class="icon" src="imgs/share_code/icon_list.png"> 规则说明</a>
+					</div>
+					<!-- container end -->
+				</div>
+			</div>
+		</div>
+		<!-- 分享 -->
+		<van-actionsheet v-model="show.share">
+			<share class="share-module">
+				<div class="label-title">分享给好友下单各得壕礼</div>
+				<div class="share-list">
+					<div class="item">
+						<img src="imgs/icons/icon_wechat.png" @click="shareWeixinPerson">
+						<span class="label">微信</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_pyquan.png" @click="shareWeixinGroup">
+						<span class="label">朋友圈</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_qq.png" @click="shareQQPerson">
+						<span class="label">QQ</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_qqzone.png" @click="shareQQGroup">
+						<span class="label">QQ空间</span>
+					</div>
+					<div class="item">
+						<img src="imgs/icons/icon_weibo.png" @click="shareWeibo">
+						<span class="label">微博</span>
+					</div>
+				</div>
+			</share>
+		</van-actionsheet>
+		<!-- 规则 -->
+		<van-popup class="share-rules" v-model="show.rules">
+			<div class="head">
+				<span class="ui-title">规则说明</span>
+				<i class="icon iconfont icon-close" @click="show.rules=false"></i>
+			</div>
+			<div class="scrollable">
+				一、礼品种类说明（ 先领取机会，再下单）
+				<br>
+				1、支付成功礼品：完成订单支付，按照订金支付先后顺序，有机会获得的礼品
+				<br>
+				2、注册成功礼品：在2016年12月12日 00:00前完成提车，按照订金支付顺序，有机会获得的礼品
+				<br>
+				3、扫码即送礼品：免费领取，扫码即可到汽车之家合作网站领取的礼品
+				<br>
+				4、测试文字礼品：测试文字成功后，根据具体活动规则完成作业，有机会获得的礼品
+				<br>
+				注：分期商品不参加此活动
+				<br>
+				二、礼品兑换机会领取
+				<br>
+				1、用户登录后即可在“礼品中心”页面领取礼品兑换机会
+				<br>
+				2、每位用户，不设领取机会上限。但不同种类礼品只能获得一次
+				<br>
+				3、点击领取礼品后，该礼品兑换机会将出现在“我的订单-我的礼品”中（扫码即送礼品、礼品除外）
+				<br>
+
+				三、兑换礼品
+				<br>
+				用户在满足礼品发放要求后，获得一次礼品发放资格，系统发放对应礼品码，复制礼品码，扫描二维码至第三方网站使用礼品码进行礼品的兑换（扫码即送礼品、提车“作业”礼品除外）。所有礼品兑换有效期截止时间：2016年12月31日
+				<br>
+				礼品兑换机会排序：
+				<br>
+
+				1)礼品兑换机会是按照用户在礼品中心“点击领取”的时间先后顺序排列的，用户完成订单支付后，系统会默认按照此顺序进行礼品发放。
+				<br>
+				2)机会在没有兑换的情况下，点击“上移“”下移“可调整礼品兑换机会的排序，把想要的礼品优先排序。获取礼品码后，对应种类的礼品兑换机会不可更改。
+
+				兑换资格说明
+				<br>
+
+				1) 支付成功礼品：用户在本次汽车之家疯狂购车节活动中，下单购车并完成订金支付，按照订金支付顺序，有机会获得一次支付礼品兑换的资格（同一ID仅获得一次支付成功礼品兑换资格，先到先得）
+				<br>
+				2) 提车成功礼品：用户在12月12日00:00前完成订单尾款支付，并成功提车，按照订金支付顺序，先到先得（同一ID仅获得一次提车成功礼品兑换资格，先到先得）
+				<br>
+				3) 用户获得兑换资格后，系统会按照用户“我的订单”里的礼品列表顺序发放礼品（礼品数量有限，按照完成订金支付顺序，先到先得）
+				<br>
+				4) 礼品码一次有效，仅以首次兑换为准
+				<br>
+				其他说明
+				<br>
+
+				1)同一ID每种礼品对应一次礼品兑换资格。即抢先支付订单的用户，有可能同时获得支付成功礼品和提车成功礼品。
+				<br>
+				2)如果用户下单后才领取礼品兑换机会，则无法获得支付成功的礼品兑换资格，但用户还有机会获得提车礼品机会兑换资格，在完成尾款支付及成功提车后，依然可以按照订单支付顺序，有机会获得提车礼品。
+				<br>
+				免责声明：
+				<br>
+
+				1)本次活动最终解释权归汽车之家车商城所有。
+				<br>
+				2)所有奖品均由第三方提供并发放，因此奖品兑换、发放、使用、售后等问题请查看第三方网站或联系第三方客服。
+			</div>
+		</van-popup>
+
+	</div>
+
+<!--	<script src="cordova.js"></script>
+	<script src="cordova_plugins.js"></script>-->
+	<script src="libs/require-2.3.3min.js" data-main="js/share_code/require.config"></script>
+
+</body>
+
+</html>

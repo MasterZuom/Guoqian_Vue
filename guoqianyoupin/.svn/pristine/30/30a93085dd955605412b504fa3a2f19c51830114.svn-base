@@ -1,0 +1,146 @@
+.activity-page {
+
+  .activity-item {
+    background: #fff;
+    padding: 0 2.6667vw;
+    margin-bottom: 5.6vw;
+
+    .item-head {
+      .flex-box();
+      align-items: center;
+      justify-content: space-between;
+      padding: 5.3333vw 0 3.2vw;
+      color: #4C4948;
+
+      .ui-title {
+        font-size: 4.8vw;
+      }
+
+      .more {
+        font-size: 4vw;
+      }
+    }
+
+    .recommend {
+      .flex-box();
+      justify-content: space-between;
+
+      .left {
+        position: relative;
+        width: 54.1333vw;
+        height: 38.4vw;
+        background: #fff;
+        overflow: hidden;
+
+        img {
+          .max-img();
+        }
+      }
+
+      .right {
+        width: 40.4vw;
+        .flex-box();
+        flex-wrap: wrap;
+      }
+
+      .goods-item {
+        width: 100%;
+        height: 19vw;
+        .flex-box();
+        align-items: center;
+        background: #F8F0E8;
+
+        &:last-child {
+          align-self: flex-end;
+        }
+
+        .cover {
+          margin: 0 2vw;
+          height: 13.3333vw;
+          flex: 0 0 13.3333vw;
+          position: relative;
+
+          img {
+            .max-img();
+          }
+        }
+
+        .name {
+          font-size: 2.6667vw;
+          line-height: 4vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        .price {
+          font-size: 3.2vw;
+          color: @red;
+          padding-bottom: 1.3333vw;
+        }
+
+        .label {
+          font-size: 2.1333vw;
+        }
+
+      }
+    }
+
+    .list {
+      .flex-box();
+      flex-wrap: wrap;
+
+      .goods-item {
+        width: 31.5vw;
+        .flex-box();
+        justify-content: center;
+        flex-wrap: wrap;
+        padding-bottom: 5.3333vw;
+
+        .cover {
+          width: 24vw;
+          height: 24vw;
+          position: relative;
+          overflow: hidden;
+
+          img {
+            padding: 2.6667vw;
+            .max-img();
+          }
+        }
+
+        .info {
+          text-align: center;
+        }
+
+        .name {
+          justify-content: center;
+          font-size: 3.2vw;
+          line-height: 5vw;
+          height: 10vw;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
+
+        .price {
+          font-size: 3.7333vw;
+          color: @red;
+          padding: 2.6667vw 0 1.3333vw;
+        }
+
+        .label {
+          font-size: 2.4vw;
+        }
+      }
+    }
+
+
+  }
+
+
+}
